@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+{% block title %}文章列表{% endblock %}
+{% block content %}
+    <br/>
+    <br/>
+    <div class="layui-card">
+        <header>
+            <h1 class="layui-header">{{ article.title }}</h1>
+            <p class="layui-text">{{ article.total_views }}浏览</p>
+        </header>
+        <hr/>
+        <link rel="stylesheet" href="{% static 'editormd/css/editormd.preview.css' %}">
+        <div id="editormd-view">
+        <textarea id="append-test" style="display: none;">
+{{ article.body }}
+        </textarea>
+        </div>
+    </div>
+    <hr/>
+
+    <form action="{% url 'comments:post_comment' article.id %}" method="post" class="comment-form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <label for="{{ form.text.id_for_label }}">评论：</label>
+                {{ form.text }}
+                {{ form.text.errors }}
+                <button type="submit" class="comment-btn">发表</button>
+            </div>
+        </div>    <!-- row -->
+    </form>
+    <hr/>
+
+    <ul class="comment-list list-unstyled">
+        {% for comment in comment_list %}
+            <li class="comment-item">
+                <span class="nickname">{{ comment.user }}</span>
+                <time class="submit-date">{{ comment.created_time }}</time>
+                <div class="text">
+                    {{ comment.body }}
+                </div>
+            </li>
+            <hr>
+        {% empty %}
+            暂无评论
+        {% endfor %}
+    </ul>
+
+    <hr/>
+
+    <ul>
+        {% recursetree genres %}
+            <li>
+                {{ node.body }}
+                {% if not node.is_leaf_node %}
+                    <ul class="children layui-col-md-offset1">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+            <hr/>
+        {% endrecursetree %}
+    </ul>
+
+    <script src="{% static 'jquery.js' %}"></script>
+    <script src="{% static 'editormd/lib/marked.min.js' %}"></script>
+    <script src="{% static 'editormd/lib/prettify.min.js' %}"></script>
+    <script src="{% static 'editormd/lib/raphael.min.js' %}"></script>
+    <script src="{% static 'editormd/lib/underscore.min.js' %}"></script>
+    <script src="{% static 'editormd/lib/sequence-diagram.min.js' %}"></script>
+    <script src="{% static 'editormd/lib/flowchart.min.js' %}"></script>
+    <script src="{% static 'editormd/lib/jquery.flowchart.min.js' %}"></script>
+    <script src="{% static 'editormd/editormd.js' %}"></script>
+    {#    <script src="{% static 'js/layer.js' %}"></script>#}
+
+
+    <script type="text/javascript">
+        $(function () {
+            editormd.markdownToHTML("editormd-view", {
+                htmlDecode: "style,script,iframe", //you can filter tags decode
+                emoji: true,
+                taskList: true,
+                tex: true,
+                flowChart: true,
+                sequenceDiagram: true,
+            })
+        });
+    </script>
+    <style>
+
+    </style>
+{% endblock %}

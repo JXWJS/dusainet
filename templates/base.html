@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'layui-v2.3.0/layui/css/layui.css' %}">
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        {% include "header.html" %}
+            {% block content %}{% endblock %}
+        {% include "footer.html" %}
+    </div>
+</div>
+</body>
+
+</html>

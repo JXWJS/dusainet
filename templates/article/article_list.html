@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}文章列表{% endblock %}
+{% block content %}
+
+
+
+    <div class="layui-card layui-card-body">
+        {% for article in articles %}
+            <div>
+                <h2><a href="{{ article.get_absolute_url }}" style="">{{ article.title }}</a></h2>
+                <p class="layui-text" style="color: #8D8D8D;"><a
+                        href=""
+                        style="color: #8D8D8D;">{{ article.author }}</a> 于 {{ article.created }}
+                    发布.</p>
+                <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'70' }}</p>
+                <hr/>
+            </div>
+        {% endfor %}
+    </div>
+    <style>
+        a:hover {
+            color: #01a252;
+        }
+    </style>
+
+{% endblock %}

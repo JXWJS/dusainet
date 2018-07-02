@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<ul class="layui-nav">
+    <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">杜赛的个人网站</a></li>
+    <li class="layui-nav-item "><a href="{% url 'article:article_list' %}">首页</a></li>
+
+    {% if user.is_authenticated %}
+        <li class="layui-nav-item" style="float: right;"><a href="javascript:">{{ user.username }}</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">我的主页</a></dd>
+                <dd><a href="/accounts/logout">退出登录</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item " style="float: right;"><a href="">写文章</a></li>
+    {% else %}
+        <li class="layui-nav-item " style="float: right;"><a href="/accounts/login">登录</a></li>
+    {% endif %}
+</ul>
+
+
+<script src="{% static 'jquery.js' %}"></script>
+<script src="{% static 'layui-v2.3.0/layui/layui.js' %}"></script>
+<script type="text/javascript">
+    //注意：layui导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+</script>
