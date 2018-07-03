@@ -18,7 +18,9 @@ def post_comment(request, article_id):
             new_comment = comment_form.save(commit=False)
             new_comment.article = article
             new_comment.user = request.user
+            new_comment.reply_to = None
             new_comment.save()
+            article.increase_comments()
             return redirect(article)
         else:
             comment_list = article.comments.all()
@@ -32,8 +34,9 @@ def post_comment(request, article_id):
         return redirect(article)
 
 # 二级评论
-def reply_post_comment(request, article_id, parent_comment_id):
+def reply_post_comment(request, article_id, node_id):
     article = get_object_or_404(ArticlesPost, id=article_id)
+    comment = Comment.objects.get(id=node_id)
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -41,13 +44,16 @@ def reply_post_comment(request, article_id, parent_comment_id):
             new_comment.article = article
             new_comment.user = request.user
             # 对二级评论，赋值root节点的id
-            new_comment.parent_id = Comment.objects.get(id=parent_comment_id).get_root().id
+            new_comment.parent_id = comment.get_root().id
+            new_comment.reply_to = comment.user
             new_comment.save()
+            article.increase_comments()
             return redirect(article)
     else:
         comment_form = CommentForm()
         return render(request, 'comments/reply_post_comment.html',
                       {'comment_form': comment_form,
                        'article_id': article_id,
-                       'parent_comment_id': parent_comment_id
+                       'node_id': node_id,
+                       'comment': comment
                        })

@@ -2,15 +2,32 @@
 {% load staticfiles %}
 {% block title %}回复{% endblock %}
 {% block content %}
-    <form action="{% url 'comments:reply_post_comment' article_id parent_comment_id %}" method="post" class="comment-form">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-12">
-                <label for="{{ comment_form.body.id_for_label }}">评论：</label>
-                {{ comment_form.body }}
-                <button type="submit" class="comment-btn">发表</button>
+    <div class="layui-card layui-card-body">
+        <div class="">
+            <p class="layui-text">{{ comment.user }}</p>
+            <p style="font-size: x-large">{{ comment.body }}</p>
+        </div>
+        <br/>
+        <br/>
+        <form id="comment_form"
+              class="layui-form"
+              action="{% url 'comments:reply_post_comment' article_id node_id %}"
+              method="post">
+            {% csrf_token %}
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label" for="id_body">发表评论： </label>
+                <div class="layui-input-block">
+                    <textarea rows="6"
+                              id="id_body" class="layui-textarea" name="body"
+                              placeholder="请输入评论内容"></textarea>
+                </div>
             </div>
-        </div>    <!-- row -->
-    </form>
-    <hr/>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input class="layui-btn layui-btn-sm" id="submit_btn" type="submit" name="submit" value="发布"/>
+                    <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

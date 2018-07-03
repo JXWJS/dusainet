@@ -30,10 +30,9 @@ def article_detail(request, article_id):
     article.increase_views()
     # 评论
     comment_form = CommentForm()
-    comment_list = article.comments.all()
     context = {'article': article,
                'comment_form': comment_form,
-               'comment_list': comment_list,
-               'genres': Comment.objects.all()
+               # 生成树形评论
+               'comments': Comment.objects.all()
                }
     return render(request, 'article/article_detail.html', context=context)

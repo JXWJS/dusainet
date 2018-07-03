@@ -5,70 +5,86 @@
 {% block content %}
     <br/>
     <br/>
-    <div class="layui-card">
-        <header>
-            <h1 class="layui-header">{{ article.title }}</h1>
-            <p class="layui-text">{{ article.total_views }}浏览</p>
-        </header>
-        <hr/>
-        <link rel="stylesheet" href="{% static 'editormd/css/editormd.preview.css' %}">
-        <div id="editormd-view">
+    <div class="layui-card layui-card-body">
+        <div>
+            <br/>
+            <div class="">
+                <h1 class="" style="font-size: xx-large; font-weight: bold">{{ article.title }}</h1>
+                <br/>
+                <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.total_comments }}评论 ·
+                    于{{ article.created|date:"Y年m月d日 H:i:s" }}发布</p>
+            </div>
+            <link rel="stylesheet" href="{% static 'editormd/css/editormd.preview.css' %}">
+            <div id="editormd-view" class="layui-container">
         <textarea id="append-test" style="display: none;">
 {{ article.body }}
         </textarea>
+            </div>
         </div>
-    </div>
-    <hr/>
+        <hr>
 
-    {#    发表评论#}
-    <div class="layui-card">
-        <div class="layui-card-header">
-            <h2>发表评论</h2>
-        </div>
-        <form id="comment_form"
-              class="layui-form layui-card-body"
-              action="{% url 'comments:post_comment' article.id %}"
-              method="post">
-            {% csrf_token %}
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label" for="id_body">评论： </label>
-                <div class="layui-input-block">
+        {#    发表评论#}
+        <div>
+            <h2>共有{{ article.total_comments }}条评论</h2>
+            <br>
+            <form id="comment_form"
+                  class="layui-form"
+                  action="{% url 'comments:post_comment' article.id %}"
+                  method="post">
+                {% csrf_token %}
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label" for="id_body">发表评论： </label>
+                    <div class="layui-input-block">
                     <textarea rows="6"
                               id="id_body" class="layui-textarea" name="body"
                               placeholder="请输入评论内容"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input class="layui-btn" id="submit_btn" type="submit" name="submit" value="提交"/>
-                    <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input class="layui-btn layui-btn-sm" id="submit_btn" type="submit" name="submit" value="发布"/>
+                        <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <hr/>
-    </div>
+            </form>
+        </div>
 
-    {#显示评论#}
-    <hr/>
-    <div class="layui-card">
-        <ul>
-            {% recursetree genres %}
-                <li class="layui-text">
-                    {{ node.user }}
-                </li>
-                <li class="layui-card-body">
-                    <div style="font-size: large">{{ node.body }}</div>
-                    <div class="layui-text"><p>{{ node.created_time }} <a
-                            href="{% url 'comments:reply_post_comment' article.id node.id %}">回复</a></p></div>
+        {#显示mptt层级评论#}
+        <br/>
+        <br/>
+        <div>
+            <ul>
+                {% recursetree comments %}
                     <hr/>
-                    {% if not node.is_leaf_node %}
-                        <ul class="children layui-col-md-offset1 layui-elem-quote">
-                            {{ children }}
-                        </ul>
-                    {% endif %}
-                </li>
-            {% endrecursetree %}
-        </ul>
+                    <li class="layui-text">
+                        <div>{{ node.user }}
+                            {% if node.user.is_superuser %}
+                                <i style="color: #ff5500;">[博主]</i>
+                            {% endif %}
+                            {% if node.reply_to %}
+                                <i class="layui-icon layui-icon-reply-fill"></i> {{ node.reply_to }}
+                                {% if node.reply_to.is_superuser %}
+                                    <i style="color: #ff5500;">[博主]</i>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li>
+
+                        <div style="font-size: large">{{ node.body }}</div>
+
+                        <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y年m月d日 H:i:s" }}
+                            <a href="{% url 'comments:reply_post_comment' article.id node.id %}"
+                               style="color: #01a252">回复</a></p></div>
+                        {% if not node.is_leaf_node %}
+                            <ul class="children layui-col-md-offset1">
+                                {{ children }}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endrecursetree %}
+            </ul>
+        </div>
     </div>
 
     <script src="{% static 'jquery.js' %}"></script>
