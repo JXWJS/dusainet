@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}回复{% endblock %}
+{% block content %}
+    <form action="{% url 'comments:reply_post_comment' article_id parent_comment_id %}" method="post" class="comment-form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <label for="{{ comment_form.body.id_for_label }}">评论：</label>
+                {{ comment_form.body }}
+                <button type="submit" class="comment-btn">发表</button>
+            </div>
+        </div>    <!-- row -->
+    </form>
+    <hr/>
+{% endblock %}

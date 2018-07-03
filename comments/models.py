@@ -12,12 +12,11 @@ class Comment(MPTTModel):
     body = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
-    # mptt
-    # name = models.CharField(max_length=50, unique=True)
+    # mptt树形结构
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class MPTTMeta:
-        order_insertion_by = ['created_time']
+        order_insertion_by = ['-created_time']
 
     def __str__(self):
         return self.body[:20]
