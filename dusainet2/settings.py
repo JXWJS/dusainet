@@ -47,9 +47,12 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # 下面是第三方账号相关的，比如我选了weibo和github
+    # 下面是第三方账号相关的，选了weibo和github
     'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.github',
+
+    # 标签
+    'taggit',
 
     # mptt
     'mptt',

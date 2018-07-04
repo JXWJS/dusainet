@@ -11,7 +11,7 @@
                 <dd><a href="/accounts/logout">退出登录</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item " style="float: right;"><a href="">写文章</a></li>
+        <li class="layui-nav-item " style="float: right;"><a href="{% url 'article:article_create'%}">写文章</a></li>
     {% else %}
         <li class="layui-nav-item " style="float: right;"><a href="/accounts/login">登录</a></li>
     {% endif %}

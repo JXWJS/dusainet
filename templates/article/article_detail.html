@@ -3,6 +3,11 @@
 {% load mptt_tags %}
 {% block title %}文章列表{% endblock %}
 {% block content %}
+{#    md生成目录#}
+    <div id="sidebar">
+        <h1>文章目录</h1>
+        <div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container</div>
+    </div>
     <br/>
     <br/>
     <div class="layui-card layui-card-body">
@@ -42,7 +47,10 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <input class="layui-btn layui-btn-sm" id="submit_btn" type="submit" name="submit" value="发布"/>
+                        {#                        <input class="layui-btn layui-btn-sm" id="submit_btn" type="submit" name="submit" value="发布"/>#}
+                        <button class="layui-btn layui-btn-sm layui-btn-primary" id="submit_btn" type="submit"
+                                name="submit"><i class="layui-icon layui-icon-release"></i> 发布
+                        </button>
                         <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
                     </div>
                 </div>
@@ -102,16 +110,52 @@
     <script type="text/javascript">
         $(function () {
             editormd.markdownToHTML("editormd-view", {
-                htmlDecode: "style,script,iframe", //you can filter tags decode
+                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                htmlDecode: "style,script,iframe",  // you can filter tags decode
+                //toc             : false,
+                tocm: true,    // Using [TOCM]
+                tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
+                //gfm             : false,
+                //tocDropdown     : true,
+                // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
                 emoji: true,
                 taskList: true,
-                tex: true,
-                flowChart: true,
-                sequenceDiagram: true,
-            })
+                tex: true,  // 默认不解析
+                flowChart: true,  // 默认不解析
+                sequenceDiagram: true,  // 默认不解析
+            });
         });
+
+
     </script>
     <style>
+        #sidebar {
+            width: 10%;
+            height: 50%;
+            position: fixed;
+            top: 20%;
+            right: 1%;
+            overflow: hidden;
+            background: #fff;
+            z-index: 100;
+            padding: 18px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        #sidebar:hover {
+            overflow: auto;
+        }
+
+        #sidebar h1 {
+            font-size: 16px;
+        }
+
+        #custom-toc-container {
+            padding-left: 0;
+        }
 
     </style>
+
 {% endblock %}
