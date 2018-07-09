@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^/?$', ArticlePostView.as_view(), name='home'),
     path('article/', include('article.urls', namespace='article')),
     url(r'comments/', include('comments.urls', namespace='comments')),
+    path('album/', include('album.urls', namespace='album')),
     # allauth
     path('accounts/', include('allauth.urls')),
 ]

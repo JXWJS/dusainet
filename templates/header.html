@@ -3,15 +3,18 @@
 <ul class="layui-nav">
     <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">杜赛的个人网站</a></li>
     <li class="layui-nav-item "><a href="{% url 'article:article_list' %}">首页</a></li>
-
+    <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">途说</a></li>
     {% if user.is_authenticated %}
-        <li class="layui-nav-item" style="float: right;"><a href="javascript:">{{ user.username }}</a>
+        <li class="layui-nav-item" style="float: right;"><a href="javascript:">感谢你的光临，{{ user.username }}</a>
             <dl class="layui-nav-child">
                 <dd><a href="">我的主页</a></dd>
                 <dd><a href="/accounts/logout">退出登录</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item " style="float: right;"><a href="{% url 'article:article_create'%}">写文章</a></li>
+        {% if user.is_superuser %}
+            <li class="layui-nav-item " style="float: right;"><a href="{% url 'article:article_create' %}">写文章</a></li>
+            <li class="layui-nav-item " style="float: right;"><a href="{% url 'album:album_manage' %}">途说管理</a></li>
+        {% endif %}
     {% else %}
         <li class="layui-nav-item " style="float: right;"><a href="/accounts/login">登录</a></li>
     {% endif %}

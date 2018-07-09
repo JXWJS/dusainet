@@ -33,6 +33,7 @@ def post_comment(request, article_id):
         comment_form = CommentForm()
         return redirect(article)
 
+
 # 二级评论
 def reply_post_comment(request, article_id, node_id):
     article = get_object_or_404(ArticlesPost, id=article_id)

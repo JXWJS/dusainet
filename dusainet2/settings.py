@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'article',
-    'comments',
+    'article', # 文章
+    'comments', # 评论
+    'album', # 相册
 
     # django-allauth
     # 必须安装的app
@@ -141,6 +142,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # django-allauth相关设置
 AUTHENTICATION_BACKENDS = (

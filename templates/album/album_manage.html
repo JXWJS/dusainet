@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}图说{% endblock %}
+{% block content %}
+    <br/>
+    {% if user.is_superuser %}
+        <div>
+            <a class="layui-btn layui-btn-warm" href="{% url 'album:album_upload' %}">保存网络图片</a>
+            <a class="layui-btn layui-btn-normal" href="{% url 'album:album_upload' %}">上传本地图片</a>
+            <hr/>
+        </div>
+        {% for image in album %}
+            <table class="layui-table" lay-size="sm">
+                <colgroup>
+                    <col id="col">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>图片</th>
+                    <th>名字</th>
+                    <th>上传时间</th>
+                    <th>地址</th>
+                    <th>删除？</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><img src="{{ image.url }}" style="max-height: 100px"></td>
+                    <td>{{ image.title }}</td>
+                    <td>{{ image.created }}</td>
+                    <td>{{ image.url|truncatechars:50 }}</td>
+                    <td><a class="layui-btn layui-btn-danger layuibtn layui-btn-xs"
+                           href="{% url 'album:album_delete' image.id %}">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        {% endfor %}
+    {% endif %}
+
+
+{% endblock %}

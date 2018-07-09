@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}图说{% endblock %}
+{% block content %}
+    <div class="layui-card layui-card-body" id="photo_center">
+        {% for image in album %}
+            <div>
+                <img src="{{ image.url }}" style="max-width: 100%">
+            </div>
+            <table class="layui-table" lay-size="sm">
+                <colgroup>
+                    <col id="col">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+
+                </colgroup>
+                <thead>
+                <tr>
+                    <th style="text-align: center">摄影师</th>
+                    <th style="text-align: center">地点</th>
+                    <th style="text-align: center">时间</th>
+                    <th style="text-align: center">相机</th>
+                    <th style="text-align: center">镜头</th>
+                    <th style="text-align: center">焦距</th>
+                    <th style="text-align: center">光圈</th>
+                    <th style="text-align: center">曝光时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ image.photographer }}</td>
+                    <td>{{ image.location }}</td>
+                    <td>{{ image.photo_time }}</td>
+                    <td>{{ image.camera }}</td>
+                    <td>{{ image.lens }}</td>
+                    <td>{{ image.focal_length }}</td>
+                    <td>{{ image.aperture }}</td>
+                    <td>{{ image.exposure_time }}</td>
+                </tr>
+                </tbody>
+            </table>
+            {% if image.description %}
+                <table class="layui-table">
+                    <colgroup>
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <td>{{ image.description }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        {% endfor %}
+    </div>
+    <style>
+        #photo_center {
+            text-align: center;
+            left: 50%;
+            transform: translate(-50%, 0%);
+        }
+    </style>
+{% endblock %}

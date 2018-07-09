@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}图片管理{% endblock %}
+{% block content %}
+    <div class="layui-card layui-card-body">
+        <form class="layui-form" action="." method="post" lay-filter="editform">{% csrf_token %}
+            <div class="layui-form-item">
+                <label class="layui-form-label">url</label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" id="url" required autocomplete="off"
+                           class="layui-input" lay-filter="url">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">title</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" id="title" required autocomplete="off"
+                           class="layui-input" lay-filter="title">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">photographer</label>
+                <div class="layui-input-block">
+                    <input type="text" name="photographer" id="photographer" autocomplete="off"
+                           class="layui-input" lay-filter="photographer">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">location</label>
+                <div class="layui-input-block">
+                    <input type="text" name="location" id="location" autocomplete="off"
+                           class="layui-input" lay-filter="location">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">photo_time</label>
+                <div class="layui-input-block">
+                    <input type="text" name="photo_time" id="photo_time" autocomplete="off"
+                           class="layui-input" lay-filter="photo_time">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">camera</label>
+                <div class="layui-input-block">
+                    <input type="text" name="camera" id="camera" autocomplete="off"
+                           class="layui-input" lay-filter="camera">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">lens</label>
+                <div class="layui-input-block">
+                    <input type="text" name="lens" id="lens" autocomplete="off"
+                           class="layui-input" lay-filter="lens">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">focal_length</label>
+                <div class="layui-input-block">
+                    <input type="text" name="focal_length" id="focal_length" autocomplete="off"
+                           class="layui-input" lay-filter="focal_length">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">aperture</label>
+                <div class="layui-input-block">
+                    <input type="text" name="aperture" id="aperture" autocomplete="off"
+                           class="layui-input" lay-filter="aperture">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">exposure_time</label>
+                <div class="layui-input-block">
+                    <input type="text" name="exposure_time" id="exposure_time" autocomplete="off"
+                           class="layui-input" lay-filter="exposure_time">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">description</label>
+                <div class="layui-input-block">
+                    <textarea name="description" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="submit" value="提交" class="layui-btn" lay-filter="forms">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        layui.use('form', function () {
+            var form = layui.form;
+            form.val("editform", {})
+        });
+    </script>
+{% endblock %}

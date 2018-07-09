@@ -15,11 +15,15 @@
                href="{% url 'article:article_list_by_column' 4 %}">光学</a>
             <a class="layui-btn layui-btn-radius layui-btn-sm layui-btn-primary"
                href="{% url 'article:article_list_by_column' 3 %}">闲聊</a>
+
         </div>
-        <span class="layui-breadcrumb">
-            <a href="{% url 'article:article_list' %}">最近</a>
-            <a href="{% url 'article:article_list_by_most_viewed' %}">热门</a>
+        {% if articles.0 %}
+            <span class="layui-breadcrumb">
+            <a href="{% url 'article:article_list_by_column' articles.0.column_id %}">最近</a>
+            <a href="{% url 'article:article_list_by_column_most_viewed' articles.0.column_id %}">热门</a>
         </span>
+        {% endif %}
+
         <hr/>
         {% include 'article/article_list_base.html' %}
     </div>

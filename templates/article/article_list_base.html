@@ -1,0 +1,35 @@
+{% for article in articles %}
+    <div>
+        <p class="layui-text" style="color: #8D8D8D;">
+            {#                    栏目#}
+            {% if article.column.title == '编程' %}
+                <a href="{% url 'article:article_list_by_column' 1 %}"
+                   class="layui-btn layui-btn-xs">{{ article.column }} </a>
+            {% elif article.column.title == '摄影' %}
+                <a href="{% url 'article:article_list_by_column' 2 %}"
+                   class="layui-btn layui-btn-warm layui-btn-xs">{{ article.column }} </a>
+            {% elif article.column.title == '光学' %}
+                <a href="{% url 'article:article_list_by_column' 4 %}"
+                   class="layui-btn layui-btn-normal layui-btn-xs">{{ article.column }} </a>
+            {% else %}
+                <a href="{% url 'article:article_list_by_column' 3 %}"
+                   class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
+            {% endif %}
+            {#                    标签#}
+            {#                    <i class="layui-icon layui-icon-note"></i>#}
+            {% for tag in article.tags.all %}
+                <a class="layui-bg-gray"
+                   href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
+            {% endfor %}
+        <h2><a href="{{ article.get_absolute_url }}" style="font-weight: bold">{{ article.title }}</a></h2>
+        <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'100' }}</p>
+        <p class="layui-text"><i class="layui-icon layui-icon-read"
+                                 style="color: #01a252;"></i> {{ article.total_views }}
+            <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.total_comments }}
+            <i class="layui-icon layui-icon-username" style="color: #1E9FFF;"></i>
+            <a href=""
+               style="color: #8D8D8D;">{{ article.author }}</a> 于 {{ article.created|date:"Y年m月d日 H:i:s" }}
+            发布.</p>
+        <hr/>
+    </div>
+{% endfor %}

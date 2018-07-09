@@ -8,12 +8,12 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Comment(MPTTModel):
     article = models.ForeignKey(ArticlesPost, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments_user')
     body = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
     # 记录二级评论回复给谁, str
-    reply_to = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='reply_to')
+    reply_to = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='comments_reply_to')
 
     # mptt树形结构
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

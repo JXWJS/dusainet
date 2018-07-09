@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from django.views.generic import ListView, CreateView
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView, UpdateView
+from django.urls import reverse_lazy
 
 from .models import ArticlesPost
 from .forms import ArticleCreateForm
@@ -8,7 +8,8 @@ from .forms import ArticleCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
+
 
 # Create your views here.
 
@@ -26,6 +27,7 @@ class ArticlePostView(ArticleMixin, ListView):
 
 # 栏目文章
 class ArticlePostByColumnView(ArticleMixin, ListView):
+    template_name = 'article/article_list_by_column.html'
 
     def get_queryset(self):
         qs = super(ArticlePostByColumnView, self).get_queryset()
@@ -34,10 +36,19 @@ class ArticlePostByColumnView(ArticleMixin, ListView):
 
 # 标签文章
 class ArticlePostByTagView(ArticleMixin, ListView):
-
     def get_queryset(self):
         qs = super(ArticlePostByTagView, self).get_queryset()
-        return qs.filter(tags__name__in=[self.kwargs['tag_name']])
+        return qs.filter(tags__name__in=[self.kwargs['tag_name']]).order_by('-total_views')
+
+
+class ArticlePostByMostViewedView(ArticleMixin, ListView):
+    def get_queryset(self):
+        qs = super(ArticlePostByMostViewedView, self).get_queryset()
+        if 'column_id' in self.kwargs:
+            self.template_name = 'article/article_list_by_column.html'
+            return qs.filter(column=self.kwargs['column_id']).order_by('-total_views')
+        else:
+            return qs.order_by('-total_views')
 
 
 # 文章内容
@@ -50,19 +61,15 @@ def article_detail(request, article_id):
     context = {'article': article,
                'comment_form': comment_form,
                # 生成树形评论
-               'comments': Comment.objects.all(),
+               'comments': Comment.objects.filter(article_id=article_id),
                }
     return render(request, 'article/article_detail.html', context=context)
 
 
 # 发表文章
-class ArticleCreateView(LoginRequiredMixin, ArticleMixin, CreateView):
+class ArticleCreateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin, CreateView):
     fields = ['title', 'column', 'tags', 'body']
     template_name = 'article/article_create.html'
-
-    # def get_queryset(self):
-    #     qs = super(ArticleCreateView, self).get_queryset()
-    #     return qs.filter(user=self.request.user)
 
     def post(self, request, *args, **kwargs):
         forms = ArticleCreateForm(data=request.POST)
@@ -76,3 +83,12 @@ class ArticleCreateView(LoginRequiredMixin, ArticleMixin, CreateView):
 
             return redirect("article:article_list")
         return self.render_to_response({"forms": forms})
+
+
+# 更新文章
+class ArticleUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin, UpdateView):
+
+    success_url = reverse_lazy("article:article_list")
+    context_object_name = 'article'
+    template_name = 'article/article_create.html'
+    fields = ['title', 'column', 'tags', 'body']
