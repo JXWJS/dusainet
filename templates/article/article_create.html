@@ -30,16 +30,21 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">标签</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="tags" required placeholder="标签" autocomplete="off"
+                    <input type="text" name="tags" placeholder="标签" autocomplete="off"
                            class="layui-input" lay-filter="tags">
                 </div>
             </div>
-
-
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">内容</label>
                 <div id="editormd" class="layui-input-block">
                     <textarea style="display: none;" id="id_body" name="body" required lay-fileter="body"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">特色图片</label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" placeholder="请输入url" autocomplete="off"
+                           class="layui-input" lay-filter="url">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -65,7 +70,7 @@
             })
         });
 
-    {#Markdown渲染#}
+        {#Markdown渲染#}
         layui.use('form', function () {
             var form = layui.form;
             form.val("editform", {
@@ -73,6 +78,9 @@
                 "column": "{{ article.column }}",
                 "tags": "{{ article.tags.all|join:',' }}",
                 "body": "{{ article.body }}",
+                {% if article.avatar_thumbnail %}
+                    "url": "{{ article.url }}",
+                {% endif %}
             })
         });
     </script>

@@ -27,5 +27,4 @@ class AlbumForm(forms.ModelForm):
         album.image.save(album_name, ContentFile(response.read()), save=False)
         if commit:
             album.save()
-
         return album

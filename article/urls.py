@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^article-create/$', views.ArticleCreateView.as_view(), name='article_create'),
     # 更新文章
     url(r'article-update/(?P<pk>\d+)/$', views.ArticleUpdateView.as_view(), name='article_update'),
-
 ]
+

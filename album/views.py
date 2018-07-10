@@ -28,7 +28,6 @@ class AlbumUpload(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
             new_album = forms.save(commit=False)
             new_album.user = self.request.user
             new_album.save()
-
             return redirect("album:album_list")
         return self.render_to_response({"forms": forms})
 

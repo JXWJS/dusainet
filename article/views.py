@@ -68,7 +68,7 @@ def article_detail(request, article_id):
 
 # 发表文章
 class ArticleCreateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin, CreateView):
-    fields = ['title', 'column', 'tags', 'body']
+    fields = ['title', 'column', 'tags', 'body', 'url']
     template_name = 'article/article_create.html'
 
     def post(self, request, *args, **kwargs):
@@ -87,7 +87,6 @@ class ArticleCreateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin
 
 # 更新文章
 class ArticleUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin, UpdateView):
-
     success_url = reverse_lazy("article:article_list")
     context_object_name = 'article'
     template_name = 'article/article_create.html'

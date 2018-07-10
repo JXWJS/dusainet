@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from article.views import ArticlePostView
 
@@ -30,3 +32,4 @@ urlpatterns = [
     # allauth
     path('accounts/', include('allauth.urls')),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
