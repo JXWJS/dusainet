@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from django.urls import reverse
 
-from .models import Comment
-from .forms import CommentForm
+from .models import Comment, AlbumComment
+from .forms import CommentForm, AlbumCommentForm
 
 from article.models import ArticlesPost
+from album.models import Album
 
 
 # Create your views here.
@@ -58,3 +61,32 @@ def reply_post_comment(request, article_id, node_id):
                        'node_id': node_id,
                        'comment': comment
                        })
+
+
+def album_comment(request, photo_id, reply_to=None):
+    photo = get_object_or_404(Album, id=photo_id)
+    comment = AlbumComment.objects.get(id=reply_to)
+
+    if request.method == 'POST':
+        comment_form = AlbumCommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.photo = photo
+            new_comment.user = request.user
+            if reply_to == None:
+                new_comment.reply_to = None
+            else:
+                new_comment.reply_to = comment.user
+            new_comment.save()
+            return redirect(reverse('album:album_list'))
+        else:
+            return HttpResponse('1')
+    else:
+        comment_form = AlbumCommentForm()
+        if reply_to:
+            return render(request, 'comments/album_comments_reply.html',
+                          {'comment_form': comment_form,
+                           'image': photo,
+                           'reply_to': reply_to,
+                           })
+        return HttpResponse('2')

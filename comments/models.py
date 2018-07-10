@@ -2,10 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from article.models import ArticlesPost
+from album.models import Album
 
 from mptt.models import MPTTModel, TreeForeignKey
 
-
+# 博文的评论
 class Comment(MPTTModel):
     article = models.ForeignKey(ArticlesPost, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments_user')
@@ -23,3 +24,15 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return self.body[:20]
+
+# album的评论
+class AlbumComment(models.Model):
+    photo = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='album_comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='album_comments_user')
+    reply_to = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='album_comments_reply_to')
+    body = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.body[:20]
+

@@ -23,9 +23,20 @@ class Album(models.Model):
     image = models.ImageField(upload_to='image/album/%Y%m%d')
     created = models.DateField(auto_now_add=True, db_index=True)
 
+    total_likes = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ('-created',)
+
+
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Album, self).save(*args, **kwargs)
+
+    # 统计喜欢
+    def increase_comments(self):
+        self.total_likes += 1
+        self.save(update_fields=['total_likes'])

@@ -1,68 +1,115 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load mptt_tags %}
 {% block title %}图说{% endblock %}
 {% block content %}
     <div class="layui-card layui-card-body" id="photo_center">
-        {% for image in album %}
-            <div>
-                <img src="{{ image.url }}" style="max-width: 100%">
-            </div>
-            <table class="layui-table" lay-size="sm">
-                <colgroup>
-                    <col id="col">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                    <col>
 
-                </colgroup>
-                <thead>
-                <tr>
-                    <th style="text-align: center">摄影师</th>
-                    <th style="text-align: center">地点</th>
-                    <th style="text-align: center">时间</th>
-                    <th style="text-align: center">相机</th>
-                    <th style="text-align: center">镜头</th>
-                    <th style="text-align: center">焦距</th>
-                    <th style="text-align: center">光圈</th>
-                    <th style="text-align: center">曝光时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ image.photographer }}</td>
-                    <td>{{ image.location }}</td>
-                    <td>{{ image.photo_time }}</td>
-                    <td>{{ image.camera }}</td>
-                    <td>{{ image.lens }}</td>
-                    <td>{{ image.focal_length }}</td>
-                    <td>{{ image.aperture }}</td>
-                    <td>{{ image.exposure_time }}</td>
-                </tr>
-                </tbody>
-            </table>
-            {% if image.description %}
-                <table class="layui-table">
+        {% for image in album %}
+
+            <div>
+                <div>
+                    <img src="{{ image.url }}" style="max-width: 100%">
+                </div>
+                <table class="layui-table" lay-size="sm">
                     <colgroup>
+                        <col id="col">
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
                         <col>
                     </colgroup>
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">摄影师</th>
+                        <th style="text-align: center">地点</th>
+                        <th style="text-align: center">时间</th>
+                        <th style="text-align: center">相机</th>
+                        <th style="text-align: center">镜头</th>
+                        <th style="text-align: center">焦距</th>
+                        <th style="text-align: center">光圈</th>
+                        <th style="text-align: center">曝光时间</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr>
-                        <td>{{ image.description }}</td>
+                        <td>{{ image.photographer }}</td>
+                        <td>{{ image.location }}</td>
+                        <td>{{ image.photo_time }}</td>
+                        <td>{{ image.camera }}</td>
+                        <td>{{ image.lens }}</td>
+                        <td>{{ image.focal_length }}</td>
+                        <td>{{ image.aperture }}</td>
+                        <td>{{ image.exposure_time }}</td>
                     </tr>
                     </tbody>
                 </table>
-            {% endif %}
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+                {% if image.description %}
+                    <table class="layui-table">
+                        <colgroup>
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>{{ image.description }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                {#    发表评论#}
+                <div class="layui-collapse">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" style="text-align: left">留言板(已有{{ image.album_comments.count }}条评论)</h2>
+                        <div class="layui-colla-content">
+                            {% include 'comments/album_comments_base_form.html' %}
+
+                            {#显示评论#}
+                            {% for node in image.album_comments.all %}
+                                <div class="layui-row layui-text" style="text-align:left">
+                        <span>{{ node.user }}
+                            {% if node.user.is_superuser %}
+                                <i style="color: #ff5500;">[博主]</i>
+                            {% endif %}:
+                            {% if node.reply_to %}
+                                <i class="layui-icon layui-icon-reply-fill"></i> {{ node.reply_to }}
+                                {% if node.reply_to.is_superuser %}
+                                    <i style="color: #ff5500;">[博主]</i>
+                                {% endif %}
+                            {% endif %}
+                        </span>
+                                    <span style="font-size: large">{{ node.body }}</span>
+                                    <span class="layui-text" style="color: #999999;">
+                        <span>{{ node.created_time|date:"Y年m月d日 H:i:s" }}
+                            <a href="{% url 'comments:reply_album_comment' image.id node.user.id %}" style="color: #01a252">回复</a></span></span>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+
+                <br/>
+                <br/>
+            </div>
         {% endfor %}
+        <br/>
+        <br/>
+        <br/>
     </div>
+    <script>
+        //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function () {
+            var element = layui.element;
+
+            //…
+        });
+
+    </script>
     <style>
         #photo_center {
             text-align: center;

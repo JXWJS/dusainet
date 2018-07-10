@@ -4,12 +4,15 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView
+from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
-
-
 
 from .forms import AlbumForm
 from .models import Album
+
+from comments.forms import AlbumCommentForm
+from comments.models import AlbumComment
+
 
 # Create your views here.
 class AlbumUpload(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
@@ -31,8 +34,13 @@ class AlbumUpload(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
 
 
 def album_list(request):
-    album = Album.objects.order_by('?')
-    return render(request, 'album/album_list.html', {'album': album})
+    album = Album.objects.all()
+    comment_form = AlbumCommentForm()
+    context = {'album': album,
+               'comment_form': comment_form,
+               }
+    return render(request, 'album/album_list.html', context=context)
+
 
 def album_delete(request, image_id):
     if request.user.is_superuser:
@@ -40,6 +48,9 @@ def album_delete(request, image_id):
         image.delete()
     return redirect("album:album_list")
 
+
 def album_manage(request):
     album = Album.objects.all()
     return render(request, 'album/album_manage.html', {'album': album})
+
+

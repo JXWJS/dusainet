@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}图说{% endblock %}
+{% block content %}
+    <div class="layui-card layui-card-body">
+    {% include 'comments/album_comments_base_form.html' %}
+    </div>
+{% endblock %}
