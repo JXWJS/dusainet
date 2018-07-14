@@ -1,13 +1,42 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load mptt_tags %}
+{% load coursetags %}
 {% block title %}教程{% endblock %}
 {% block content %}
-    <div class="layui-card layui-card-body layui-row">
+
+    <div class="layui-row layui-card">
+{#        <br/>#}
         {% for course in courses %}
-            <div class="layui-col-md4">
-                <a href="{% url 'course:course_articles_list' course.id %}">{{ course.title }}</a>
+            <div class="layui-col-md4" style="text-align: center;">
+                <br/>
+                <a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
+                    {% if course.avatar_thumbnail %}
+                        <div>
+                            <img src="{{ course.avatar_thumbnail.url }}" style="box-shadow: 1px 1px 3px black;">
+                        </div>
+                    {% endif %}
+                    <h2>{{ course.title }}</h2></a>
+                <p>
+                    <span style="color: #5897fb;">{% course_total_views course.id %}阅读 {% course_total_articles course.id %}篇文章</span>
+                    {% if course.is_finished %}
+                        <span style="color: #01a252">[<i class="layui-icon layui-icon-ok-circle"></i>已完结]</span>
+                    {% else %}
+                        <span style="color: #FF5722">[撰写中..]
+                    </span>
+                    {% endif %}
+                </p>
+                <br/>
             </div>
         {% endfor %}
     </div>
+    <style>
+        #course_title {
+            color: black;
+        }
+
+        #course_title:hover {
+            color: gray;
+        }
+    </style>
 {% endblock %}

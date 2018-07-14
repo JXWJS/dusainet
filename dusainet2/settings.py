@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0tlwp6joab$q=jma33dcpflt=zl!7ry^l%3f96tj5djez$opo$'
+with open('secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,7 +164,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 # SMTP服务器，我使用的是sendclound的服务
 EMAIL_HOST = 'mtp.qq.com'
 EMAIL_HOST_USER = '474377974@qq.com'
-EMAIL_HOST_PASSWORD = 'a131930765'
+with open('email_host_password.txt') as f:
+    EMAIL_HOST_PASSWORD = f.read().strip()
 EMAIL_PORT = 25
 
 # 是否使用了SSL 或者TLS

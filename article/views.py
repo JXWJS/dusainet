@@ -65,7 +65,6 @@ def article_detail(request, article_id):
     if article.course:
         next_article = ArticlesPost.objects.filter(course_sequence__gt=article.course_sequence).order_by('course_sequence')
         pre_article = ArticlesPost.objects.filter(course_sequence__lt=article.course_sequence).order_by('-course_sequence')
-
         if pre_article.count() > 0:
             pre_article = pre_article[0]
         else:
