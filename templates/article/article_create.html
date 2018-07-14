@@ -17,13 +17,27 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">栏目</label>
                 <div class="layui-input-inline">
-                    <select name="column" lay-verify="required">
+                    <select name="column">
                         <option value=""></option>
                         <option value="1">编程</option>
                         <option value="2">摄影</option>
                         <option value="4">光学</option>
                         <option value="3">闲聊</option>
                     </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">教程ID</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="course" placeholder="教程ID" autocomplete="off"
+                           class="layui-input" lay-filter="course">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">教程序号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="course_sequence" placeholder="教程序号" autocomplete="off"
+                           class="layui-input" lay-filter="course_sequence">
                 </div>
             </div>
 
@@ -80,6 +94,9 @@
                 "body": "{{ article.body }}",
                 {% if article.avatar_thumbnail %}
                     "url": "{{ article.url }}",
+                {% endif %}
+                {% if article.course %}
+                    "course": "{{ article.course.id }}",
                 {% endif %}
             })
         });

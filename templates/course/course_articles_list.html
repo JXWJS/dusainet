@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+{% block title %}教程{% endblock %}
+{% block content %}
+    <div class="layui-row layui-card layui-card-body">
+        {% include 'course/slider.html' %}
+    </div>
+{% endblock %}

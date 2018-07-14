@@ -3,7 +3,8 @@
 <ul class="layui-nav">
     <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">杜赛的个人网站</a></li>
     <li class="layui-nav-item "><a href="{% url 'article:article_list' %}">首页</a></li>
-    <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">途说</a></li>
+    <li class="layui-nav-item "><a href="{% url 'course:course_list' %}">教程</a></li>
+    <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">照片墙</a></li>
     {% if user.is_authenticated %}
         <li class="layui-nav-item" style="float: right;"><a href="javascript:">感谢你的光临，{{ user.username }}</a>
             <dl class="layui-nav-child">

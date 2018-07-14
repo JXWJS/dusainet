@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+{% block title %}教程{% endblock %}
+{% block content %}
+    <div class="layui-card layui-card-body layui-row">
+        {% for course in courses %}
+            <div class="layui-col-md4">
+                <a href="{% url 'course:course_articles_list' course.id %}">{{ course.title }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

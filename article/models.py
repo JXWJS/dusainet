@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from course.models import Course
+
 from taggit.managers import TaggableManager
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
@@ -23,6 +25,10 @@ class ArticlesPost(models.Model):
     column = models.ForeignKey(ArticlesColumn, null=True, blank=True, on_delete=models.CASCADE, related_name='column')
     title = models.CharField(max_length=200)
 
+    # 教程外键
+    course = models.ForeignKey(Course, related_name='article', null=True, blank=True, on_delete=models.CASCADE)
+    course_sequence = models.PositiveIntegerField(blank=True, null=True)
+
     # taggit
     tags = TaggableManager(blank=True)
 
@@ -31,7 +37,7 @@ class ArticlesPost(models.Model):
     updated = models.DateTimeField(auto_now=True)
     total_views = models.PositiveIntegerField(default=0)
     total_comments = models.PositiveIntegerField(default=0)
-
+    # 缩略图
     avatar_thumbnail = ProcessedImageField(upload_to='image/article/avatar_thumbnail/',
                                            processors=[ResizeToFit(width=176)],
                                            format='JPEG',
@@ -39,7 +45,6 @@ class ArticlesPost(models.Model):
                                            blank=True,
                                            null=True)
     url = models.URLField(blank=True)
-
 
     class Meta:
         ordering = ('-created',)
