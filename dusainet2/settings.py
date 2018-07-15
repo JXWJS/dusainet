@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'comments', # 评论
     'album', # 相册
     'course', # 教程
+    'readbook', # 读书
 
     # django-allauth
     # 必须安装的app

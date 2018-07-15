@@ -1,0 +1,18 @@
+/*读书*/
+span {
+    color: gray;
+}
+
+#book_box {
+    -moz-box-shadow: 1px 1px 2px #333333;
+    -webkit-box-shadow: 1px 1px 2px #333333;
+    box-shadow: 1px 1px 2px #333333;
+}
+
+#book_box:hover {
+    background-color: #dadada;
+}
+
+#star {
+    color: #FFB800;
+}

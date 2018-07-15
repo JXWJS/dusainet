@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+{% block title %}教程{% endblock %}
+{% block content %}
+    <div class="layui-row layui-card layui-card-body">
+        {% for book in books %}
+            <div class="layui-col-md6" id="book_box">
+                <a href="#">
+                    <img src="{{ book.avatar_thumbnail.url }}" class="layui-col-md3"
+                         style="margin: 10px; box-shadow: 1px 1px 3px black">
+                    <div class="layui-col-md4">
+                        <br/>
+                        <p style="color: #01a252"><span>书名：</span>{{ book.title }}</p>
+                        <p><span>作者：</span>{{ book.author }}</p>
+                        <p><span>页数：</span>{{ book.book_page }}</p>
+                        <p><span>价格：</span>{{ book.price }}</p>
+                        <p><span>评分：</span>
+                            {% include 'readbook/rate_base.html' %}</p>
+                        <p id="practicality_{{ forloop.counter }}" hidden>{{ book.practicality }}</p>
+                        <p id="interesting_{{ forloop.counter }}" hidden>{{ book.interesting }}</p>
+                        <p id="readability_{{ forloop.counter }}" hidden>{{ book.readability }}</p>
+                        <p id="professionalism_{{ forloop.counter }}" hidden>{{ book.professionalism }}</p>
+                        <p id="binding_quality_{{ forloop.counter }}" hidden>{{ book.binding_quality }}</p>
+                    </div>
+                    {#                <br/>#}
+                    <div class="layui-col-md5" id="echarts_book_{{ forloop.counter }}"
+                         style="width:200px;height:200px"></div>
+                </a>
+
+            </div>
+        {% endfor %}
+    </div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <script src="{% static 'echarts/echarts.js' %}"></script>
+
+    <script type="text/javascript">
+        // echarts
+        for (var i = 0; i <{{ books.count }}; i++) {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('echarts_book_' + (i + 1)));
+            var practicality = document.getElementById('practicality_' + (i + 1)).firstChild.nodeValue;
+            var interesting = document.getElementById('interesting_' + (i + 1)).firstChild.nodeValue;
+            var readability = document.getElementById('readability_' + (i + 1)).firstChild.nodeValue;
+            var professionalism = document.getElementById('professionalism_' + (i + 1)).firstChild.nodeValue;
+            var binding_quality = document.getElementById('binding_quality_' + (i + 1)).firstChild.nodeValue;
+            // 指定图表的配置项和数据
+            option = {
+                tooltip: {},
+                radar: {
+                    // shape: 'circle',
+                    name: {
+                        textStyle: {
+                            color: '#fff',
+                            backgroundColor: '#999',
+                            borderRadius: 3,
+                            padding: [3, 5]
+                        }
+                    },
+                    center: ['50%', '50%'],
+                    radius: 55,
+                    indicator: [
+                        {name: '实用', max: 5},
+                        {name: '趣味', max: 5},
+                        {name: '易读', max: 5},
+                        {name: '专业', max: 5},
+                        {name: '装订', max: 5},
+                    ]
+                },
+                series: [{
+                    name: '图书评分',
+                    type: 'radar',
+                    areaStyle: {
+                        normal: {
+                            color: 'rgba(255, 240, 245, 1)'
+                        }
+                    },
+                    // areaStyle: {normal: {}},
+                    data: [
+                        {
+                            value: [practicality, interesting, readability, professionalism, binding_quality],
+                        }
+                    ]
+                }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }
+    </script>
+{% endblock %}

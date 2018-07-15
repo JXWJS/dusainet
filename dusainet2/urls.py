@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'comments/', include('comments.urls', namespace='comments')),
     path('album/', include('album.urls', namespace='album')),
     path('course/', include('course.urls', namespace='course')),
+    path('readbook/', include('readbook.urls', namespace='readbook')),
     # allauth
     path('accounts/', include('allauth.urls')),
 ]
