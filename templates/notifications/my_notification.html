@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load notifications_tags %}
+{% block title %}通知列表{% endblock %}
+{% block content %}
+    <div class="layui-row layui-card layui-card-body">
+        {% for unread in unread_notify %}
+            {% if unread.description == 'album' %}
+                <p><a href="{% url 'album:album_list' %}">{{ unread }}</a></p>
+            {% elif unread.description == 'article' %}
+                <p><a href="{% url 'article:article_detail' unread.target_object_id %}">{{ unread }}</a></p>
+            {% elif unread.description == 'readbook' %}
+                <p><a href="{% url 'readbook:book_detail' unread.target_object_id %}">{{ unread }}</a></p>
+            {% endif %}
+        {% endfor %}
+    <a href="{% url 'my_notifications:mark_all_read' %}">标记全部已读</a>
+    </div>
+
+    {#{% live_notify_badge %}#}
+    {#{% live_notify_list %}#}
+    {##}
+    {#<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>#}
+    {#{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}#}
+
+{% endblock %}

@@ -21,17 +21,22 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from article.views import ArticlePostView
-
+import notifications.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^/?$', ArticlePostView.as_view(), name='home'),
+    url(r'^$', ArticlePostView.as_view(), name='home'),
     path('article/', include('article.urls', namespace='article')),
     url(r'comments/', include('comments.urls', namespace='comments')),
     path('album/', include('album.urls', namespace='album')),
     path('course/', include('course.urls', namespace='course')),
     path('readbook/', include('readbook.urls', namespace='readbook')),
+    path('imagesource/', include('imagesource.urls', namespace='imagesource')),
+    path('aboutme/', include('aboutme.urls', namespace='aboutme')),
+    path('my-notifications/', include('mynotifications.urls', namespace='my_notifications')),
     # allauth
     path('accounts/', include('allauth.urls')),
+    # notifications
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

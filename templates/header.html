@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load notifications_tags %}
 
 <ul class="layui-nav">
     <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">网站</a></li>
@@ -6,17 +7,21 @@
     <li class="layui-nav-item "><a href="{% url 'course:course_list' %}">教程</a></li>
     <li class="layui-nav-item "><a href="{% url 'readbook:book_list' %}">读书</a></li>
     <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">照片墙</a></li>
+    <li class="layui-nav-item "><a href="{% url 'aboutme:me' %}">关于我</a></li>
+    <li class="layui-nav-item "><a href="{% url 'my_notifications:notify_box' %}">{% notifications_unread %}</a></li>
     {% if user.is_authenticated %}
         <li class="layui-nav-item" style="float: right;"><a href="javascript:">感谢你的光临，{{ user.username }}</a>
             <dl class="layui-nav-child">
-                <dd><a href="">我的主页</a></dd>
+                <dd><a href="">通知</a></dd>
+                {% if user.is_superuser %}
+                    <dd><a href="{% url 'article:article_create' %}">写文章</a></dd>
+                    <dd><a href="{% url 'album:album_manage' %}">照片墙</a></dd>
+                    <dd><a href="{% url 'imagesource:imagesource_list' %}">图库</a></dd>
+                {% endif %}
                 <dd><a href="/accounts/logout">退出登录</a></dd>
             </dl>
         </li>
-        {% if user.is_superuser %}
-            <li class="layui-nav-item " style="float: right;"><a href="{% url 'article:article_create' %}">写文章</a></li>
-            <li class="layui-nav-item " style="float: right;"><a href="{% url 'album:album_manage' %}">途说管理</a></li>
-        {% endif %}
+
     {% else %}
         <li class="layui-nav-item " style="float: right;"><a href="/accounts/login">登录</a></li>
     {% endif %}

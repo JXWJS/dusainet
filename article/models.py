@@ -60,8 +60,3 @@ class ArticlesPost(models.Model):
     def increase_views(self):
         self.total_views += 1
         self.save(update_fields=['total_views'])
-
-    # 统计评论数
-    def increase_comments(self):
-        self.total_comments += 1
-        self.save(update_fields=['total_comments'])

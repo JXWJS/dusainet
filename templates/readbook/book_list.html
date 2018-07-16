@@ -4,25 +4,29 @@
 {% block title %}教程{% endblock %}
 {% block content %}
     <div class="layui-row layui-card layui-card-body">
-        {% for book in books %}
+        {% for article in articles %}
             <div class="layui-col-md6" id="book_box">
-                <a href="{% url 'readbook:book_detail' book.id %}">
-                    <img src="{{ book.avatar_thumbnail.url }}" class="layui-col-md3"
+                <a href="{% url 'readbook:book_detail' article.id %}">
+                    <img src="{{ article.avatar_thumbnail.url }}" class="layui-col-md3"
                          style="margin: 10px; box-shadow: 1px 1px 3px black">
                     <div class="layui-col-md4">
-{#                        <br/>#}
-                        <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ book.title }}</h3>
-{#                        <br/>#}
-                        <p><span>作者：</span>{{ book.author }}</p>
-                        <p><span>页数：</span>{{ book.book_page }}</p>
-                        <p><span>价格：</span>{{ book.price }}</p>
+                        {#                        <br/>#}
+                        <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ article.title }}</h3>
+                        {#                        <br/>#}
+                        <p><span>作者：</span>{{ article.author }}</p>
+                        <p><span>页数：</span>{{ article.book_page }}</p>
+                        <p><span>价格：</span>{{ article.price }}</p>
                         <p><span>评分：</span>
                             {% include 'readbook/rate_base.html' %}</p>
-                        <p id="practicality_{{ forloop.counter }}" hidden>{{ book.practicality }}</p>
-                        <p id="interesting_{{ forloop.counter }}" hidden>{{ book.interesting }}</p>
-                        <p id="readability_{{ forloop.counter }}" hidden>{{ book.readability }}</p>
-                        <p id="professionalism_{{ forloop.counter }}" hidden>{{ book.professionalism }}</p>
-                        <p id="binding_quality_{{ forloop.counter }}" hidden>{{ book.binding_quality }}</p>
+                        <p class="layui-text"><i class="layui-icon layui-icon-read"
+                                                 style="color: #01a252;"></i> {{ article.total_views }}
+                            <i class="layui-icon layui-icon-dialogue"
+                               style="color: #DE8E30;"></i> {{ article.readbook_comments.count }}
+                        <p id="practicality_{{ forloop.counter }}" hidden>{{ article.practicality }}</p>
+                        <p id="interesting_{{ forloop.counter }}" hidden>{{ article.interesting }}</p>
+                        <p id="readability_{{ forloop.counter }}" hidden>{{ article.readability }}</p>
+                        <p id="professionalism_{{ forloop.counter }}" hidden>{{ article.professionalism }}</p>
+                        <p id="binding_quality_{{ forloop.counter }}" hidden>{{ article.binding_quality }}</p>
                     </div>
                     <div class="layui-col-md5" id="echarts_book_{{ forloop.counter }}"
                          style="width:200px;height:200px"></div>
@@ -30,13 +34,12 @@
 
             </div>
         {% endfor %}
-        <div id="echarts_bmap" style="width:600px;height:600px"></div>
     </div>
     <!-- 引入 ECharts -->
     <script src="{% static 'echarts/echarts.js' %}"></script>
     <script src="{% static 'myjs.js' %}"></script>
     <script type="text/javascript">
         // myjs.js
-        book_list({{ books.count }});
+        book_list({{ articles.count }});
     </script>
 {% endblock %}

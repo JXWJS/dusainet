@@ -10,12 +10,38 @@
         <div class="">
             <h1 style="font-size: xx-large; font-weight: bold; line-height: 110%">{{ article.title }}</h1>
             <br/>
-            <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.comments.count }}评论 ·
+            <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.readbook_comments.count }}评论 ·
                 于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
-                {% if user.is_superuser %}
-                    <a href="{% url 'article:article_update' article.pk %}">编辑</a></p>
-                {% endif %}
+                {#                {% if user.is_superuser %}#}
+                {#                    <a href="{% url 'article:article_update' article.pk %}">编辑</a></p>#}
+                {#                {% endif %}#}
+
         </div>
+        <br/>
+        <div class="layui-col-md6" id="book_box">
+            <img src="{{ article.avatar_thumbnail.url }}" class="layui-col-md3"
+                 style="margin: 10px; box-shadow: 1px 1px 3px black">
+            <div class="layui-col-md4">
+                <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ article.title }}</h3>
+                <p><span>作者：</span>{{ article.author }}</p>
+                <p><span>页数：</span>{{ article.book_page }}</p>
+                <p><span>价格：</span>{{ article.price }}</p>
+                <p><span>评分：</span>
+                    {% include 'readbook/rate_base.html' %}</p>
+                <p class="layui-text"><i class="layui-icon layui-icon-read"
+                                         style="color: #01a252;"></i> {{ article.total_views }}
+                    <i class="layui-icon layui-icon-dialogue"
+                       style="color: #DE8E30;"></i> {{ article.readbook_comments.count }}
+                <p id="practicality" hidden>{{ article.practicality }}</p>
+                <p id="interesting" hidden>{{ article.interesting }}</p>
+                <p id="readability" hidden>{{ article.readability }}</p>
+                <p id="professionalism" hidden>{{ article.professionalism }}</p>
+                <p id="binding_quality" hidden>{{ article.binding_quality }}</p>
+            </div>
+            <div class="layui-col-md5" id="echarts_book"
+                 style="width:200px;height:200px"></div>
+        </div>
+        <hr/>
         <div id="editormd-view" class="layui-container">
         <textarea id="append-test" style="display: none;">
 {{ article.body }}
@@ -38,11 +64,11 @@
 
     {#    发表评论#}
     <div>
-        <h2>共有{{ article.comments.count }}条评论</h2>
+        <h2>共有{{ article.readbook_comments.count }}条评论</h2>
         <br>
         <form id="comment_form"
               class="layui-form"
-              action="{% url 'comments:post_comment' article.id %}"
+              action="{% url 'comments:read_book_post_comment' article.id %}"
               method="post">
             {% csrf_token %}
             <div class="layui-form-item layui-form-text">
@@ -90,7 +116,7 @@
                     <div style="font-size: large">{{ node.body }}</div>
 
                     <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y年m月d日 H:i:s" }}
-                        <a href="{% url 'comments:reply_post_comment' article.id node.id %}"
+                        <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id %}"
                            style="color: #01a252">回复</a></p></div>
                     {% if not node.is_leaf_node %}
                         <ul class="children layui-col-md-offset1">
@@ -113,7 +139,9 @@
 <script src="{% static 'editormd/lib/jquery.flowchart.min.js' %}"></script>
 <script src="{% static 'editormd/editormd.js' %}"></script>
 <script src="{% static 'layui-v2.3.0/layui/layui.js' %}"></script>
-
+<!-- 引入 ECharts -->
+<script src="{% static 'echarts/echarts.js' %}"></script>
+<script src="{% static 'myjs.js' %}"></script>
 
 <script type="text/javascript">
     editormd.emoji.path = "http://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/"
@@ -153,5 +181,52 @@
         });
     });
 
+    var myChart = echarts.init(document.getElementById('echarts_book'));
+    var practicality = document.getElementById('practicality').firstChild.nodeValue;
+    var interesting = document.getElementById('interesting').firstChild.nodeValue;
+    var readability = document.getElementById('readability').firstChild.nodeValue;
+    var professionalism = document.getElementById('professionalism').firstChild.nodeValue;
+    var binding_quality = document.getElementById('binding_quality').firstChild.nodeValue;
+    // 指定图表的配置项和数据
+    option = {
+        tooltip: {},
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+                }
+            },
+            center: ['50%', '50%'],
+            radius: 55,
+            indicator: [
+                {name: '实用', max: 5},
+                {name: '趣味', max: 5},
+                {name: '易读', max: 5},
+                {name: '专业', max: 5},
+                {name: '装订', max: 5},
+            ]
+        },
+        series: [{
+            name: '图书评分',
+            type: 'radar',
+            areaStyle: {
+                normal: {
+                    color: 'rgba(255, 240, 245, 1)'
+                }
+            },
+            // areaStyle: {normal: {}},
+            data: [
+                {
+                    value: [practicality, interesting, readability, professionalism, binding_quality],
+                }
+            ]
+        }]
+    };
 
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
 </script>

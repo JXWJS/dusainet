@@ -31,7 +31,7 @@
             <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'100' }}</p>
             <p class="layui-text"><i class="layui-icon layui-icon-read"
                                      style="color: #01a252;"></i> {{ article.total_views }}
-                <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.total_comments }}
+                <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.comments.count }}
                 <i class="layui-icon layui-icon-log" style="color: #1E9FFF;"></i> {{ article.created|date:"Y-m-d" }}
                 {#            教程#}
                 {% if article.course_id %}
