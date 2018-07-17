@@ -1,15 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, redirect
 from notifications.models import Notification
+
+from article.models import ArticlesPost
+from album.models import Album
+from readbook.models import ReadBook
 
 
 # Create your views here.
-
+# 通知界面
 def comments_notification(request):
     unread_notify = request.user.notifications.unread()
     return render(request, 'notifications/my_notification.html', {'unread_notify': unread_notify})
 
 
+# 标记全部已读
 def comments_notification_mark_all_as_read(request):
     request.user.notifications.mark_all_as_read()
     unread_notify = request.user.notifications.unread()
     return render(request, 'notifications/my_notification.html', {'unread_notify': unread_notify})
+
+
+def comments_notification_mark_as_read(request, article_id, is_readbook=False, is_album=False):
+    if is_album:
+        article = Album.objects.get(id=article_id)
+        request.user.notifications.filter(target_object_id=article_id, description='album').mark_all_as_read()
+
+    elif is_readbook:
+        article = ReadBook.objects.get(id=article_id)
+        request.user.notifications.filter(target_object_id=article_id, description='readbook').mark_all_as_read()
+
+    else:
+        article = ArticlesPost.objects.get(id=article_id)
+        request.user.notifications.filter(target_object_id=article_id, description='article').mark_all_as_read()
+
+    return redirect(article)

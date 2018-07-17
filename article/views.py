@@ -58,6 +58,7 @@ def article_detail(request, article_id):
     article.total_views = article.total_views
     article.increase_views()
 
+
     # 评论
     comment_form = CommentForm()
 

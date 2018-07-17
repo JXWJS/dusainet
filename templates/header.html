@@ -8,11 +8,19 @@
     <li class="layui-nav-item "><a href="{% url 'readbook:book_list' %}">读书</a></li>
     <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">照片墙</a></li>
     <li class="layui-nav-item "><a href="{% url 'aboutme:me' %}">关于我</a></li>
-    <li class="layui-nav-item "><a href="{% url 'my_notifications:notify_box' %}">{% notifications_unread %}</a></li>
     {% if user.is_authenticated %}
-        <li class="layui-nav-item" style="float: right;"><a href="javascript:">感谢你的光临，{{ user.username }}</a>
+        <li class="layui-nav-item" style="float: right;"><a href="javascript:">
+            {{ user.username }}
+            {% notifications_unread as unread_count %}
+            {% if unread_count %}
+                <span class="layui-badge-dot" style="left: 0;"></span>
+            {% endif %}
+        </a>
             <dl class="layui-nav-child">
-                <dd><a href="">通知</a></dd>
+                <dd><a href="{% url 'my_notifications:notify_box' %}">通知
+                    {% if unread_count %}
+                        <span class="layui-badge" style="left: 50%;">{{ unread_count }}</span>
+                    {% endif %}</a></dd>
                 {% if user.is_superuser %}
                     <dd><a href="{% url 'article:article_create' %}">写文章</a></dd>
                     <dd><a href="{% url 'album:album_manage' %}">照片墙</a></dd>

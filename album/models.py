@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 from uuslug import slugify
@@ -40,3 +41,7 @@ class Album(models.Model):
     def increase_comments(self):
         self.total_likes += 1
         self.save(update_fields=['total_likes'])
+
+    # 获取文章地址
+    def get_absolute_url(self):
+        return reverse('album:album_list')

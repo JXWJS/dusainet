@@ -35,7 +35,7 @@ def post_comment(request, article_id, node_id=False):
                 new_comment.reply_to = None
             new_comment.save()
             # 发送通知
-            notify.send(request.user, recipient=User.objects.get(id=1), verb='在博客中回复了你', target=article,
+            notify.send(request.user, recipient=User.objects.get(id=1), verb='回复了你', target=article,
                         description='article')
             return redirect(article)
 
@@ -48,8 +48,6 @@ def post_comment(request, article_id, node_id=False):
             return render(request, 'article/article_detail.html', context=context)
     # 处理GET二级评论请求
     else:
-        # comment_form = CommentForm()
-        # return redirect(article)
         comment_form = CommentForm()
         return render(request, 'comments/reply_post_comment.html',
                       {'comment_form': comment_form,
@@ -79,7 +77,7 @@ def read_book_post_comment(request, article_id, node_id=False):
             new_comment.save()
 
             # 发送通知
-            notify.send(request.user, recipient=User.objects.get(id=1), verb='在读书中回复了你', target=article,
+            notify.send(request.user, recipient=User.objects.get(id=1), verb='回复了你', target=article,
                         description='readbook')
 
             return redirect(article)
@@ -91,8 +89,6 @@ def read_book_post_comment(request, article_id, node_id=False):
                        }
             return render(request, 'readbook/book_detail.html', context=context)
     else:
-        # comment_form = ReadBookCommentForm()
-        # return redirect(article)
         comment_form = ReadBookCommentForm()
         return render(request, 'comments/read_book_reply_post_comment.html',
                       {'comment_form': comment_form,
@@ -120,7 +116,7 @@ def album_comment(request, photo_id, reply_to=None):
             new_comment.save()
 
             # 发送通知
-            notify.send(request.user, recipient=User.objects.get(id=1), verb='在照片墙中回复了你: ', target=photo,
+            notify.send(request.user, recipient=User.objects.get(id=1), verb='回复了你: ', target=photo,
                         description='album')
 
             return redirect(reverse('album:album_list'))
@@ -135,62 +131,3 @@ def album_comment(request, photo_id, reply_to=None):
                            'reply_to': reply_to,
                            })
         return HttpResponse('2')
-
-# 二级评论
-# def reply_post_comment(request, article_id, node_id):
-#     article = get_object_or_404(ArticlesPost, id=article_id)
-#     comment = Comment.objects.get(id=node_id)
-#     if request.method == 'POST':
-#         comment_form = CommentForm(request.POST)
-#         if comment_form.is_valid():
-#             new_comment = comment_form.save(commit=False)
-#             new_comment.article = article
-#             new_comment.user = request.user
-#             # 对二级评论，赋值root节点的id
-#             new_comment.parent_id = comment.get_root().id
-#             new_comment.reply_to = comment.user
-#             new_comment.save()
-#
-#             # 发送通知
-#             notify.send(request.user, recipient=User.objects.get(id=1), verb='在博客中回复了你', target=article,
-#                         description='article')
-#
-#             return redirect(article)
-#     else:
-#         comment_form = CommentForm()
-#         return render(request, 'comments/reply_post_comment.html',
-#                       {'comment_form': comment_form,
-#                        'article_id': article_id,
-#                        'node_id': node_id,
-#                        'comment': comment
-#                        })
-
-
-# # 读书二级评论
-# def read_book_reply_post_comment(request, article_id, node_id):
-#     article = get_object_or_404(ReadBook, id=article_id)
-#     comment = ReadBookComment.objects.get(id=node_id)
-#     if request.method == 'POST':
-#         comment_form = ReadBookCommentForm(request.POST)
-#         if comment_form.is_valid():
-#             new_comment = comment_form.save(commit=False)
-#             new_comment.article = article
-#             new_comment.user = request.user
-#             # 对二级评论，赋值root节点的id
-#             new_comment.parent_id = comment.get_root().id
-#             new_comment.reply_to = comment.user
-#             new_comment.save()
-#
-#             # 发送通知
-#             notify.send(request.user, recipient=User.objects.get(id=1), verb='在读书中回复了你', target=article,
-#                         description='readbook')
-#
-#             return redirect(article)
-#     else:
-#         comment_form = ReadBookCommentForm()
-#         return render(request, 'comments/read_book_reply_post_comment.html',
-#                       {'comment_form': comment_form,
-#                        'article_id': article_id,
-#                        'node_id': node_id,
-#                        'comment': comment
-#                        })
