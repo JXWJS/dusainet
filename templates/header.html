@@ -1,13 +1,14 @@
 {% load staticfiles %}
 {% load notifications_tags %}
 
-<ul class="layui-nav">
-    <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">网站</a></li>
-    <li class="layui-nav-item "><a href="{% url 'article:article_list' %}">首页</a></li>
+<ul class="layui-nav" style="padding: 0 10%;">
+    <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">杜赛的个人网站</a></li>
+    <li class="layui-nav-item "><a href="{% url 'article:article_list' %}">文章</a></li>
     <li class="layui-nav-item "><a href="{% url 'course:course_list' %}">教程</a></li>
     <li class="layui-nav-item "><a href="{% url 'readbook:book_list' %}">读书</a></li>
     <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">照片墙</a></li>
-    <li class="layui-nav-item "><a href="{% url 'aboutme:me' %}">关于我</a></li>
+    <li class="layui-nav-item "><a href="{% url 'aboutme:footpoint' %}">足迹</a></li>
+    <li class="layui-nav-item "><a href="{% url 'aboutme:me' %}">关于</a></li>
     {% if user.is_authenticated %}
         <li class="layui-nav-item" style="float: right;"><a href="javascript:">
             {{ user.username }}
@@ -34,6 +35,11 @@
         <li class="layui-nav-item " style="float: right;"><a href="/accounts/login">登录</a></li>
     {% endif %}
 </ul>
+
+<form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+  <input type="search" name="q" placeholder="搜索" required>
+  <button type="submit"><span class="ion-ios-search-strong"></span></button>
+</form>
 
 
 <script src="{% static 'jquery.js' %}"></script>

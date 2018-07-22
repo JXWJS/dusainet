@@ -8,18 +8,27 @@ from .forms import ArticleCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
 from course.models import Course
+from utils.utils import PaginatorMixin
 
-from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin
 
 
 # Create your views here.
 
 # 文章列表Mixin
-class ArticleMixin:
+class ArticleMixin(PaginatorMixin):
     model = ArticlesPost
     context_object_name = 'articles'
     template_name = 'article/article_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        columns = ArticlesColumn.objects.all()
+        data = {
+            'columns': columns
+        }
+        context.update(data)
+        return context
 
 # 所有文章
 class ArticlePostView(ArticleMixin, ListView):
@@ -28,7 +37,17 @@ class ArticlePostView(ArticleMixin, ListView):
 
 # 栏目文章
 class ArticlePostByColumnView(ArticleMixin, ListView):
-    template_name = 'article/article_list_by_column.html'
+    template_name = 'article/article_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticlePostByColumnView, self).get_context_data(**kwargs)
+        is_list_by_column = True
+        data = {
+            'is_list_by_column': is_list_by_column
+        }
+        context.update(data)
+        return context
+
 
     def get_queryset(self):
         qs = super(ArticlePostByColumnView, self).get_queryset()
@@ -37,16 +56,30 @@ class ArticlePostByColumnView(ArticleMixin, ListView):
 
 # 标签文章
 class ArticlePostByTagView(ArticleMixin, ListView):
+
+
+
     def get_queryset(self):
         qs = super(ArticlePostByTagView, self).get_queryset()
         return qs.filter(tags__name__in=[self.kwargs['tag_name']]).order_by('-total_views')
 
 
 class ArticlePostByMostViewedView(ArticleMixin, ListView):
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticlePostByMostViewedView, self).get_context_data(**kwargs)
+        if 'column_id' in self.kwargs:
+            is_list_by_column = True
+            data = {
+                'is_list_by_column': is_list_by_column
+            }
+            context.update(data)
+        return context
+
     def get_queryset(self):
         qs = super(ArticlePostByMostViewedView, self).get_queryset()
         if 'column_id' in self.kwargs:
-            self.template_name = 'article/article_list_by_column.html'
+            self.template_name = 'article/article_list.html'
             return qs.filter(column=self.kwargs['column_id']).order_by('-total_views')
         else:
             return qs.order_by('-total_views')
@@ -96,7 +129,7 @@ def article_detail(request, article_id):
 
 
 # 发表文章
-class ArticleCreateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin, CreateView):
+class ArticleCreateView(LoginRequiredMixin, StaffuserRequiredMixin, ArticleMixin, CreateView):
     fields = ['title', 'column', 'tags', 'body', 'url', 'course', 'course_sequence']
     template_name = 'article/article_create.html'
 
@@ -115,7 +148,7 @@ class ArticleCreateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin
 
 
 # 更新文章
-class ArticleUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, ArticleMixin, UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, StaffuserRequiredMixin, ArticleMixin, UpdateView):
     success_url = reverse_lazy("article:article_list")
     context_object_name = 'article'
     template_name = 'article/article_create.html'

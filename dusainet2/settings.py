@@ -64,6 +64,9 @@ INSTALLED_APPS = [
     # notifications
     'notifications',
     'mynotifications',
+
+    # haystack search
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -178,3 +181,14 @@ LOGIN_REDIRECT_URL = '/'
 
 # django的评论库是一个站点，所以需要添加sites的应用并设置当前django工程的站点id=1
 SITE_ID = 1
+
+
+# haystack相关配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'article.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

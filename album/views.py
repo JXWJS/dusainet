@@ -5,17 +5,18 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView
 from django.http import HttpResponse
-from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin
 
 from .forms import AlbumForm
 from .models import Album
+from utils.utils import PaginatorMixin
 
 from comments.forms import AlbumCommentForm
 from comments.models import AlbumComment
 
 
 # Create your views here.
-class AlbumUpload(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_upload.html'
@@ -32,13 +33,28 @@ class AlbumUpload(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
         return self.render_to_response({"forms": forms})
 
 
-def album_list(request):
-    album = Album.objects.all()
-    comment_form = AlbumCommentForm()
-    context = {'album': album,
-               'comment_form': comment_form,
-               }
-    return render(request, 'album/album_list.html', context=context)
+# def album_list(request):
+#     album = Album.objects.all()
+#     comment_form = AlbumCommentForm()
+#     context = {'album': album,
+#                'comment_form': comment_form,
+#                }
+#     return render(request, 'album/album_list.html', context=context)
+
+class AlbumListView(PaginatorMixin, ListView):
+    model = Album
+    context_object_name = 'album'
+    template_name = 'album/album_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment_form = AlbumCommentForm()
+        data = {
+            'comment_form': comment_form
+        }
+        context.update(data)
+        return context
+
 
 
 def album_delete(request, image_id):

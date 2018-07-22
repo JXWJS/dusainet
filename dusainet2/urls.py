@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from article.views import ArticlePostView
+from article.feeds import ArticlesPostRssFeed, ArticlesPostColumnRssFeed
 import notifications.urls
 
 urlpatterns = [
@@ -34,8 +35,17 @@ urlpatterns = [
     path('imagesource/', include('imagesource.urls', namespace='imagesource')),
     path('aboutme/', include('aboutme.urls', namespace='aboutme')),
     path('my-notifications/', include('mynotifications.urls', namespace='my_notifications')),
+
+    # RSS订阅
+    url(r'^all/rss/$', ArticlesPostRssFeed(), name='rss'),
+    path('all/rss/<int:column_id>/', ArticlesPostColumnRssFeed(), name='column_rss'),
+
+    # haystack search
+    url(r'^search/', include('haystack.urls')),
+
     # allauth
     path('accounts/', include('allauth.urls')),
+
     # notifications
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]

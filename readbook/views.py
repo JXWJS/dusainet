@@ -6,11 +6,13 @@ from .models import ReadBook
 from comments.models import ReadBookComment
 from comments.forms import ReadBookCommentForm
 
+from utils.utils import PaginatorMixin
+
 
 # Create your views here.
 
 # 读书列表
-class ReadBookListView(ListView):
+class ReadBookListView(PaginatorMixin, ListView):
     model = ReadBook
     template_name = 'readbook/book_list.html'
     context_object_name = 'articles'

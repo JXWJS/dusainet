@@ -12,9 +12,6 @@
             <br/>
             <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.readbook_comments.count }}评论 ·
                 于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
-                {#                {% if user.is_superuser %}#}
-                {#                    <a href="{% url 'article:article_update' article.pk %}">编辑</a></p>#}
-                {#                {% endif %}#}
 
         </div>
         <br/>
@@ -103,11 +100,15 @@
                     <div>{{ node.user }}
                         {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>
+                        {% elif node.user.is_staff %}
+                            <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
                         {% if node.reply_to %}
                             <i class="layui-icon layui-icon-reply-fill"></i> {{ node.reply_to }}
                             {% if node.reply_to.is_superuser %}
                                 <i style="color: #ff5500;">[博主]</i>
+                            {% elif node.user.is_staff %}
+                                <i style="color: #5897fb;">[管理员]</i>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -115,7 +116,7 @@
                 <li>
                     <div style="font-size: large">{{ node.body }}</div>
 
-                    <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y年m月d日 H:i:s" }}
+                    <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
                         <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id %}"
                            style="color: #01a252">回复</a></p></div>
                     {% if not node.is_leaf_node %}

@@ -35,6 +35,9 @@
             </div>
         {% endfor %}
     </div>
+
+    {% include 'paginator.html' %}
+
     <!-- 引入 ECharts -->
     <script src="{% static 'echarts/echarts.js' %}"></script>
     <script src="{% static 'myjs.js' %}"></script>

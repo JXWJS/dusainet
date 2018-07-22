@@ -1,0 +1,15 @@
+<div class="layui-card">
+    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>
+    <div class="layui-card-body">
+        <div class="rss">
+            <a href="{% url 'rss' %}" style="color: #ff5500">
+                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>
+        </div>
+        {% for column in columns %}
+            <div class="column_rss">
+                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">
+                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

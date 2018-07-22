@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+{% block title %}关于{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"/>
+
+
+    <div id='main' style="width: 100%; height: 600px"></div>
+
+    <script src="{% static 'echarts/echarts.js' %}"></script>
+    <script src="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.js' %}"></script>
+    <script src="{% static 'echarts/extension/echarts-leaflet/dist/echarts-leaflet.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var data = [
+                {
+                    name: '成都',
+                    value: 100
+                },
+                {
+                    name: '乐山',
+                    value: 100
+                },
+                {
+                    name: '峨眉',
+                    value: 100
+                },
+                {
+                    name: '泸沽湖',
+                    value: 140
+                },
+                {
+                    name: '泰安',
+                    value: 100
+                },
+                {
+                    name: '马尔代夫',
+                    value: 180
+                },
+                {
+                    name: '清迈',
+                    value: 150
+                },
+                {
+                    name: '九寨沟',
+                    value: 120
+                },
+                {
+                    name: '巴厘岛',
+                    value: 150
+                },
+                {
+                    name: '眉山',
+                    value: 100
+                },
+                {
+                    name: '西岭雪山',
+                    value: 100
+                },
+                {
+                    name: '三亚',
+                    value: 100
+                },
+                {
+                    name: '康定',
+                    value: 100
+                },
+                {
+                    name: '龙苍沟',
+                    value: 100
+                },
+                {
+                    name: '巴黎',
+                    value: 180
+                },
+                {
+                    name: '米兰',
+                    value: 100
+                },
+                {
+                    name: '威尼斯',
+                    value: 120
+                },
+                {
+                    name: '罗马',
+                    value: 180
+                },
+                {
+                    name: '青城山',
+                    value: 100
+                },
+                {
+                    name: '映秀',
+                    value: 100
+                },
+                {
+                    name: '汶川',
+                    value: 100
+                },
+                {
+                    name: '西安',
+                    value: 100
+                },
+                {
+                    name: '香港',
+                    value: 120
+                },
+                {
+                    name: '澳门',
+                    value: 100
+                },
+                {
+                    name: '上海',
+                    value: 100
+                },
+                {
+                    name: '南京',
+                    value: 100
+                },
+                {
+                    name: '北京',
+                    value: 100
+                },
+                {
+                    name: '长春',
+                    value: 100
+                },
+                {
+                    name: '巴彦浩特',
+                    value: 130
+                },
+                {
+                    name: '四姑娘山',
+                    value: 100
+                },
+                {
+                    name: '武汉',
+                    value: 100
+                },
+                {
+                    name: '泰山',
+                    value: 100
+                },
+                {
+                    name: '若尔盖草原',
+                    value: 100
+                },
+                {
+                    name: '杭州',
+                    value: 100
+                },
+                {
+                    name: '临沂',
+                    value: 100
+                },
+                {
+                    name: '绵阳',
+                    value: 100
+                },
+                {
+                    name: '济南',
+                    value: 100
+                },
+                {
+                    name: '重庆',
+                    value: 100
+                },
+                {
+                    name: '合川',
+                    value: 100
+                },
+                {
+                    name: '福州',
+                    value: 100
+                },
+                {
+                    name: '泰安',
+                    value: 100
+                },
+                {
+                    name: '扬州',
+                    value: 100
+                }, {
+                    name: '新加坡',
+                    value: 115
+                },
+                {
+                    name: '天津',
+                    value: 100
+                },
+                {
+                    name: '哈尔滨',
+                    value: 100
+                },
+                {
+                    name: '西双版纳',
+                    value: 110
+                },  {
+                    name: '清莱',
+                    value: 110
+                }, {
+                    name: '海口',
+                    value: 90
+                },
+            ];
+
+            var geoCoordMap = {
+                '成都': [104.0647735044, 30.5702183724],
+                '乐山': [103.7653969946, 29.5522198488],
+                '峨眉': [103.3400708493, 29.5658288049],
+                '泸沽湖': [100.8553391264, 27.7254845785],
+                '泰安': [117.0884158791, 36.1999559476],
+                '马尔代夫': [73.4008996000, 4.0966164000],
+                '清迈': [98.9817163000, 18.7060641000],
+                '九寨沟': [103.9185994000, 33.2600421000],
+                '巴厘岛': [115.1889160000, -8.4095178000],
+                '眉山': [103.8483960000, 30.0772800000],
+                '西岭雪山': [103.1729170000, 30.6144710000],
+                '三亚': [109.5119090000, 18.2528470000],
+                '康定': [101.9571450000, 29.9984350000],
+                '龙苍沟': [102.8442680000, 29.6926200000],
+                '巴黎': [2.3522219000, 48.8566140000],
+                '米兰': [9.1899820000, 45.4642035000],
+                '威尼斯': [12.3155151000, 45.4408474000],
+                '罗马': [12.4963655000, 41.9027835000],
+                '青城山': [103.5166667000, 30.9666667000],
+                '映秀': [103.4914630000, 31.0574880000],
+                '汶川': [103.5903860000, 31.4768220000],
+                '西安': [108.9397700000, 34.3415740000],
+                '香港': [114.1094970000, 22.3964280000],
+                '澳门': [113.5438730000, 22.1987450000],
+                '上海': [121.4737021000, 31.2303904000],
+                '南京': [118.7968770000, 32.0602550000],
+                '北京': [116.4073963000, 39.9041999000],
+                '长春': [125.3235440000, 43.8170710000],
+                '巴彦浩特': [105.6689990000, 38.8335070000],
+                '四姑娘山': [102.9019690000, 31.1104490000],
+                '武汉': [114.3052387810, 30.5927599029],
+                '泰山': [117.0907475635, 36.2698773695],
+                '若尔盖草原': [102.4982306617, 33.3524545731],
+                '杭州': [120.2099483921, 30.2458576754],
+                '临沂': [118.3264247699, 35.0652761401],
+                '绵阳': [104.7417237141, 31.4640314467],
+                '济南': [117.1200073354, 36.6512294720],
+                '重庆': [106.5504477149, 29.5637558135],
+                '合川': [106.2761257812, 29.9720848646],
+                '福州': [119.2963656153, 26.0742559397],
+                '泰安': [117.1290737812, 36.1949862369],
+                '扬州': [119.4210033352, 32.3931686010],
+                '新加坡': [103.8198360000, 1.3520830000],
+
+                '天津': [117.1993482089, 39.0850853357],
+                '哈尔滨': [126.5358247345, 45.8021755616],
+                '西双版纳': [100.7973891678, 22.0074942004],
+                '清莱': [99.8405760000, 19.9104798000],
+                '海口': [110.1982860000, 20.0444120000],
+            };
+
+            var convertData = function (data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var geoCoord = geoCoordMap[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value)
+                        });
+                    }
+                }
+                return res;
+            };
+
+            var myChart = echarts.init(document.getElementById('main'));
+
+            myChart.setOption({
+                title: {
+                    text: '足迹',
+                    {#subtext: 'data from PM25.in',#}
+                    {#sublink: 'http://www.pm25.in',#}
+                    left: 'center',
+                    textStyle: {
+                        color: '#000'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}',
+                },
+                leaflet: {
+                    center: [80, 30],
+                    zoom: 3,
+                    roam: true,
+                    layerControl: {
+                        position: 'topright'
+                    },
+                    tiles: [{
+                        label: '天地图',
+                        urlTemplate: 'http://t2.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}',
+                        options: {
+                            attribution: 'tianditu.com'
+                        }
+                    }, {
+                        label: 'Open Street Map',
+                        urlTemplate: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                        options: {
+                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+                        }
+                    }]
+                },
+                series: [{
+                    name: 'pm2.5',
+                    type: 'scatter',
+                    coordinateSystem: 'leaflet',
+                    data: convertData(data),
+                    symbolSize: function (val) {
+                        return val[2] / 10;
+                    },
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: false,
+                            color: '#000'
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#ddb926'
+                        }
+                    }
+                },
+                    {
+                        name: 'Top 5',
+                        type: 'effectScatter',
+                        coordinateSystem: 'leaflet',
+                        data: convertData(data.sort(function (a, b) {
+                            return b.value - a.value;
+                        }).slice(0, 11)),
+                        symbolSize: function (val) {
+                            return val[2] / 10;
+                        },
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'right',
+                                show: true,
+                                color: '#000'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#f4e925',
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                            }
+                        },
+                        zlevel: 1
+                    }
+                ]
+            });
+
+            // https://developer.mozilla.org/en-US/docs/Web/Events/resize
+            (function () {
+                var throttle = function (type, name, obj) {
+                    obj = obj || window;
+                    var running = false;
+                    var func = function () {
+                        if (running) {
+                            return;
+                        }
+                        running = true;
+                        requestAnimationFrame(function () {
+                            obj.dispatchEvent(new CustomEvent(name));
+                            running = false;
+                        });
+                    };
+                    obj.addEventListener(type, func);
+                };
+
+                /* init - you can init any event */
+                throttle("resize", "optimizedResize");
+            })();
+
+            // handle event
+            window.addEventListener("optimizedResize", function () {
+                myChart.resize({
+                    width: 'auto',
+                    height: 'auto'
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

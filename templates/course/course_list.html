@@ -4,11 +4,10 @@
 {% load coursetags %}
 {% block title %}教程{% endblock %}
 {% block content %}
-
     <div class="layui-row layui-card">
-{#        <br/>#}
+        {#        <br/>#}
         {% for course in courses %}
-            <div class="layui-col-md4" style="text-align: center;">
+            <div class="layui-col-md4" id="course">
                 <br/>
                 <a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
                     {% if course.avatar_thumbnail %}
@@ -31,6 +30,16 @@
         {% endfor %}
     </div>
     <style>
+        #course {
+            text-align: center;
+        }
+
+        #course:hover {
+            -moz-box-shadow: 1px 1px 2px #333333;
+            -webkit-box-shadow: 1px 1px 2px #333333;
+            box-shadow: 1px 1px 2px #333333;
+        }
+
         #course_title {
             color: black;
         }

@@ -20,17 +20,15 @@ def comments_notification_mark_all_as_read(request):
     return render(request, 'notifications/my_notification.html', {'unread_notify': unread_notify})
 
 
-def comments_notification_mark_as_read(request, article_id, is_readbook=False, is_album=False):
+def comments_notification_mark_as_read(request, article_id, notify_id, is_readbook=False, is_album=False):
     if is_album:
         article = Album.objects.get(id=article_id)
-        request.user.notifications.filter(target_object_id=article_id, description='album').mark_all_as_read()
 
     elif is_readbook:
         article = ReadBook.objects.get(id=article_id)
-        request.user.notifications.filter(target_object_id=article_id, description='readbook').mark_all_as_read()
 
     else:
         article = ArticlesPost.objects.get(id=article_id)
-        request.user.notifications.filter(target_object_id=article_id, description='article').mark_all_as_read()
 
+    request.user.notifications.get(id=notify_id).mark_as_read()
     return redirect(article)

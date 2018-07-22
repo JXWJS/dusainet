@@ -1,0 +1,28 @@
+
+{% if is_paginated %}
+    <div class="pagination" style="text-align: center">
+        {% if first %}
+            <a href="?page=1" class="layui-btn layui-btn-primary layui-btn-sm">1</a>
+        {% endif %}
+        {% if left %}
+            {% if left_has_more %}
+                <span>...</span>
+            {% endif %}
+            {% for i in left %}
+                <a href="?page={{ i }}" class="layui-btn layui-btn-primary layui-btn-sm">{{ i }}</a>
+            {% endfor %}
+        {% endif %}
+        <a href="?page={{ page_obj.number }}" class="layui-btn layui-btn">{{ page_obj.number }}</a>
+        {% if right %}
+            {% for i in right %}
+                <a href="?page={{ i }}" class="layui-btn layui-btn-primary layui-btn-sm">{{ i }}</a>
+            {% endfor %}
+            {% if right_has_more %}
+                <span>...</span>
+            {% endif %}
+        {% endif %}
+        {% if last %}
+            <a href="?page={{ paginator.num_pages }}" class="layui-btn layui-btn-primary layui-btn-sm">{{ paginator.num_pages }}</a>
+        {% endif %}
+    </div>
+{% endif %}
