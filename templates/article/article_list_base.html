@@ -9,16 +9,16 @@
             <p class="layui-text" style="color: #8D8D8D;">
                 {#                    栏目#}
                 {% if article.column.title == '编程' %}
-                    <a href="{% url 'article:article_list_by_column' 1 %}"
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
                        class="layui-btn layui-btn-xs">{{ article.column }} </a>
                 {% elif article.column.title == '摄影' %}
-                    <a href="{% url 'article:article_list_by_column' 2 %}"
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
                        class="layui-btn layui-btn-warm layui-btn-xs">{{ article.column }} </a>
                 {% elif article.column.title == '光学' %}
-                    <a href="{% url 'article:article_list_by_column' 4 %}"
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
                        class="layui-btn layui-btn-normal layui-btn-xs">{{ article.column }} </a>
                 {% elif article.column.title == '闲聊' %}
-                    <a href="{% url 'article:article_list_by_column' 3 %}"
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
                        class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
                 {% endif %}
 
@@ -27,6 +27,7 @@
                     <a class="layui-bg-gray"
                        href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
                 {% endfor %}
+
             <h2><a href="{{ article.get_absolute_url }}" style="font-weight: bold">{{ article.title }}</a></h2>
             <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'100' }}</p>
             <p class="layui-text"><i class="layui-icon layui-icon-read"
