@@ -8,7 +8,7 @@
     <br/>
     <div>
         <div class="">
-            <h1 style="font-size: xx-large; font-weight: bold; line-height: 110%">{{ article.title }}</h1>
+            <h1 style="color: black;font-size: xx-large; font-weight: bold; line-height: 110%">{{ article.title }}</h1>
             <br/>
             <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.comments.count }}评论 ·
                 于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
@@ -73,7 +73,7 @@
         <ul>
             {% recursetree comments %}
                 <hr/>
-                <li class="layui-text">
+                <li class="layui-text" id="F{{ node.id }}">
                     <div>{{ node.user }}
                         {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>

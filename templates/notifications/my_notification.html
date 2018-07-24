@@ -9,7 +9,7 @@
         {% for unread in unread_notify %}
             {% if unread.description == 'album' %}
                 <p id="green">
-                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 1 %}"
+                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 1 %}#F{{ unread.target.id }}"
                        target="_blank"><span
                             style="color: #5897fb;">{{ unread.actor }}</span>
                         {% if unread.actor.is_superuser %}
@@ -22,7 +22,7 @@
                 </p>
             {% elif unread.description == 'article' %}
                 <p>
-                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 0 %}"
+                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 0 %}#F{{ unread.action_object.id }}"
                        target="_blank"><span
                             style="color: #5897fb;">{{ unread.actor }}</span>
                         {% if unread.actor.is_superuser %}
@@ -36,7 +36,7 @@
                 </p>
             {% elif unread.description == 'readbook' %}
                 <p id="green">
-                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 1 0 %}"
+                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 1 0 %}#F{{ unread.action_object.id }}"
                        target="_blank"><span
                             style="color: #5897fb;">{{ unread.actor }}</span>
                         {% if unread.actor.is_superuser %}

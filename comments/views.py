@@ -34,13 +34,13 @@ def post_comment(request, article_id, node_id=False):
                 # 对不是superuser的二级评论发送通知
                 if not comment.user.is_superuser:
                     notify.send(request.user, recipient=comment.user, verb='回复了你', target=article,
-                                description='article')
+                                description='article', action_object=new_comment)
             else:
                 new_comment.reply_to = None
             new_comment.save()
             # 给superuser发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
-                        description='article')
+                        description='article', action_object=new_comment)
             return redirect(article)
 
         else:
@@ -79,14 +79,14 @@ def read_book_post_comment(request, article_id, node_id=False):
                 # 对不是superuser的二级评论发送通知
                 if not comment.user.is_superuser:
                     notify.send(request.user, recipient=comment.user, verb='回复了你', target=article,
-                                description='readbook')
+                                description='readbook', action_object=new_comment)
             else:
                 new_comment.reply_to = None
             new_comment.save()
 
             # 发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
-                        description='readbook')
+                        description='readbook', action_object=new_comment)
 
             return redirect(article)
         else:
@@ -124,12 +124,12 @@ def album_comment(request, photo_id, reply_to=None):
                 # 对不是superuser的二级评论发送通知
                 if not comment.user.is_superuser:
                     notify.send(request.user, recipient=comment.user, verb='回复了你', target=photo,
-                                description='album')
+                                description='album', action_object=new_comment)
             new_comment.save()
 
             # 发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=photo,
-                        description='album')
+                        description='album', action_object=new_comment)
 
             return redirect(reverse('album:album_list'))
         else:

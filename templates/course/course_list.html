@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_with_rslider.html' %}
 {% load staticfiles %}
 {% load mptt_tags %}
 {% load coursetags %}
@@ -9,13 +9,14 @@
         {% for course in courses %}
             <div class="layui-col-md4" id="course">
                 <br/>
-                <a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
-                    {% if course.avatar_thumbnail %}
-                        <div>
-                            <img src="{{ course.avatar_thumbnail.url }}" style="box-shadow: 1px 1px 3px black;">
-                        </div>
-                    {% endif %}
-                    <h2>{{ course.title }}</h2></a>
+                {% if course.avatar_thumbnail %}
+                    <div>
+                        <a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
+                            <img src="{{ course.avatar_thumbnail.url }}" style="box-shadow: 1px 1px 3px black;"></a>
+                    </div>
+                {% endif %}
+                <h2><a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
+                    {{ course.title }}</a></h2>
                 <p>
                     <span style="color: #5897fb;">{% course_total_views course.id %}阅读 {% course_total_articles course.id %}篇文章</span>
                     {% if course.is_finished %}
@@ -32,12 +33,6 @@
     <style>
         #course {
             text-align: center;
-        }
-
-        #course:hover {
-            -moz-box-shadow: 1px 1px 2px #333333;
-            -webkit-box-shadow: 1px 1px 2px #333333;
-            box-shadow: 1px 1px 2px #333333;
         }
 
         #course_title {

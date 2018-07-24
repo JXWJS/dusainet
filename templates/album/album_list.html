@@ -8,7 +8,7 @@
         {% for image in album %}
 
             <div>
-                <div>
+                <div  id="F{{ image.id }}">
                     <img src="{{ image.image.url }}" style="max-width: 100%">
                 </div>
                 <table class="layui-table" lay-size="sm">

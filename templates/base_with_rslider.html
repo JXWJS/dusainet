@@ -17,7 +17,12 @@
     {% include "header.html" %}
     <div class="layui-container">
         <div class="layui-row">
+            <div class="layui-col-md9">
                 {% block content %}{% endblock %}
+            </div>
+            <div class="layui-col-md3">
+                {% include 'rightslider.html' %}
+            </div>
             {% include "footer.html" %}
         </div>
     </div>
