@@ -30,6 +30,7 @@ class ArticleMixin(PaginatorMixin):
         context.update(data)
         return context
 
+
 # 所有文章
 class ArticlePostView(ArticleMixin, ListView):
     pass
@@ -48,7 +49,6 @@ class ArticlePostByColumnView(ArticleMixin, ListView):
         context.update(data)
         return context
 
-
     def get_queryset(self):
         qs = super(ArticlePostByColumnView, self).get_queryset()
         return qs.filter(column=self.kwargs['column_id'])
@@ -56,16 +56,12 @@ class ArticlePostByColumnView(ArticleMixin, ListView):
 
 # 标签文章
 class ArticlePostByTagView(ArticleMixin, ListView):
-
-
-
     def get_queryset(self):
         qs = super(ArticlePostByTagView, self).get_queryset()
         return qs.filter(tags__name__in=[self.kwargs['tag_name']]).order_by('-total_views')
 
 
 class ArticlePostByMostViewedView(ArticleMixin, ListView):
-
     def get_context_data(self, **kwargs):
         context = super(ArticlePostByMostViewedView, self).get_context_data(**kwargs)
         if 'column_id' in self.kwargs:
@@ -91,14 +87,15 @@ def article_detail(request, article_id):
     article.total_views = article.total_views
     article.increase_views()
 
-
     # 评论
     comment_form = CommentForm()
 
     # 取出教程中前一条和后一条文章
     if article.course:
-        next_article = ArticlesPost.objects.filter(course_sequence__gt=article.course_sequence).order_by('course_sequence')
-        pre_article = ArticlesPost.objects.filter(course_sequence__lt=article.course_sequence).order_by('-course_sequence')
+        next_article = ArticlesPost.objects.filter(course_sequence__gt=article.course_sequence).order_by(
+            'course_sequence')
+        pre_article = ArticlesPost.objects.filter(course_sequence__lt=article.course_sequence).order_by(
+            '-course_sequence')
         if pre_article.count() > 0:
             pre_article = pre_article[0]
         else:

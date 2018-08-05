@@ -1,5 +1,5 @@
-<div class="layui-col-md2">
-    <li STYLE="font-size: large">教程目录</li>
+<div class="layui-col-md3">
+    <li STYLE="font-size: large">{{ article.course.title }}</li>
     <hr>
     {% for article_c in course_articles %}
         {% if article_c.id == article.id %}
@@ -9,6 +9,6 @@
             <li><a href="{{ article_c.get_absolute_url }}" style="color: #01a252;">{{ article_c.title }}</a></li>
 
         {% endif %}
-        <hr/>
+{#        <hr/>#}
     {% endfor %}
 </div>

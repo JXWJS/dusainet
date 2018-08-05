@@ -162,7 +162,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
 
 # Email setting
 # SMTP服务器，我使用的是sendclound的服务
