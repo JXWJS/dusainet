@@ -27,6 +27,17 @@
         </div>
     </div>
 </div>
-</body>
+<script>
+    layui.use('util', function () {
+        var util = layui.util;
 
+        //执行
+        util.fixbar({
+            click: function (type) {
+                console.log(type);
+            }
+        });
+    });
+</script>
+</body>
 </html>

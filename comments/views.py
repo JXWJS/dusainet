@@ -34,7 +34,7 @@ def post_comment(request, article_id, node_id=False):
                 new_comment.save()
                 # 对不是superuser的二级评论发送通知
                 if not comment.user.is_superuser:
-                    notify.send(request.user, recipient=comment.user, verb='回复了你哦', target=article,
+                    notify.send(request.user, recipient=comment.user, verb='回复了你', target=article,
                                 description='article', action_object=new_comment)
             else:
                 new_comment.reply_to = None
@@ -77,13 +77,14 @@ def read_book_post_comment(request, article_id, node_id=False):
             if node_id:
                 new_comment.parent_id = comment.get_root().id
                 new_comment.reply_to = comment.user
+                new_comment.save()
                 # 对不是superuser的二级评论发送通知
                 if not comment.user.is_superuser:
                     notify.send(request.user, recipient=comment.user, verb='回复了你', target=article,
                                 description='readbook', action_object=new_comment)
             else:
                 new_comment.reply_to = None
-            new_comment.save()
+                new_comment.save()
 
             # 发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,

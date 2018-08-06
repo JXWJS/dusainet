@@ -95,36 +95,55 @@
     <div>
         <ul>
             {% recursetree comments %}
-                <hr/>
-                <li class="layui-text" id="F{{ node.id }}">
-                    <div>{{ node.user }}
+                <div class="layui-row">
+                    <hr/>
+                    <div class="layui-col-md1 layui-text" id="F{{ node.id }}">
+                        <div style="text-align: center">
+                            {% if node.user.socialaccount_set.all.0.get_avatar_url %}
+                                {% if node.reply_to %}
+                                    <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
+                                         style="max-height: 40px; border-radius: 20%">
+                                {% else %}
+                                    <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
+                                         style="max-height: 60px; border-radius: 20%">
+                                {% endif %}
+                            {% else %}
+                                {% if node.reply_to %}
+                                    <img src="{% static 'default_avatar.jpg' %}"
+                                         style="max-height: 40px; border-radius: 20%">
+                                {% else %}
+                                    <img src="{% static 'default_avatar.jpg' %}"
+                                         style="max-height: 60px; border-radius: 20%">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="layui-col-md11">
+                        {{ node.user }}
                         {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>
                         {% elif node.user.is_staff %}
                             <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
                         {% if node.reply_to %}
-                            <i class="layui-icon layui-icon-reply-fill"></i> {{ node.reply_to }}
+                            <i class="layui-icon layui-icon-next"></i> {{ node.reply_to }}
                             {% if node.reply_to.is_superuser %}
                                 <i style="color: #ff5500;">[博主]</i>
                             {% elif node.user.is_staff %}
                                 <i style="color: #5897fb;">[管理员]</i>
                             {% endif %}
                         {% endif %}
+                        <div style="font-size: 1.1em; color: black;">{{ node.body }}</div>
+                        <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
+                            <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id %}"
+                               style="color: #01a252">回复</a></p></div>
+                        {% if not node.is_leaf_node %}
+                            <ul class="children">
+                                {{ children }}
+                            </ul>
+                        {% endif %}
                     </div>
-                </li>
-                <li>
-                    <div style="font-size: large">{{ node.body }}</div>
-
-                    <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
-                        <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id %}"
-                           style="color: #01a252">回复</a></p></div>
-                    {% if not node.is_leaf_node %}
-                        <ul class="children layui-col-md-offset1">
-                            {{ children }}
-                        </ul>
-                    {% endif %}
-                </li>
+                </div>
             {% endrecursetree %}
         </ul>
     </div>
@@ -154,7 +173,7 @@
             type: 1,
             title: '文章目录',
             shade: 0,
-            offset: 'rb',
+            offset: 'lb',
             maxmin: true,
             moveOut: true,
             {#area: ['300px', '500px'],#}
