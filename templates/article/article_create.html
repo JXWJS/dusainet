@@ -5,15 +5,14 @@
     {# Markdown css #}
     <link rel="stylesheet" href="{% static 'editormd/css/editormd.css' %}">
     <div class="layui-card layui-card-body">
-        <form class="layui-form" action="." method="post" lay-filter="editform">{% csrf_token %}
+        <form class="layui-form" action="." method="post">{% csrf_token %}
             <div class="layui-form-item">
                 <label class="layui-form-label">文章标题</label>
                 <div class="layui-input-block">
                     <input type="text" name="title" required placeholder="请输入标题" autocomplete="off"
-                           class="layui-input" lay-filter="title">
+                           class="layui-input">
                 </div>
             </div>
-
             <div class="layui-form-item">
                 <label class="layui-form-label">栏目</label>
                 <div class="layui-input-inline">
@@ -30,14 +29,14 @@
                 <label class="layui-form-label">教程ID</label>
                 <div class="layui-input-inline">
                     <input type="text" name="course" placeholder="教程ID" autocomplete="off"
-                           class="layui-input" lay-filter="course">
+                           class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">教程序号</label>
                 <div class="layui-input-inline">
                     <input type="text" name="course_sequence" placeholder="教程序号" autocomplete="off"
-                           class="layui-input" lay-filter="course_sequence">
+                           class="layui-input">
                 </div>
             </div>
 
@@ -45,26 +44,25 @@
                 <label class="layui-form-label">标签</label>
                 <div class="layui-input-inline">
                     <input type="text" name="tags" placeholder="标签" autocomplete="off"
-                           class="layui-input" lay-filter="tags">
+                           class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">内容</label>
                 <div id="editormd" class="layui-input-block">
-                    <textarea style="display: none;" id="id_body" name="body" required lay-fileter="body"></textarea>
+                    <textarea style="display: none;" id="id_body" name="body" required></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">特色图片</label>
                 <div class="layui-input-block">
                     <input type="text" name="url" placeholder="请输入url" autocomplete="off"
-                           class="layui-input" lay-filter="url">
+                           class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <input type="submit" value="提交" class="layui-btn" lay-filter="forms">
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <input type="submit" value="提交" class="layui-btn">
                 </div>
             </div>
         </form>

@@ -1,16 +1,26 @@
 {% load staticfiles %}
 {% load notifications_tags %}
 
-<ul class="layui-nav" style="padding: 0 10%;">
-    <li class="layui-nav-item "><a href="/admin/" style="font-size: large;">杜赛的个人网站</a></li>
-    <li class="layui-nav-item "><a href="{% url 'article:article_list' %}">文章</a></li>
-    <li class="layui-nav-item "><a href="{% url 'course:course_list' %}">教程</a></li>
-    <li class="layui-nav-item "><a href="{% url 'readbook:book_list' %}">读书</a></li>
-    <li class="layui-nav-item "><a href="{% url 'album:album_list' %}">照片墙</a></li>
-    <li class="layui-nav-item "><a href="{% url 'aboutme:footpoint' %}">足迹</a></li>
-    <li class="layui-nav-item "><a href="{% url 'aboutme:me' %}">关于</a></li>
+<ul class="layui-nav">
+    <li class="layui-nav-item "><a href="/admin/" style="font-size: 1.2em;">杜赛的个人网站</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'article:article_list' %}">文章</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'course:course_list' %}">教程</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'readbook:book_list' %}">读书</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'album:album_list' %}">照片墙</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'aboutme:footpoint' %}">足迹</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'aboutme:me' %}">关于</a></li>
 
-
+    <li class="layui-nav-item layui-hide-sm" style="float: right">
+        <a href="javascript:"><i class="layui-icon layui-icon-spread-left"></i></a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="{% url 'article:article_list' %}">文章</a></dd>
+            <dd><a href="{% url 'course:course_list' %}">教程</a></dd>
+            <dd><a href="{% url 'readbook:book_list' %}">读书</a></dd>
+            <dd><a href="{% url 'album:album_list' %}">照片墙</a></dd>
+            <dd><a href="{% url 'aboutme:footpoint' %}">足迹</a></dd>
+            <dd><a href="{% url 'aboutme:me' %}">关于</a></dd>
+        </dl>
+    </li>
 
 
     {% if user.is_authenticated %}
@@ -43,12 +53,16 @@
     {% else %}
         <li class="layui-nav-item " style="float: right;"><a href="/accounts/login">登录</a></li>
     {% endif %}
-    <li style="float: right; margin: 12px 20px;">
+    <li style="float: right; margin: 12px 20px;" class="layui-hide-xs layui-hide-sm  layui-show-md-inline-block">
         <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
             <input style=" background-color: #dddddd" type="search" name="q" placeholder="搜索文章.." required
                    class="layui-input">
         </form>
     </li>
+    <li class="layui-nav-item layui-hide-md" style="float: right"><a href="javascript:" onclick="mobile_search()"><i
+            class="layui-icon layui-icon-search" style="font-weight: bold"></i></a></li>
+
+
 </ul>
 
 
@@ -61,4 +75,20 @@
 
         //…
     });
+
+    function mobile_search() {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+
+            layer.open({
+                title: '搜索',
+                type: 1,
+                content: '<form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">\n' +
+                '<input style=" background-color: #dddddd" type="search" name="q" placeholder="搜索文章.." required\n' +
+                'class="layui-input">\n' +
+                '</form>' //这里content是一个普通的String
+            });
+        });
+    }
+
 </script>

@@ -12,9 +12,9 @@
             <br/>
             <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.comments.count }}评论 ·
                 于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
-                {% if user.is_superuser %}
-                    <a href="{% url 'article:article_update' article.pk %}">编辑</a></p>
-                {% endif %}
+{#                {% if user.is_superuser %}#}
+{#                    <a href="{% url 'article:article_update' article.pk %}">编辑</a></p>#}
+{#                {% endif %}#}
         </div>
         <div id="editormd-view" class="layui-container">
         <textarea id="append-test" style="display: none;">
@@ -74,28 +74,28 @@
             {% recursetree comments %}
                 <div class="layui-row">
                     <hr/>
-                    <div class="layui-col-md1 layui-text" id="F{{ node.id }}">
+                    <div class="layui-col-xs2 layui-col-sm1" id="F{{ node.id }}">
                         <div style="text-align: center">
                             {% if node.user.socialaccount_set.all.0.get_avatar_url %}
                                 {% if node.reply_to %}
                                     <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
-                                         style="max-height: 40px; border-radius: 20%">
+                                         style="width: 60%; border-radius: 20%">
                                 {% else %}
                                     <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
-                                         style="max-height: 60px; border-radius: 20%">
+                                         style="width: 80%; border-radius: 20%">
                                 {% endif %}
                             {% else %}
                                 {% if node.reply_to %}
                                     <img src="{% static 'default_avatar.jpg' %}"
-                                         style="max-height: 40px; border-radius: 20%">
+                                         style="width: 60%; border-radius: 20%">
                                 {% else %}
                                     <img src="{% static 'default_avatar.jpg' %}"
-                                         style="max-height: 60px; border-radius: 20%">
+                                         style="width: 80%; border-radius: 20%">
                                 {% endif %}
                             {% endif %}
                         </div>
                     </div>
-                    <div class="layui-col-md11">
+                    <div class="layui-col-xs10 layui-col-sm11">
                         {{ node.user }}
                         {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>
