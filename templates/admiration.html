@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}赞赏{% endblock %}
+{% block content %}
+    <div class="layui-container layui-row layui-card">
+        <div class="layui-text">
+            <div class="layui-card-header">小额赞赏
+                <i class="layui-icon layui-icon-tips"
+                   style="position: relative; top: 4px; left: 10px; color: #999; font-size: 20px; cursor: pointer;"
+                   id="LAY_tips">
+
+                </i></div>
+
+            <div class="layui-card-body">
+                <blockquote class="layui-elem-quote" style="margin-top: 10px;">
+                    感谢你的鼓励，我会继续努力
+                </blockquote>
+                <br/>
+                <div style="text-align: center" class="layui-col-sm6">
+                    <h3>微信赞赏码</h3>
+                    <img src="{% static 'zanshangma.jpeg' %}" style="max-width: 300px">
+                </div>
+                <br class="layui-hide-sm">
+                <div style="text-align: center" class="layui-col-sm6">
+                    <h3>支付宝赞赏码</h3>
+                    <img src="{% static 'zhifubao.jpeg' %}" style="max-width: 300px">
+                </div>
+                <div>&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.use(['table'], function () {
+            var layer = layui.layer;
+            layui.$('#LAY_tips').on('mouseenter', function () {
+                this.index = layer.tips('这或许无法给我带来多大的物质支撑<br>' +
+                    '却是一种有爱的表达方式<br>' +
+                    '让我明白不是一个人在战斗<br>' +
+                    '<p style="text-align:right;">—— 博主</p>', this, {
+                    time: -1,
+                    maxWidth: 280,
+                    tips: [3, '#3A3D49']
+                });
+            }).on('mouseleave', function () {
+                layer.close(this.index);
+            });
+        });
+    </script>
+{% endblock %}

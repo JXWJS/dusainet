@@ -3,51 +3,221 @@
 {% load mptt_tags %}
 {% block title %}关于{% endblock %}
 {% block content %}
-    <p>不想写代码的光学工程师不是一个好摄影师。</p>
+    <link rel="stylesheet" type="text/css" href="{% static 'csshake/csshake.css' %}">
+    <div class="layui-card" style="text-align: center">
+        <br/>
+        <br/>
+        <br/>
+        <h1 class="">不想当<span class="shake-little shake-constant" style="color: green;">程序猿</span>的<span
+                class="shake-little shake-constant" style="color: blue;">光学设计师</span>不是一个好<span
+                class="shake-little shake-constant" style="color: darkgoldenrod;">摄影师</span>！</h1>
+        <br/>
+        <br/>
+        <br/>
 
-    <p>去过的地方就那么几个，也敢称自己热爱旅行。</p>
-    <link rel="stylesheet" href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"/>
-    <div id='main' style="width: 100%; height: 600px"></div>
+        <h3>带着妹子走过一些城市<br>看过山河风景</h3>
+        <br/>
+        <link rel="stylesheet" href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"/>
+        <div id='main' style="width: 100%; height: 600px"></div>
+        <br/>
+        <hr>
+        <br/>
+        <h3>野路子自学编程、摄影<br>也敢在博客上大放厥词、瞎写教程<br><a href="{% url 'course:course_list' %}" target="_blank"
+                                                style="color: #5897fb;">
+            <i class="layui-icon layui-icon-next"></i>坑爹教程在此</a></h3>
+        <br>
+        <hr/>
+        <br>
 
-    <p>自学编程不到1年，也敢在个人网站上写教程。link here</p>
-    <p>摄影比赛从来没参加过，也敢说自己精通摄影。pic here</p>
-    <p>设计过的镜头没几个，也敢称自己是搞光学的。 pic here</p>
-    <p>感谢你的小小停留</p>
-    <p>会有小小收获</p>
-    <p>那便是我存在的意义。</p>
-    <p>也感谢你的赞赏，鼓励我写出高质量的文章:</p>
-    <p>Pic here</p>
+        <h3>设计过的镜头没几个<br>
+            自称光学设计师混饭吃</h3>
+        <br/>
+        <div id="lens">
+            <img src="{% static 'img/optic1.jpg' %}" style="max-width: 30%">
+            <img src="{% static 'img/optic2.jpg' %}" style="max-width: 30%">
+        </div>
+        <hr/>
+        <br>
 
-    <p>如果需要联系我，点击这里:</p>
+        <h2>感谢你的小小停留</h2>
+        <h2>愿你有小小收获</h2>
+        <h2>那便是ta存在的意义</h2>
+        <br>
 
-    <p>如果喜欢我的摄影文章，可以关注我的今日头条或者微信公众号 pic here</p>
+        <hr/>
 
-    <p>如果时间允许，可能会写光学、编程的专栏，就以后再说吧。</p>
+        <h3 class="layui-elem-quote">遇到问题、赞助推广，请点击这里: <a href="mailto:dusaiphoto@foxmail.com" style="color: #5897fb;">发邮件给博主</a>
+            <br>或扫二维码加我的个人微信：
+        </h3>
+        <div>
+            <img src="{% static 'img/wechat.jpg' %}" style="max-width: 200px">
+        </div>
+        <br>
 
-    <h2>我的技术栈</h2>
-    <h3>光学设计</h3>
-    <p>Code V</p>
-    <p>SolidWorks</p>
-    <p>Zemax(学习中)</p>
-    <p>Light Tools(学习中)</p>
-    <br/>
-    <h3>编程</h3>
-    <p>Python + Django</p>
-    <p>Html + CSS + JavaScript (懂一点点)</p>
-    <p>C#(学习中)</p>
-    <p>Unity(学习中)</p>
-    <p>Swift(学习中)</p>
-    <p>Vue.js(感兴趣，准备学习)</p>
-    <p>微信小程序(感兴趣，准备学习；有一个自己的小程序"轻松查单词")</p>
-    <br/>
-    <h3>爱好</h3>
-    <p>摄影</p>
-    <p>Enlight</p>
-    <p>PhotoShop</p>
-    <p>钢琴(还记得一点)</p>
-    <p>吉他(曾经会过)</p>
-    <p>硬要说我有什么优点，那就是耐得住寂寞了。不管是光学、编程、摄影还是乐器，学到深处都是无边的寂寞。我居然觉得都挺好玩的，真是绝了。</p>
+        <hr/>
 
+        <h3 class="layui-elem-quote">如果喜欢我的摄影文章<br>
+            可以关注我的摄影微信公众号或者今日头条号</h3>
+        <img src="{% static 'img/dingyuehao.jpeg' %}" style="max-width: 200px">
+        <img src="{% static 'img/toutiaohao.jpeg' %}" style="max-width: 200px">
+
+
+        <h3>如果时间允许<br>可能会写光学、编程的专栏<br>小期待一下。</h3>
+        <hr class="layui-bg-orange">
+        <br/>
+        <br/>
+
+        <h1>我的技术栈</h1>
+        <br/>
+        <h2 style="color: blue"><光学设计></h2>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150px">
+                <col width="150px">
+                <col width="150px">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th style="text-align: center">技能</th>
+                <th style="text-align: center">类别</th>
+                <th style="text-align: center">技能开启时间</th>
+                <th style="text-align: center">目前状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Code V</td>
+                <td>光学设计</td>
+                <td>2014.11</td>
+                <td>可见光长焦距镜头设计；材料匹配的无热化设计；<a href="#lens" style="color: #5897fb">我设计的第一个镜头</a></td>
+            </tr>
+            <tr>
+                <td>SolidWorks</td>
+                <td>光机结构设计</td>
+                <td>2014.11</td>
+                <td>光学系统相关的结构设计；静力、热力结合的有限元分析</td>
+            </tr>
+            <tr>
+                <td>Zemax</td>
+                <td>光学设计</td>
+                <td>准备学习</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Light Tools</td>
+                <td>光学仿真</td>
+                <td>准备学习</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        <h2 style="color: green"><编程></h2>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150px">
+                <col width="150px">
+                <col width="150px">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th style="text-align: center">技能</th>
+                <th style="text-align: center">类别</th>
+                <th style="text-align: center">技能开启时间</th>
+                <th style="text-align: center">目前状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Python + Django</td>
+                <td>Web开发</td>
+                <td>2017.10</td>
+                <td>博客开发：<a href="{% url 'article:article_list' %}" style="color: #5897fb" target="_blank">杜赛的个人网站</a></td>
+            </tr>
+            <tr>
+                <td>Html + CSS + JavaScript</td>
+                <td>前端</td>
+                <td>2018.01</td>
+                <td>编写基本的静态页面、布局</td>
+            </tr>
+            <tr>
+                <td>C#</td>
+                <td>应用开发</td>
+                <td>学习中..</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Unity3d</td>
+                <td>游戏开发</td>
+                <td>学习中..</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Swift</td>
+                <td>app开发</td>
+                <td>学习中..</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Vue.js</td>
+                <td>前端</td>
+                <td>准备学习</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>微信小程序</td>
+                <td>微信开发</td>
+                <td>准备学习</td>
+                <td>跟着教程写了一个小程序"轻松查单词"（微信里搜索可见）</td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+
+        <h2 style="color: darkgoldenrod"><爱好></h2>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150px">
+                <col width="150px">
+                <col width="150px">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th style="text-align: center">技能</th>
+                <th style="text-align: center">类别</th>
+                <th style="text-align: center">技能开启时间</th>
+                <th style="text-align: center">目前状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>摄影 + Enlight + PhotoShop CC</td>
+                <td>摄影</td>
+                <td>2013.05</td>
+                <td>查看我的作品：<a href="{% url 'album:album_list' %}" style="color: #5897fb" target="_blank">照片墙</a></td>
+            </tr>
+            <tr>
+                <td>钢琴</td>
+                <td>音乐</td>
+                <td>2012.08</td>
+                <td>半搁浅状态，偶尔练一练。听一听我弹奏的曲目吧：
+                    <a href="https://v.youku.com/v_show/id_XNzgwNTM0ODA0.html?spm=a2h3j.8428770.3416059.1" style="color: #5897fb" target="_blank">《植物大战僵尸》</a></td>
+            </tr>
+            <tr>
+                <td>吉他</td>
+                <td>音乐</td>
+                <td>2007.09</td>
+                <td>曾经会过：<a href="https://v.youku.com/v_show/id_XMzc1MjAwMDA0.html?spm=a2h3j.8428770.3416059.1" style="color: #5897fb" target="_blank">《You are not alone》</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        <br/>
+        <br/>
+    </div>
     <script src="{% static 'echarts/echarts.js' %}"></script>
     <script src="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.js' %}"></script>
     <script src="{% static 'echarts/extension/echarts-leaflet/dist/echarts-leaflet.js' %}"></script>
@@ -315,7 +485,7 @@
 
             myChart.setOption({
                 title: {
-                    text: '足迹',
+                    text: '我的足迹',
                     {#subtext: 'data from PM25.in',#}
                     {#sublink: 'http://www.pm25.in',#}
                     left: 'center',

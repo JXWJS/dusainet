@@ -27,6 +27,8 @@ import notifications.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', ArticlePostView.as_view(), name='home'),
+    path('admiration/', TemplateView.as_view(template_name='admiration.html'), name='admiration'),
+
     path('article/', include('article.urls', namespace='article')),
     url(r'comments/', include('comments.urls', namespace='comments')),
     path('album/', include('album.urls', namespace='album')),

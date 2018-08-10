@@ -8,7 +8,7 @@ from uuslug import slugify
 # Create your models here.
 class Album(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='album')
-    url = models.URLField()
+    url = models.URLField(blank=True)
     slug = models.SlugField(max_length=500, blank=True)
     # 需要展示的内容
     title = models.CharField(max_length=300)

@@ -1,14 +1,42 @@
-<div class="layui-col-md3">
-    <li STYLE="font-size: large">{{ article.course.title }}</li>
+<div class="layui-col-sm3 layui-hide-xs">
+    <li class="layui-text" style="font-weight: bold; font-size: large">{{ article.course.title }}</li>
     <hr>
     {% for article_c in course_articles %}
         {% if article_c.id == article.id %}
-            <li><a href="{{ article_c.get_absolute_url }}" style="color: #4f4f4f;">{{ article_c.title }}</a></li>
-
+            <li id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="font-weight: bold" class="layui-text">{{ article_c.title }}</a></li>
+            {#            <li class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container</li>#}
+            <div id="sidebar">
+                <div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container
+                </div>
+            </div>
         {% else %}
-            <li><a href="{{ article_c.get_absolute_url }}" style="color: #01a252;">{{ article_c.title }}</a></li>
-
+            <li id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="color: #01a252;">{{ article_c.title }}</a></li>
         {% endif %}
-{#        <hr/>#}
     {% endfor %}
 </div>
+<style>
+    #sidebar {
+
+        margin: -15px 0 -30px -15px;
+        border-top: 0;
+        border-bottom: 0;
+        padding-left: -10px;
+    }
+
+    #sidebar:hover {
+        overflow: auto;
+    }
+
+    #sidebar h1 {
+        font-size: 16px;
+    }
+
+    #custom-toc-container {
+        padding-left: 0;
+    }
+    
+    #top_layer {
+        z-index: 10;
+        position: relative;
+    }
+</style>

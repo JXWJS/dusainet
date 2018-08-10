@@ -7,8 +7,7 @@
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'course:course_list' %}">教程</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'readbook:book_list' %}">读书</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'album:album_list' %}">照片墙</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'aboutme:footpoint' %}">足迹</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'aboutme:me' %}">关于</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'aboutme:footpoint' %}">关于</a></li>
 
     <li class="layui-nav-item layui-hide-sm" style="float: right">
         <a href="javascript:"><i class="layui-icon layui-icon-spread-left"></i></a>
@@ -17,8 +16,7 @@
             <dd><a href="{% url 'course:course_list' %}">教程</a></dd>
             <dd><a href="{% url 'readbook:book_list' %}">读书</a></dd>
             <dd><a href="{% url 'album:album_list' %}">照片墙</a></dd>
-            <dd><a href="{% url 'aboutme:footpoint' %}">足迹</a></dd>
-            <dd><a href="{% url 'aboutme:me' %}">关于</a></dd>
+            <dd><a href="{% url 'aboutme:footpoint' %}">关于</a></dd>
         </dl>
     </li>
 
@@ -83,6 +81,7 @@
             layer.open({
                 title: '搜索',
                 type: 1,
+                shadeClose: true,
                 content: '<form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">\n' +
                 '<input style=" background-color: #dddddd" type="search" name="q" placeholder="搜索文章.." required\n' +
                 'class="layui-input">\n' +

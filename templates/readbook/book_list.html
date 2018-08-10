@@ -5,11 +5,13 @@
 {% block content %}
     <div class="layui-row layui-card layui-card-body">
         {% for article in articles %}
-            <div class="layui-col-md6" id="book_box">
+            <div class="layui-col-md6 layui-col-sm12 layui-col-xs12" id="book_box">
                 <a href="{% url 'readbook:book_detail' article.id %}">
-                    <img src="{{ article.avatar_thumbnail.url }}" class="layui-col-md3"
-                         style="margin: 10px; box-shadow: 1px 1px 3px black">
-                    <div class="layui-col-md4">
+                    <div class="layui-col-lg3 layui-col-md3 layui-col-sm3 layui-col-xs3" style="text-align: center;">
+                        <img src="{{ article.avatar_thumbnail.url }}"
+                             style="margin: 5%;margin-top: 12%; max-width: 80%; box-shadow: 1px 1px 3px black;">
+                    </div>
+                    <div class="layui-col-lg4 layui-col-md3 layui-col-sm4 layui-col-xs3">
                         {#                        <br/>#}
                         <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ article.title }}</h3>
                         {#                        <br/>#}
@@ -28,7 +30,7 @@
                         <p id="professionalism_{{ forloop.counter }}" hidden>{{ article.professionalism }}</p>
                         <p id="binding_quality_{{ forloop.counter }}" hidden>{{ article.binding_quality }}</p>
                     </div>
-                    <div class="layui-col-md5" id="echarts_book_{{ forloop.counter }}"
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-sm6 layui-col-xs7" id="echarts_book_{{ forloop.counter }}"
                          style="width:200px;height:200px"></div>
                 </a>
             </div>

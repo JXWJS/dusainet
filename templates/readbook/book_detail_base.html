@@ -15,10 +15,10 @@
 
         </div>
         <br/>
-        <div class="layui-col-md6" id="book_box">
-            <img src="{{ article.avatar_thumbnail.url }}" class="layui-col-md3"
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md8 layui-col-lg6" id="book_box">
+            <img src="{{ article.avatar_thumbnail.url }}" class="layui-col-sm3 layui-col-xs3"
                  style="margin: 10px; box-shadow: 1px 1px 3px black">
-            <div class="layui-col-md4">
+            <div class="layui-col-sm4 layui-col-xs4">
                 <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ article.title }}</h3>
                 <p><span>作者：</span>{{ article.author }}</p>
                 <p><span>页数：</span>{{ article.book_page }}</p>
@@ -35,7 +35,7 @@
                 <p id="professionalism" hidden>{{ article.professionalism }}</p>
                 <p id="binding_quality" hidden>{{ article.binding_quality }}</p>
             </div>
-            <div class="layui-col-md5" id="echarts_book"
+            <div class="layui-col-sm5 layui-col-xs5" id="echarts_book"
                  style="width:200px;height:200px"></div>
         </div>
         <hr/>
@@ -44,6 +44,12 @@
 {{ article.body }}
         </textarea>
         </div>
+    </div>
+    <br/>
+    <br/>
+    <div style="text-align: center">
+        <a href="/admiration/" target="_blank"
+           class="layui-btn layui-btn-warm layui-btn-sm layui-btn-radius">写的不错，朕要赏</a>
     </div>
     <br/>
     <br/>
@@ -60,65 +66,87 @@
     <hr/>
 
     {#    发表评论#}
-    <div>
-        <h2>共有{{ article.readbook_comments.count }}条评论</h2>
-        <br>
-        <form id="comment_form"
-              class="layui-form"
-              action="{% url 'comments:read_book_post_comment' article.id %}"
-              method="post">
-            {% csrf_token %}
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label" for="id_body">发表评论： </label>
-                <div class="layui-input-block">
+    {% if user.is_authenticated %}
+
+        <div>
+            <br>
+            <form id="comment_form"
+                  class="layui-form"
+                  action="{% url 'comments:read_book_post_comment' article.id %}"
+                  method="post">
+                {% csrf_token %}
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label" for="id_body">发表评论： </label>
+                    <div class="layui-input-block">
                                     <textarea rows="6"
                                               id="id_body" class="layui-textarea" name="body"
                                               placeholder="请输入评论内容"></textarea>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="submit_btn" type="submit"
-                            name="submit"><i class="layui-icon layui-icon-release"></i> 发布
-                    </button>
-                    <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-sm layui-btn-primary" id="submit_btn" type="submit"
+                                name="submit"><i class="layui-icon layui-icon-release"></i> 发布
+                        </button>
+                        <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    {% else %}
+        <br/>
+        <br/>
+        <div class="" style="text-align: center">
+            <div>
+                <div class="layui-text" style="font-size: large"><span>登录后回复:</span></div>
+                <div class="" style="margin-top: 10px">
+                        <span class="weibo mr-3">
+                            <a href="/accounts/weibo/login/">
+                                <i class="layui-icon layui-icon-login-weibo"
+                                   style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
+                            </a>
+                        </span>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    {% endif %}
 
     {#显示mptt层级评论#}
     <br/>
     <br/>
+    <br/>
+    <h2>共有{{ article.readbook_comments.count }}条评论</h2>
+
     <div>
         <ul>
             {% recursetree comments %}
                 <div class="layui-row">
                     <hr/>
-                    <div class="layui-col-md1 layui-text" id="F{{ node.id }}">
+                    <div class="layui-col-xs2 layui-col-sm1 layui-text" id="F{{ node.id }}">
                         <div style="text-align: center">
                             {% if node.user.socialaccount_set.all.0.get_avatar_url %}
                                 {% if node.reply_to %}
                                     <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
-                                         style="max-height: 40px; border-radius: 20%">
+                                         style="width: 60%; border-radius: 20%">
                                 {% else %}
                                     <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
-                                         style="max-height: 60px; border-radius: 20%">
+                                         style="width: 80%; border-radius: 20%">
                                 {% endif %}
                             {% else %}
                                 {% if node.reply_to %}
                                     <img src="{% static 'default_avatar.jpg' %}"
-                                         style="max-height: 40px; border-radius: 20%">
+                                         style="width: 60%; border-radius: 20%">
                                 {% else %}
                                     <img src="{% static 'default_avatar.jpg' %}"
-                                         style="max-height: 60px; border-radius: 20%">
+                                         style="width: 80%; border-radius: 20%">
                                 {% endif %}
                             {% endif %}
                         </div>
                     </div>
-                    <div class="layui-col-md11">
+                    <div class="layui-col-xs10 layui-col-sm11">
                         {{ node.user }}
                         {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>
@@ -166,38 +194,21 @@
 <script type="text/javascript">
     editormd.emoji.path = "http://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/"
 
-    {#先调用layer，然后回调生成toc并渲染为html#}
-    layui.use('layer', function () {
-        var layer = layui.layer;
-        layer.open({
-            type: 1,
-            title: '文章目录',
-            shade: 0,
-            offset: 'lb',
-            maxmin: true,
-            moveOut: true,
-            {#area: ['300px', '500px'],#}
-            content: '<div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container</div>',
-            {#layer后回调toc#}
-            success: function (layero, index) {
-                $(function () {
-                    editormd.markdownToHTML("editormd-view", {
-                        //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
-                        htmlDecode: "style,script,iframe",  // you can filter tags decode
-                        //toc             : false,
-                        tocm: true,    // Using [TOCM]
-                        tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
-                        //gfm             : false,
-                        //tocDropdown     : true,
-                        // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-                        emoji: true,
-                        taskList: true,
-                        tex: true,  // 默认不解析
-                        flowChart: true,  // 默认不解析
-                        sequenceDiagram: true,  // 默认不解析
-                    });
-                });
-            }
+    $(function () {
+        editormd.markdownToHTML("editormd-view", {
+            //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+            htmlDecode: "style,script,iframe",  // you can filter tags decode
+            //toc             : false,
+            tocm: true,    // Using [TOCM]
+            tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
+            //gfm             : false,
+            //tocDropdown     : true,
+            // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+            emoji: true,
+            taskList: true,
+            tex: true,  // 默认不解析
+            flowChart: true,  // 默认不解析
+            sequenceDiagram: true,  // 默认不解析
         });
     });
 
