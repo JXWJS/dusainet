@@ -48,6 +48,8 @@ urlpatterns = [
     # allauth
     path('accounts/', include('allauth.urls')),
 
+    path('account/weibo_login_success/', TemplateView.as_view(template_name='account/weibo_login_success.html')),
+
     # notifications
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]

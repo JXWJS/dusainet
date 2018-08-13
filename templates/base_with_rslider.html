@@ -10,9 +10,11 @@
     <meta name="format-detection" content="telephone=no">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'layui-v2.3.0/layui/css/layui.css' %}">
-    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mystyle.css' %}" CHARSET="UTF-8">
 </head>
 <body>
+<script src="{% static 'jquery.js' %}"></script>
+<script src="{% static 'layui-v2.3.0/layui/layui.js' %}"></script>
 <div class="layui-header">
     {% include "header.html" %}
     <div class="layui-container">

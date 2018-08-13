@@ -21,8 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open('secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+# with open('secret_key.txt') as f:
+#     SECRET_KEY = f.read().strip()
+SECRET_KEY = '0tlwp6joab$q=jma33dcpflt=zl!7ry^l%3f96tj5djez$opo$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -180,16 +181,18 @@ ACCOUNT_EMAIL_REQUIRED = False
 # Email setting
 # SMTP服务器，我使用的是sendclound的服务
 EMAIL_HOST = 'mtp.qq.com'
-EMAIL_HOST_USER = '474377974@qq.com'
-with open('email_host_password.txt') as f:
-    EMAIL_HOST_PASSWORD = f.read().strip()
-EMAIL_PORT = 25
+EMAIL_HOST_USER = 'dusaiphoto@foxmail.com'
+# with open('email_host_password.txt') as f:
+#     EMAIL_HOST_PASSWORD = f.read().strip()
+EMAIL_HOST_PASSWORD = 'a131930765'
+EMAIL_PORT = 465
 
 # 是否使用了SSL 或者TLS
 # EMAIL_USE_SSL = True
 EMAIL_USE_TLS = True
 # 默认发件人，不设置的话django默认使用的webmaster@localhost
-DEFAULT_FROM_EMAIL = '474377974@qq.com'
+DEFAULT_FROM_EMAIL = 'dusaiphoto@foxmail.com'
+# LOGIN_REDIRECT_URL = '/account/weibo_login_success/'
 LOGIN_REDIRECT_URL = '/'
 
 # django的评论库是一个站点，所以需要添加sites的应用并设置当前django工程的站点id=1

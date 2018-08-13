@@ -73,11 +73,13 @@
         <br/>
         <div class="" style="text-align: center">
             <div>
-                <div class="layui-text" style="font-size: large"><span>登录后回复:</span></div>
+                <div class="layui-text" style="font-size: large" id="weibologin"><span>登录后回复</span></div>
                 <div class="" style="margin-top: 10px">
                         <span class="weibo mr-3">
-                            <a href="/accounts/weibo/login/">
-                                <i class="layui-icon layui-icon-login-weibo" style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
+{#                            <a href="/accounts/weibo/login/">#}
+                            <a href="#weibologin" onclick="weibo_login()">
+                                <i class="layui-icon layui-icon-login-weibo"
+                                   style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
                             </a>
                         </span>
                 </div>
@@ -163,44 +165,6 @@
 <script type="text/javascript">
     editormd.emoji.path = "http://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/"
 
-    {#先调用layer，然后回调生成toc并渲染为html#}
-    {##}
-    {#    layui.use('layer', function () {#}
-    {#        var layer = layui.layer;#}
-    {#        var index = layer.open({#}
-    {#            type: 1,#}
-    {#            title: '文章目录',#}
-    {#            shade: 0,#}
-    {#            offset: 'lb',#}
-    {#            maxmin: true,#}
-    {#            moveOut: true,#}
-    {#area: ['300px', '500px'],#}
-    {#            content: '<div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container</div>',#}
-    {#layer后回调toc#}
-    {#            success: function (layero, index) {#}
-    {#                $(function () {#}
-    {#                    editormd.markdownToHTML("editormd-view", {#}
-    {#                        //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启#}
-    {#                        htmlDecode: "style,script,iframe",  // you can filter tags decode#}
-    {#                        //toc             : false,#}
-    {#                        tocm: true,    // Using [TOCM]#}
-    {#                        tocContainer: "#custom-toc-container", // 自定义 ToC 容器层#}
-    {#                        //gfm             : false,#}
-    {#                        //tocDropdown     : true,#}
-    {#                        // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签#}
-    {#                        emoji: true,#}
-    {#                        taskList: true,#}
-    {#                        tex: true,  // 默认不解析#}
-    {#                        flowChart: true,  // 默认不解析#}
-    {#                        sequenceDiagram: true,  // 默认不解析#}
-    {#                    });#}
-    {#                });#}
-    {##}
-    {#            }#}
-    {#        });#}
-    {##}
-    {#    });#}
-
     $(function () {
         editormd.markdownToHTML("editormd-view", {
             //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
@@ -217,5 +181,19 @@
             flowChart: true,  // 默认不解析
             sequenceDiagram: true,  // 默认不解析
         });
+
+
     });
+
+    function weibo_login() {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+
+            layer.open({
+                type: 2,
+                area: ['650px','600px'],
+                content: 'http://127.0.0.1/accounts/weibo/login/' //这里content是一个普通的String
+            });
+        });
+    }
 </script>

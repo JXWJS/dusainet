@@ -1,0 +1,28 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block content %}
+    <br/>
+    <div class="layui-card layui-card-body" style="text-align: center">
+        <br/>
+        {% if user.socialaccount_set.all.0.get_avatar_url %}
+            <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
+                 style="max-height: 60px; border-radius: 20%">
+        {% endif %}
+        <br>
+        <br>
+        <h3>{% trans '确定要退出吗?' %}</h3>
+        <br/>
+        <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button type="submit" class="layui-btn layui-btn-danger">{% trans '退出登录' %}</button>
+        </form>
+
+    </div>
+{% endblock %}
