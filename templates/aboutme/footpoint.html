@@ -8,74 +8,16 @@
         <br/>
         <br/>
         <br/>
-        <h1 class="">不想当<span class="shake-little shake-constant" style="color: green;">程序猿</span>的<span
-                class="shake-little shake-constant" style="color: blue;">光学设计师</span>不是一个好<span
-                class="shake-little shake-constant" style="color: darkgoldenrod;">摄影师</span>！</h1>
-        <br/>
-        <br/>
-        <hr class="layui-bg-orange">
-        <br/>
-
-        <h3>带着妹子走过一些城市<br>看过山河风景</h3>
-        <br/>
-        <link rel="stylesheet" href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"/>
-        <div id='main' style="width: 100%; height: 600px"></div>
-        <br/>
-        <hr>
-        <br/>
-        <h3>野路子自学编程、摄影<br>也敢在博客上大放厥词、瞎写教程<br><a href="{% url 'course:course_list' %}" target="_blank"
-                                                style="color: #5897fb;">
-            <i class="layui-icon layui-icon-next"></i>坑爹教程在此</a></h3>
-        <br>
-        <hr/>
-        <br>
-
-        <h3>设计过的镜头没几个<br>
-            自称光学设计师混饭吃</h3>
-        <br/>
-        <div id="lens">
-            <img src="{% static 'img/optic1.jpg' %}" style="max-width: 30%">
-            <img src="{% static 'img/optic2.jpg' %}" style="max-width: 30%">
-        </div>
-        <hr/>
-        <br>
-
-        <h2>感谢你的小小停留</h2>
-        <h2>愿你有小小收获</h2>
-        <h2>那便是ta存在的意义</h2>
-        <br>
-
-        <hr/>
-
-        <h3 class="layui-elem-quote">遇到问题、赞助推广，请点击这里: <a href="mailto:dusaiphoto@foxmail.com" style="color: #5897fb;">发邮件给博主</a>
-            <br>或扫二维码加我的个人微信：
-        </h3>
-        <div>
-            <img src="{% static 'img/wechat.jpg' %}" style="max-width: 200px">
-        </div>
-        <br>
-
-        <hr/>
-
-        <h3 class="layui-elem-quote">如果喜欢我的摄影文章<br>
-            可以关注我的摄影微信公众号或者今日头条号</h3>
-        <img src="{% static 'img/dingyuehao.jpeg' %}" style="max-width: 200px">
-        <img src="{% static 'img/toutiaohao.jpeg' %}" style="max-width: 200px">
-
-
-        <h3>如果时间允许<br>会写光学、编程的专栏<br>小期待一下。</h3>
-        <hr class="layui-bg-orange">
-        <br/>
-        <br/>
-
         <h1>我的技术栈</h1>
         <br/>
-        <h2 style="color: blue"><光学设计></h2>
+        <h2 style="color: blue">
+            <光学设计>
+        </h2>
         <table class="layui-table">
             <colgroup>
                 <col width="150px">
-                <col width="150px">
-                <col width="150px">
+                <col width="100px">
+                <col width="100px">
                 <col>
             </colgroup>
             <thead>
@@ -95,14 +37,14 @@
             </tr>
             <tr>
                 <td>SolidWorks</td>
-                <td>光机结构设计</td>
+                <td>结构设计</td>
                 <td>2014.11</td>
                 <td>光学系统相关的结构设计；静力、热力结合的有限元分析</td>
             </tr>
             <tr>
                 <td>Zemax</td>
                 <td>光学设计</td>
-                <td>准备学习</td>
+                <td>学习中..</td>
                 <td></td>
             </tr>
             <tr>
@@ -114,12 +56,14 @@
             </tbody>
         </table>
         <br/>
-        <h2 style="color: green"><编程></h2>
+        <h2 style="color: green">
+            <编程>
+        </h2>
         <table class="layui-table">
             <colgroup>
                 <col width="150px">
-                <col width="150px">
-                <col width="150px">
+                <col width="100px">
+                <col width="100px">
                 <col>
             </colgroup>
             <thead>
@@ -135,7 +79,8 @@
                 <td>Python + Django</td>
                 <td>Web开发</td>
                 <td>2017.10</td>
-                <td>博客开发：<a href="{% url 'article:article_list' %}" style="color: #5897fb" target="_blank">杜赛的个人网站</a></td>
+                <td>博客开发：<a href="{% url 'article:article_list' %}" style="color: #5897fb" target="_blank">杜赛的个人网站</a>
+                </td>
             </tr>
             <tr>
                 <td>Html + CSS + JavaScript</td>
@@ -177,12 +122,14 @@
         </table>
         <br/>
 
-        <h2 style="color: darkgoldenrod"><爱好></h2>
+        <h2 style="color: darkgoldenrod">
+            <爱好>
+        </h2>
         <table class="layui-table">
             <colgroup>
                 <col width="150px">
-                <col width="150px">
-                <col width="150px">
+                <col width="100px">
+                <col width="100px">
                 <col>
             </colgroup>
             <thead>
@@ -204,17 +151,85 @@
                 <td>钢琴</td>
                 <td>音乐</td>
                 <td>2012.08</td>
-                <td>半搁浅状态，偶尔练一练。听一听我弹奏的曲目吧：
-                    <a href="https://v.youku.com/v_show/id_XNzgwNTM0ODA0.html?spm=a2h3j.8428770.3416059.1" style="color: #5897fb" target="_blank">《植物大战僵尸》</a></td>
+                <td>半搁浅:
+                    <a href="https://v.youku.com/v_show/id_XNzgwNTM0ODA0.html?spm=a2h3j.8428770.3416059.1"
+                       style="color: #5897fb" target="_blank">《植物大战僵尸》</a></td>
             </tr>
             <tr>
                 <td>吉他</td>
                 <td>音乐</td>
                 <td>2007.09</td>
-                <td>曾经会过：<a href="https://v.youku.com/v_show/id_XMzc1MjAwMDA0.html?spm=a2h3j.8428770.3416059.1" style="color: #5897fb" target="_blank">《You are not alone》</a></td>
+                <td>曾经会过:<a href="https://v.youku.com/v_show/id_XMzc1MjAwMDA0.html?spm=a2h3j.8428770.3416059.1"
+                            style="color: #5897fb" target="_blank">《You are not alone》</a></td>
             </tr>
             </tbody>
         </table>
+        <br/>
+        <br/>
+                <hr class="layui-bg-orange">
+
+        <br/>
+        <h1 class="">不想当<span class="shake-little shake-constant" style="color: green;">程序猿</span>的<span
+                class="shake-little shake-constant" style="color: blue;">光学设计师</span>不是一个好<span
+                class="shake-little shake-constant" style="color: darkgoldenrod;">摄影师</span>！</h1>
+        <br/>
+        <br/>
+        <br/>
+
+        <h3>走过一些城市<br>看过山河风景</h3>
+        <br/>
+        <link rel="stylesheet" href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"/>
+        <div id='main' style="width: 90%; height: 600px; margin-left: 5%"></div>
+        <br/>
+        <hr>
+        <br/>
+        <h3>野路子自学编程、摄影<br>在博客上瞎写教程<br><a href="{% url 'course:course_list' %}" target="_blank"
+                                                style="color: #5897fb;">
+            <i class="layui-icon layui-icon-next"></i>坑爹教程在此</a></h3>
+        <br>
+        <hr/>
+        <br>
+
+        <h3>设计过的镜头就几个<br>
+            以光学设计师混饭吃</h3>
+        <br/>
+        <div id="lens">
+            <img src="{% static 'img/optic1.jpg' %}" style="max-width: 30%">
+            <img src="{% static 'img/optic2.jpg' %}" style="max-width: 30%">
+        </div>
+        <hr/>
+        <br>
+
+        <h2>感谢你的小小停留</h2>
+        <h2>愿你会有小小收获</h2>
+        <br>
+
+        <hr/>
+
+        <h3 class="layui-elem-quote">遇到问题、赞助推广，请点击这里: <a href="mailto:dusaiphoto@foxmail.com" style="color: #5897fb;">发邮件给博主</a>
+            <br>或扫二维码加我的个人微信：
+        </h3>
+        <div>
+            <img src="{% static 'img/wechat.jpg' %}" style="max-width: 200px">
+        </div>
+        <br>
+
+        <hr/>
+
+        <h3 class="layui-elem-quote">如果喜欢我的摄影文章<br>
+            可以关注我的摄影微信公众号或者今日头条号</h3>
+        <img src="{% static 'img/dingyuehao.jpeg' %}" style="max-width: 200px">
+        <img src="{% static 'img/toutiaohao.jpeg' %}" style="max-width: 200px">
+        <br/>
+        <br/>
+
+        <h3>如果时间允许<br>会写光学、编程的专栏<br>小期待一下。</h3>
+        <br/>
+        <br/>
+    <div style="text-align: center">
+        <a href="/admiration/" target="_blank"
+           class="layui-btn layui-btn-warm layui-btn-sm layui-btn-radius">写的不错，朕要赏</a>
+    </div>
         <br/>
         <br/>
         <br/>

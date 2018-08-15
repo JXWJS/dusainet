@@ -2,7 +2,7 @@
 {% load notifications_tags %}
 
 <ul class="layui-nav">
-    <li class="layui-nav-item "><a href="/admin/" style="font-size: 1.2em;">杜赛的个人网站</a></li>
+    <li class="layui-nav-item "><a href="{% url 'article:article_list' %}" style="font-size: 1.2em;">杜赛的个人网站</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'article:article_list' %}">文章</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'course:course_list' %}">教程</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'readbook:book_list' %}">读书</a></li>
