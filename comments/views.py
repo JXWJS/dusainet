@@ -64,7 +64,7 @@ def post_comment(request, article_id, node_id=False):
                        })
 
 
-# 读书评论，结构与文章评论类似，未做抽象
+# 读书评论，结构与文章评论类似，未做抽象®
 @login_required(login_url='/accounts/weibo/login/?process=login')
 def read_book_post_comment(request, article_id, node_id=False):
     article = get_object_or_404(ReadBook, id=article_id)

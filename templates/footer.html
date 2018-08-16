@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<div class="layui-row">
+    <div class="" style="text-align: center; margin-bottom: 5px">
+        <a href="https://github.com/stacklens" target="_blank">
+            <img id="lay_github" src="{% static 'img/github_icon.png' %}" style="width: 26px; margin-top: -10px">
+        </a>
+        <a href="//weibo.com/saisaixuezhang" target="_blank">
+            <i class="layui-icon layui-icon-login-weibo"
+               style="font-size: x-large; color: #ee771a;" aria-hidden="true" id="lay_weibo"></i>
+        </a>
+    </div>
+    <div class="layui-text">
+        <p class="layui-word-aux" style="text-align: center; padding-bottom: 10px;">&copy; 2018 杜赛的个人网站</p>
+        <p class="layui-word-aux" style="text-align: center; padding-bottom: 10px;">Powered by
+            <a href="https://www.djangoproject.com/" target="_blank">Django</a> & <a target="_blank" href="http://www.layui.com/">Layui</a></p>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+<script>
+    layui.use(['table'], function () {
+        var layer = layui.layer;
+        layui.$('#lay_weibo').on('mouseenter', function () {
+            this.index = layer.tips('关注作者微博', this, {
+                time: -1,
+                maxWidth: 280,
+                tips: [3, '#3A3D49']
+            });
+        }).on('mouseleave', function () {
+            layer.close(this.index);
+        });        layui.$('#lay_github').on('mouseenter', function () {
+            this.index = layer.tips('在GitHub查看作者代码', this, {
+                time: -1,
+                maxWidth: 280,
+                tips: [3, '#3A3D49']
+            });
+        }).on('mouseleave', function () {
+            layer.close(this.index);
+        });
+    });
+</script>
