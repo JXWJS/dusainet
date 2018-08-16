@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from notifications.signals import notify
 
@@ -15,6 +16,7 @@ from readbook.models import ReadBook
 # Create your views here.
 
 # 文章评论
+@login_required(login_url='/accounts/weibo/login/?process=login')
 def post_comment(request, article_id, node_id=False):
     article = get_object_or_404(ArticlesPost, id=article_id)
     # 判断二级评论
@@ -63,6 +65,7 @@ def post_comment(request, article_id, node_id=False):
 
 
 # 读书评论，结构与文章评论类似，未做抽象
+@login_required(login_url='/accounts/weibo/login/?process=login')
 def read_book_post_comment(request, article_id, node_id=False):
     article = get_object_or_404(ReadBook, id=article_id)
     if node_id:
@@ -109,6 +112,7 @@ def read_book_post_comment(request, article_id, node_id=False):
 
 
 # 相册评论
+@login_required(login_url='/accounts/weibo/login/?process=login')
 def album_comment(request, photo_id, reply_to=None):
     photo = get_object_or_404(Album, id=photo_id)
 

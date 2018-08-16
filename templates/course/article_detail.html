@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}教程{% endblock %}
+{% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-row layui-card layui-card-body">
+    <div class="layui-card layui-card-body">
         {% include 'course/slider.html' %}
-        <div class="layui-col-sm9">
-            {% include 'article/detail_base.html' %}
-        </div>
+        {% include 'article/detail_base.html' %}
     </div>
 
     <script>

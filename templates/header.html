@@ -2,8 +2,8 @@
 {% load notifications_tags %}
 
 <ul class="layui-nav">
-    <li class="layui-nav-item "><a href="{% url 'article:article_list' %}" style="font-size: 1.2em;">杜赛的个人网站</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'article:article_list' %}">文章</a></li>
+    <li class="layui-nav-item "><a href="/" style="font-size: 1.2em;">杜赛的个人网站</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="/">文章</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'course:course_list' %}">教程</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'readbook:book_list' %}">读书</a></li>
     <li class="layui-nav-item layui-hide-xs"><a href="{% url 'album:album_list' %}">照片墙</a></li>
@@ -35,7 +35,7 @@
             {% endif %}
         </a>
             <dl class="layui-nav-child">
-                <dd><a href="{% url 'my_notifications:notify_box' %}">通知
+                <dd><a href="{% url 'my_notifications:notify_box' %}" target="_blank">通知
                     {% if unread_count %}
                         <span class="layui-badge" style="left: 50%;">{{ unread_count }}</span>
                     {% endif %}</a></dd>

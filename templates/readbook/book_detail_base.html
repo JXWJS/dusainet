@@ -101,10 +101,11 @@
         <br/>
         <div class="" style="text-align: center">
             <div>
-                <div class="layui-text" style="font-size: large"><span>登录后回复:</span></div>
+                <div class="layui-text" style="font-size: large" id="weibologin"><span>登录后回复</span></div>
                 <div class="" style="margin-top: 10px">
                         <span class="weibo mr-3">
-                            <a href="/accounts/weibo/login/">
+{#                            <a href="/accounts/weibo/login/">#}
+                            <a href="#weibologin" onclick="weibo_login()">
                                 <i class="layui-icon layui-icon-login-weibo"
                                    style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
                             </a>
@@ -211,6 +212,18 @@
             sequenceDiagram: true,  // 默认不解析
         });
     });
+
+    function weibo_login() {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+
+            layer.open({
+                type: 2,
+                area: ['650px', '600px'],
+                content: '/accounts/weibo/login/?process=login'
+            });
+        });
+    }
 
     var myChart = echarts.init(document.getElementById('echarts_book'));
     var practicality = document.getElementById('practicality').firstChild.nodeValue;
