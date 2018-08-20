@@ -12,7 +12,7 @@ class Course(models.Model):
     created = models.DateField(default=timezone.now)
     is_finished = models.BooleanField(default=False)
 
-    avatar_thumbnail = ProcessedImageField(upload_to='image/course/avatar_thumbnail/',
+    avatar_thumbnail = ProcessedImageField(upload_to='image/course/%Y%m%d',
                                            processors=[ResizeToFill(256, 144)],
                                            format='JPEG',
                                            options={'quality': 100},

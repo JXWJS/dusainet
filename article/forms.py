@@ -8,7 +8,7 @@ from urllib import request
 class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = ArticlesPost
-        fields = ['title', 'column', 'tags', 'body', 'url', 'course', 'course_sequence']
+        fields = ['title', 'course_title', 'column', 'tags', 'body', 'url', 'course', 'course_sequence']
 
     def clean_url(self):
         url = self.cleaned_data['url']

@@ -37,7 +37,7 @@ class ReadBook(models.Model):
 
     total_views = models.PositiveIntegerField(default=0)
     # 缩略图
-    avatar_thumbnail = ProcessedImageField(upload_to='image/read_book/avatar_thumbnail/',
+    avatar_thumbnail = ProcessedImageField(upload_to='image/read_book/%Y%m%d',
                                            processors=[ResizeToFill(150, 200)],
                                            format='JPEG',
                                            options={'quality': 100},

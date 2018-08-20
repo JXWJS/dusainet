@@ -13,8 +13,8 @@
             <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.comments.count }}评论 ·
                 于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
         </div>
-        <div id="editormd-view" class="layui-container">
-        <textarea id="append-test" style="display: none;">
+        <div id="editormd-view">
+        <textarea id="append-test" style="display: none">
 {{ article.body }}
         </textarea>
         </div>
@@ -150,6 +150,7 @@
     </div>
 </div>
 
+
 <script src="{% static 'jquery.js' %}"></script>
 <script src="{% static 'editormd/lib/marked.min.js' %}"></script>
 <script src="{% static 'editormd/lib/prettify.min.js' %}"></script>
@@ -191,7 +192,7 @@
 
             layer.open({
                 type: 2,
-                area: ['650px','600px'],
+                area: ['650px', '600px'],
                 content: '/accounts/weibo/login/?process=login'
             });
         });

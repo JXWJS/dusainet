@@ -11,6 +11,7 @@ from course.models import Course
 from utils.utils import PaginatorMixin
 
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin
+import markdown
 
 
 # Create your views here.

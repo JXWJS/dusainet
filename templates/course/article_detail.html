@@ -27,10 +27,10 @@
                                 content: '<br><div class="layui-btn-container"><br>\n' +
                                 '    {% for article_c in course_articles %}\n'+
                                     '        {% if article_c.id == article.id %}\n'+
-                                        '            <li><a href="{{ article_c.get_absolute_url }}" class="layui-btn layui-btn-primary layui-btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;{{ article_c.title }}</a></li>\n'
+                                        '            <li><a href="{{ article_c.get_absolute_url }}" class="layui-btn layui-btn-primary layui-btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;{{ article_c.course_title }}</a></li>\n'
                                         +
                                         '    {% else %}\n'+
-                                        '            <li><a href="{{ article_c.get_absolute_url }}" class="layui-btn layui-btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;{{ article_c.title }}</a></li>\n'
+                                        '            <li><a href="{{ article_c.get_absolute_url }}" class="layui-btn layui-btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;{{ article_c.course_title }}</a></li>\n'
                                         +
                                         '    {% endif %}\n'+
                                     '    {% endfor %}\n' +

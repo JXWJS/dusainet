@@ -1,16 +1,16 @@
 <div class="layui-card layui-card-body layui-col-sm3 layui-hide-xs">
-    <li class="layui-text" style="font-weight: bold; font-size: large">{{ article.course.title }}</li>
+    <div class="layui-text" style="font-weight: bold; font-size: large">{{ article.course.title }}</div>
     <hr>
     {% for article_c in course_articles %}
         {% if article_c.id == article.id %}
-            <li id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="font-weight: bold" class="layui-text">{{ article_c.title }}</a></li>
+            <div id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="font-weight: bold" class="layui-text">{{ article_c.course_title }}</a></div>
             {#            <li class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container</li>#}
             <div id="sidebar">
                 <div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container
                 </div>
             </div>
         {% else %}
-            <li id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="color: #01a252;">{{ article_c.title }}</a></li>
+            <div id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="color: #01a252;">{{ article_c.course_title }}</a></div>
         {% endif %}
     {% endfor %}
 </div>
