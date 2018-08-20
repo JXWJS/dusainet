@@ -18,8 +18,6 @@ django-mptt==0.9.0
 django-notifications-hq==1.5.0
 django-taggit==0.22.2
 django-uuslug==1.1.8
-google-auth==1.5.1
-google-auth-httplib2==0.0.3
 httplib2==0.11.3
 idna==2.7
 jieba==0.39
