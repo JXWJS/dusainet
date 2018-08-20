@@ -1,11 +1,11 @@
 {% for article in articles %}
-    <div>
+    <div class="layui-row">
         {% if article.avatar_thumbnail %}
-            <div class="layui-col-md2">
-                <img src="{{ article.avatar_thumbnail.url }}" style="margin-bottom: 8px;max-width: 95%">
+            <div class="layui-col-sm3 layui-col-lg3 layui-hide-xs">
+                <img src="{{ article.avatar_thumbnail.url }}" style="max-width: 95%">
             </div>
         {% endif %}
-        <div>
+        <div class="layui-col-sm9 layui-col-lg9">
             <p class="layui-text" style="color: #8D8D8D;">
                 {#                    栏目#}
                 {% if article.column.title == '编程' %}
