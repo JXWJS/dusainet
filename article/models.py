@@ -41,7 +41,7 @@ class ArticlesPost(models.Model):
     total_views = models.PositiveIntegerField(default=0)
     # 缩略图
     avatar_thumbnail = ProcessedImageField(upload_to='image/article/%Y%m%d',
-                                           processors=[ResizeToFit(width=176)],
+                                           processors=[ResizeToFit(width=400)],
                                            format='JPEG',
                                            options={'quality': 100},
                                            blank=True,

@@ -9,9 +9,12 @@ from imagekit.processors import ResizeToFit
 class ImageSource(models.Model):
     created = models.DateTimeField(default=timezone.now)
     avatar_thumbnail = ProcessedImageField(upload_to='image/image_source/%Y%m%d',
-                                           processors=[ResizeToFit(width=1200, upscale=False)],
+                                           processors=[ResizeToFit(width=800, upscale=False)],
                                            format='JPEG',
                                            options={'quality': 100}, )
 
     class Meta:
         ordering = ('-created',)
+
+    def __str__(self):
+        return self.created
