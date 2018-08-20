@@ -24,7 +24,13 @@ from article.views import ArticlePostView
 from article.feeds import ArticlesPostRssFeed, ArticlesPostColumnRssFeed
 import notifications.urls
 
+from jet.dashboard.dashboard_modules import google_analytics_views
+
+
 urlpatterns = [
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+
     path('admin/', admin.site.urls),
     url(r'^$', ArticlePostView.as_view(), name='home'),
     path('admiration/', TemplateView.as_view(template_name='admiration.html'), name='admiration'),

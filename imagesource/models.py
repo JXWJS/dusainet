@@ -11,7 +11,7 @@ class ImageSource(models.Model):
     avatar_thumbnail = ProcessedImageField(upload_to='image/image_source/%Y%m%d',
                                            processors=[ResizeToFit(width=1200, upscale=False)],
                                            format='JPEG',
-                                           options={'quality': 100},)
+                                           options={'quality': 100}, )
 
     class Meta:
         ordering = ('-created',)

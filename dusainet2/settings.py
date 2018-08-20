@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import pymysql         # mysql配置
+import pymysql  # mysql配置
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,6 +33,10 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.dusaiphoto.com', '.dusai.net']
 # Application definition
 
 INSTALLED_APPS = [
+    # admin增强
+    'jet.dashboard',
+    'jet',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +74,8 @@ INSTALLED_APPS = [
 
     # haystack search
     'haystack',
+
+
 ]
 
 MIDDLEWARE = [
@@ -199,7 +206,6 @@ LOGIN_REDIRECT_URL = '/'
 # django的评论库是一个站点，所以需要添加sites的应用并设置当前django工程的站点id=1
 SITE_ID = 1
 
-
 # haystack相关配置
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -209,3 +215,4 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
