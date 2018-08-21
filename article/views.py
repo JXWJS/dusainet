@@ -10,8 +10,7 @@ from comments.forms import CommentForm
 from course.models import Course
 from utils.utils import PaginatorMixin
 
-from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin
-import markdown
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 
 # Create your views here.
@@ -93,9 +92,11 @@ def article_detail(request, article_id):
 
     # 取出教程中前一条和后一条文章
     if article.course:
-        next_article = ArticlesPost.objects.filter(course_sequence__gt=article.course_sequence).order_by(
+        next_article = ArticlesPost.objects.filter(course_sequence__gt=article.course_sequence,
+                                                   course=article.course).order_by(
             'course_sequence')
-        pre_article = ArticlesPost.objects.filter(course_sequence__lt=article.course_sequence).order_by(
+        pre_article = ArticlesPost.objects.filter(course_sequence__lt=article.course_sequence,
+                                                  course=article.course).order_by(
             '-course_sequence')
         if pre_article.count() > 0:
             pre_article = pre_article[0]

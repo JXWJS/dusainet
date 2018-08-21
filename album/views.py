@@ -42,6 +42,7 @@ class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
 #     return render(request, 'album/album_list.html', context=context)
 
 class AlbumListView(PaginatorMixin, ListView):
+    paginate_by = 5
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_list.html'

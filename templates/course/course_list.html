@@ -12,11 +12,11 @@
                 {% if course.avatar_thumbnail %}
                     <div>
                         <a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
-                            <img src="{{ course.avatar_thumbnail.url }}" style="box-shadow: 1px 1px 3px black;"></a>
+                            <img src="{{ course.avatar_thumbnail.url }}" style="box-shadow: 1px 1px 3px black; border-radius: 16px"></a>
                     </div>
                 {% endif %}
-                <h2><a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
-                    {{ course.title }}</a></h2>
+                <h3 style="margin-top: 5px"><a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
+                    {{ course.title }}</a></h3>
                 <p>
                     <span style="color: #5897fb;">{% course_total_views course.id %}阅读 {% course_total_articles course.id %}篇文章</span>
                     {% if course.is_finished %}

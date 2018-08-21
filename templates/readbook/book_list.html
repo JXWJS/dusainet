@@ -1,21 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base_with_rslider.html' %}
 {% load staticfiles %}
 {% load mptt_tags %}
 {% block title %}读书 - 杜赛的个人网站{% endblock %}
 {% block content %}
     <div class="layui-row layui-card layui-card-body">
         {% for article in articles %}
-            <div class="layui-col-md6 layui-col-sm12 layui-col-xs12" id="book_box">
+            <div class="layui-col-sm12 layui-col-xs12" id="book_box">
                 <a href="{% url 'readbook:book_detail' article.id %}" target="_blank">
-                    <div class="layui-col-lg3 layui-col-md3 layui-col-sm3 layui-col-xs3" style="text-align: center;">
+                    <div class="layui-col-md3 layui-col-sm3 layui-col-xs5" style="text-align: center;">
                         <img src="{{ article.avatar_thumbnail.url }}"
-                             style="margin: 5%;margin-top: 12%; max-width: 80%; box-shadow: 1px 1px 3px black;">
+                             style="margin: 5%; max-width: 80%; box-shadow: 1px 1px 3px black;">
                     </div>
-                    <div class="layui-col-lg4 layui-col-md3 layui-col-sm4 layui-col-xs3">
+                    <div class="layui-col-lg6 layui-col-md5 layui-col-sm5 layui-col-xs7">
                         {#                        <br/>#}
-                        <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ article.title }}</h3>
+                        <h3 style="color: #01a252; font-weight: bold; text-align: center; margin-top: 8px;">{{ article.title }}</h3>
                         {#                        <br/>#}
-                        <p><span>作者：</span>{{ article.author }}</p>
+                        <p><span>作者：</span>{{ article.writer }}</p>
                         <p><span>页数：</span>{{ article.book_page }}</p>
                         <p><span>价格：</span>{{ article.price }}</p>
                         <p><span>评分：</span>
@@ -23,17 +23,19 @@
                         <p class="layui-text"><i class="layui-icon layui-icon-read"
                                                  style="color: #01a252;"></i> {{ article.total_views }}
                             <i class="layui-icon layui-icon-dialogue"
-                               style="color: #DE8E30;"></i> {{ article.readbook_comments.count }}
+                               style="color: #DE8E30;"></i> {{ article.readbook_comments.count }}</p>
+                        <p class="layui-text">{{ article.body|slice:'100' }}...</p>
                         <p id="practicality_{{ forloop.counter }}" hidden>{{ article.practicality }}</p>
                         <p id="interesting_{{ forloop.counter }}" hidden>{{ article.interesting }}</p>
                         <p id="readability_{{ forloop.counter }}" hidden>{{ article.readability }}</p>
                         <p id="professionalism_{{ forloop.counter }}" hidden>{{ article.professionalism }}</p>
                         <p id="binding_quality_{{ forloop.counter }}" hidden>{{ article.binding_quality }}</p>
                     </div>
-                    <div class="layui-col-lg6 layui-col-md6 layui-col-sm6 layui-col-xs7" id="echarts_book_{{ forloop.counter }}"
+                    <div class="layui-col-sm6 layui-hide-xs" id="echarts_book_{{ forloop.counter }}"
                          style="width:200px;height:200px"></div>
                 </a>
             </div>
+            <div>&nbsp;</div>
         {% endfor %}
     </div>
 

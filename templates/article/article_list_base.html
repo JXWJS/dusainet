@@ -2,7 +2,8 @@
     <div class="layui-row">
         {% if article.avatar_thumbnail %}
             <div class="layui-col-sm3 layui-col-lg3 layui-hide-xs">
-                <img src="{{ article.avatar_thumbnail.url }}" style="max-width: 95%; padding-bottom: 8px">
+                <img src="{{ article.avatar_thumbnail.url }}"
+                     style="max-width: 95%; margin-bottom: 8px; border-radius: 16px">
             </div>
         {% endif %}
         <div class="layui-col-sm9 layui-col-lg9">
@@ -30,7 +31,7 @@
 
             <h2><a href="{{ article.get_absolute_url }}" style="font-weight: bold"
                    target="_blank">{{ article.title }}</a></h2>
-            <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'100' }}</p>
+            <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'100' }}...</p>
             <p class="layui-text"><i class="layui-icon layui-icon-read"
                                      style="color: #01a252;"></i> {{ article.total_views }}
                 <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.comments.count }}
