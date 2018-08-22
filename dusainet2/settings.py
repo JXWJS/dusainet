@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import pymysql  # mysql配置
+import django_smtp_ssl
 
 pymysql.install_as_MySQLdb()
 
@@ -188,8 +189,9 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = False
 
 # Email setting
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 # SMTP服务器，我使用的是sendclound的服务
-EMAIL_HOST = 'mtp.qq.com'
+EMAIL_HOST = 'smtp.qq.com'
 EMAIL_HOST_USER = 'dusaiphoto@foxmail.com'
 with open('email_host_password.txt') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
@@ -199,7 +201,7 @@ EMAIL_PORT = 465
 # EMAIL_USE_SSL = True
 EMAIL_USE_TLS = True
 # 默认发件人，不设置的话django默认使用的webmaster@localhost
-DEFAULT_FROM_EMAIL = 'dusaiphoto@foxmail.com'
+DEFAULT_FROM_EMAIL = '杜赛的个人网站 <dusaiphoto@foxmail.com>'
 # LOGIN_REDIRECT_URL = '/account/weibo_login_success/'
 LOGIN_REDIRECT_URL = '/'
 

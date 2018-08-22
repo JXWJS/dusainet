@@ -24,8 +24,6 @@ from article.views import ArticlePostView
 from article.feeds import ArticlesPostRssFeed, ArticlesPostColumnRssFeed
 import notifications.urls
 
-from jet.dashboard.dashboard_modules import google_analytics_views
-
 
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS

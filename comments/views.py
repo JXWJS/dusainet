@@ -12,6 +12,8 @@ from article.models import ArticlesPost
 from album.models import Album
 from readbook.models import ReadBook
 
+from utils.utils import send_email_to_user
+
 
 # Create your views here.
 
@@ -44,6 +46,7 @@ def post_comment(request, article_id, node_id=False):
             # 给superuser发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
                         description='article', action_object=new_comment)
+            send_email_to_user() # 给博主发送通知邮件
             return redirect(article)
 
         else:
@@ -64,7 +67,7 @@ def post_comment(request, article_id, node_id=False):
                        })
 
 
-# 读书评论，结构与文章评论类似，未做抽象®
+# 读书评论，结构与文章评论类似，未做抽象
 @login_required(login_url='/accounts/weibo/login/?process=login')
 def read_book_post_comment(request, article_id, node_id=False):
     article = get_object_or_404(ReadBook, id=article_id)
@@ -92,7 +95,7 @@ def read_book_post_comment(request, article_id, node_id=False):
             # 发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
                         description='readbook', action_object=new_comment)
-
+            send_email_to_user() # 给博主发送通知邮件
             return redirect(article)
         else:
             comment_list = article.readbook_comments.all()

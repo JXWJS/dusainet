@@ -4,9 +4,10 @@
     vertical-align: middle
 }
 
-.layui-rate, li {
-    list-style: disc
-}
+/*layui 和 editor.md 的渲染冲突，禁用*/
+/*.layui-rate, li {*/
+    /*list-style: none;*/
+/*}*/
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 400
