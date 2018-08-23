@@ -17,4 +17,4 @@ class ImageSource(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return self.created
+        return str(self.created)

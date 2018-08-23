@@ -40,13 +40,16 @@ def post_comment(request, article_id, node_id=False):
                 if not comment.user.is_superuser:
                     notify.send(request.user, recipient=comment.user, verb='回复了你', target=article,
                                 description='article', action_object=new_comment)
+                    # 给绑定了邮箱的用户发送回复通知邮件
+                    if comment.user.email:
+                        send_email_to_user(recipient=comment.user.email)  # 给用户发送通知邮件
             else:
                 new_comment.reply_to = None
                 new_comment.save()
             # 给superuser发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
                         description='article', action_object=new_comment)
-            send_email_to_user() # 给博主发送通知邮件
+            send_email_to_user(recipient='dusaiphoto@foxmail.com') # 给博主发送通知邮件
             return redirect(article)
 
         else:
@@ -95,7 +98,7 @@ def read_book_post_comment(request, article_id, node_id=False):
             # 发送通知
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
                         description='readbook', action_object=new_comment)
-            send_email_to_user() # 给博主发送通知邮件
+            send_email_to_user(recipient='dusaiphoto@foxmail.com') # 给博主发送通知邮件
             return redirect(article)
         else:
             comment_list = article.readbook_comments.all()
@@ -115,6 +118,7 @@ def read_book_post_comment(request, article_id, node_id=False):
 
 
 # 相册评论
+# 暂时未开启
 @login_required(login_url='/accounts/weibo/login/?process=login')
 def album_comment(request, photo_id, reply_to=None):
     photo = get_object_or_404(Album, id=photo_id)

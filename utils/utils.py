@@ -1,8 +1,6 @@
 from django.core.mail import send_mail
 
 
-# from smtplib import SMTPException
-
 class PaginatorMixin:
     paginate_by = 20
 
@@ -138,14 +136,12 @@ class PaginatorMixin:
         return data
 
 
-def send_email_to_user():
+def send_email_to_user(recipient):
     try:
         send_mail(subject='[杜赛的个人网站]有你的新回复',
                   message='有人在[杜赛的个人网站]回复了你，快去看看吧：http://www.dusaiphoto.com',
                   from_email='dusaiphoto@foxmail.com',
-                  recipient_list=['dusaiphoto@foxmail.com'],
+                  recipient_list=[recipient],
                   fail_silently=False)
-    # except SMTPException as e:
-    #     return HttpResponse(e)
     except:
         pass

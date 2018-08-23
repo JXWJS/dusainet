@@ -3145,7 +3145,8 @@
   background: #f6f6f6;
   padding: 3px;
   border-radius: 3px;
-  font-size: 14px;
+  /*原为14px，修改为16px*/
+  font-size: 16px;
 }
 .editormd-preview-container pre, .editormd-html-preview pre {
   border: 1px solid #ddd;
@@ -3341,7 +3342,8 @@ li.L9 {
   padding-left: 2.5em;
 }
 .editormd-preview-container ol.linenums li, .editormd-html-preview ol.linenums li {
-  list-style-type: decimal;
+  /*原为decimal，dusai修改*/
+  list-style-type: none;
 }
 .editormd-preview-container ol.linenums li code, .editormd-html-preview ol.linenums li code {
   border: none;

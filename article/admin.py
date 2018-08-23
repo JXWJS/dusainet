@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import ArticlesPost, ArticlesColumn
 
+
 # Register your models here.
 class ArticlesPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'course_id', 'course_sequence', 'total_views')
