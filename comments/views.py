@@ -40,9 +40,9 @@ def post_comment(request, article_id, node_id=False):
                 if not comment.user.is_superuser:
                     notify.send(request.user, recipient=comment.user, verb='回复了你', target=article,
                                 description='article', action_object=new_comment)
-                    # 给绑定了邮箱的用户发送回复通知邮件
-                    if comment.user.email:
-                        send_email_to_user(recipient=comment.user.email)  # 给用户发送通知邮件
+                    # 给绑定了邮箱的用户发送回复通知邮件；需扩展User模型增加开关通知字段
+                    # if comment.user.email:
+                    #     send_email_to_user(recipient=comment.user.email)
             else:
                 new_comment.reply_to = None
                 new_comment.save()
@@ -51,7 +51,6 @@ def post_comment(request, article_id, node_id=False):
                         description='article', action_object=new_comment)
             send_email_to_user(recipient='dusaiphoto@foxmail.com') # 给博主发送通知邮件
             return redirect(article)
-
         else:
             comment_list = article.comments.all()
             context = {'post': article,
@@ -99,7 +98,6 @@ def read_book_post_comment(request, article_id, node_id=False):
             notify.send(request.user, recipient=User.objects.filter(is_staff=1), verb='回复了你', target=article,
                         description='readbook', action_object=new_comment)
             send_email_to_user(recipient='dusaiphoto@foxmail.com') # 给博主发送通知邮件
-            return redirect(article)
         else:
             comment_list = article.readbook_comments.all()
             context = {'post': article,
