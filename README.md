@@ -9,7 +9,29 @@
 
 作者邮箱：dusaiphoto@foxmail.com
 
-# Change Log：
+# 注意事项：
+layui.css和editormd.css均有更改
+- .editormd-preview-container, .editormd-html-preview修改了font-size和padding
+- layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
+
+# 更新日志：
+## 2018.08.27
+1. 修改了介绍
+2. article-list显示优化
+3. editor.md代码块无法空行问题修复
+4. footer增加邮件联系图标
+5. 修复了固定块的显示问题
+6. 修复首页文章内容中链接不能正确换行
+7. 读书板块正文的移动端优化
+8. 修改了文章正文、目录等多处的样式
+9. 使用生产环境的引入（主要是editormd.min.css和editormd.preview.min.css）
+10. echarts/leaflet静态资源cdn加速；
+
+## 2018.08.23
+1. 去除editor.md代码块的序号
+2. 修复图库上传图片 500 错误
+
+
 ## 2018.08.22
 1. 删除urls中jet需要的谷歌引入
 2. 修正有序列表在md中无法正确显示的问题
