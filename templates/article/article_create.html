@@ -3,7 +3,7 @@
 {% block title %}写文章 - 杜赛的个人网站{% endblock %}
 {% block content %}
     {# Markdown css #}
-    <link rel="stylesheet" href="{% static 'editormd/css/editormd.css' %}">
+    <link rel="stylesheet" href="{% static 'editormd/css/editormd.min.css' %}">
     <div class="layui-card layui-card-body">
         <form class="layui-form" action="." method="post">{% csrf_token %}
             <div class="layui-form-item">

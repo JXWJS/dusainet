@@ -1,52 +1,54 @@
 {% for article in articles %}
     <div class="layui-row">
-        {% if article.avatar_thumbnail %}
-            <div class="layui-col-sm3 layui-col-lg3 layui-hide-xs">
-                <img src="{{ article.avatar_thumbnail.url }}"
-                     style="max-width: 95%; margin-bottom: 8px; border-radius: 16px">
-            </div>
-        {% endif %}
-        <div class="layui-col-sm9 layui-col-lg9" style="margin-bottom: 6px">
-            <p class="layui-text" style="color: #8D8D8D;">
-                {#                    栏目#}
-                {% if article.column.title == '编程' %}
-                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                       class="layui-btn layui-btn-xs">{{ article.column }} </a>
-                {% elif article.column.title == '摄影' %}
-                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                       class="layui-btn layui-btn-warm layui-btn-xs">{{ article.column }} </a>
-                {% elif article.column.title == '光学' %}
-                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                       class="layui-btn layui-btn-normal layui-btn-xs">{{ article.column }} </a>
-                {% elif article.column.title == '闲聊' %}
-                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                       class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
-                {% endif %}
-
-                {#标签#}
-                {% for tag in article.tags.all %}
-                    <a class="layui-bg-gray"
-                       href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
-                {% endfor %}
-
-            <h2><a href="{{ article.get_absolute_url }}" style="font-weight: bold"
-                   target="_blank">{{ article.title }}</a></h2>
-            <p class="layui-text" style="color: #8D8D8D;">{{ article.body|slice:'100' }}...</p>
-            <p class="layui-text"><i class="layui-icon layui-icon-read"
-                                     style="color: #01a252;"></i> {{ article.total_views }}
-                <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.comments.count }}
-                <i class="layui-icon layui-icon-log" style="color: #1E9FFF;"></i> {{ article.created|date:"Y-m-d" }}
-                {#            教程#}
-                {% if article.course_id %}
-                    <i class="layui-icon layui-icon-list" style="color: #ee00ee;"></i>
-                    <a href="{% url 'course:course_articles_list' article.course_id %}"
-                       style="color: #8D8D8D;">{{ article.course.title }}</a>
-                {% endif %}</p>
-
+    {% if article.avatar_thumbnail %}
+        <div class="layui-col-sm3 layui-hide-xs">
+            <img src="{{ article.avatar_thumbnail.url }}"
+                 style="max-width: 95%; margin-bottom: 8px; border-radius: 16px">
         </div>
-        {#        <br/>#}
-        <hr/>
-    </div>
+        <div class="layui-col-sm9" style="margin-bottom: 6px">
+    {% else %}
+        <div class="layui-col-sm12" style="margin-bottom: 6px">
+    {% endif %}
+<p class="layui-text" style="color: #8D8D8D;">
+    {#                    栏目#}
+    {% if article.column.title == '编程' %}
+        <a href="{% url 'article:article_list_by_column' article.column.id %}"
+           class="layui-btn layui-btn-xs">{{ article.column }} </a>
+    {% elif article.column.title == '摄影' %}
+        <a href="{% url 'article:article_list_by_column' article.column.id %}"
+           class="layui-btn layui-btn-warm layui-btn-xs">{{ article.column }} </a>
+    {% elif article.column.title == '光学' %}
+        <a href="{% url 'article:article_list_by_column' article.column.id %}"
+           class="layui-btn layui-btn-normal layui-btn-xs">{{ article.column }} </a>
+    {% elif article.column.title == '闲聊' %}
+        <a href="{% url 'article:article_list_by_column' article.column.id %}"
+           class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
+    {% endif %}
+
+    {#标签#}
+    {% for tag in article.tags.all %}
+        <a class="layui-bg-gray"
+           href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
+    {% endfor %}
+
+<h2><a href="{{ article.get_absolute_url }}" style="font-weight: bold"
+       target="_blank">{{ article.title }}</a></h2>
+<p class="layui-text" style="color: #8D8D8D; word-break: break-all">{{ article.body|truncatechars:120 }}</p>
+<p class="layui-text"><i class="layui-icon layui-icon-read"
+                         style="color: #01a252;"></i> {{ article.total_views }}
+    <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.comments.count }}
+    <i class="layui-icon layui-icon-log" style="color: #1E9FFF;"></i> {{ article.created|date:"Y-m-d" }}
+    {#            教程#}
+    {% if article.course_id %}
+        <i class="layui-icon layui-icon-list" style="color: #ee00ee;"></i>
+        <a href="{% url 'course:course_articles_list' article.course_id %}"
+           style="color: #8D8D8D;">{{ article.course.title }}</a>
+    {% endif %}</p>
+
+</div>
+{#        <br/>#}
+<hr/>
+</div>
 {% endfor %}
 
 {% include 'paginator.html' %}

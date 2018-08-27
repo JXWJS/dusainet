@@ -76,7 +76,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>Python + Django</td>
+                <td>Django + LayUI</td>
                 <td>Web开发</td>
                 <td>2017.10</td>
                 <td>博客开发：<a href="{% url 'article:article_list' %}" style="color: #5897fb" target="_blank">杜赛的个人网站</a>
@@ -89,13 +89,13 @@
                 <td>编写基本的静态页面、布局</td>
             </tr>
             <tr>
-                <td>C#</td>
-                <td>应用开发</td>
-                <td>学习中..</td>
+                <td>BootStrap 4</td>
+                <td>前端</td>
+                <td>学习中</td>
                 <td></td>
             </tr>
             <tr>
-                <td>Unity3d</td>
+                <td>Unity3d + C#</td>
                 <td>游戏开发</td>
                 <td>学习中..</td>
                 <td></td>
@@ -109,7 +109,7 @@
             <tr>
                 <td>Vue.js</td>
                 <td>前端</td>
-                <td>准备学习</td>
+                <td>学习中..</td>
                 <td></td>
             </tr>
             <tr>
@@ -166,7 +166,7 @@
         </table>
         <br/>
         <br/>
-                <hr class="layui-bg-orange">
+        <hr class="layui-bg-orange">
 
         <br/>
         <h1 class="">不想当<span class="shake-little shake-constant" style="color: green;">程序猿</span>的<span
@@ -184,7 +184,7 @@
         <hr>
         <br/>
         <h3>野路子自学编程、摄影<br>在博客上瞎写教程<br><a href="{% url 'course:course_list' %}" target="_blank"
-                                                style="color: #5897fb;">
+                                         style="color: #5897fb;">
             <i class="layui-icon layui-icon-next"></i>坑爹教程在此</a></h3>
         <br>
         <hr/>
@@ -226,17 +226,21 @@
         <h3>如果时间允许<br>会写光学、编程的专栏<br>小期待一下。</h3>
         <br/>
         <br/>
-    <div style="text-align: center">
-        <a href="/admiration/" target="_blank"
-           class="layui-btn layui-btn-warm layui-btn-sm layui-btn-radius">写的不错，朕要赏</a>
-    </div>
+        <div style="text-align: center">
+            <a href="/admiration/" target="_blank"
+               class="layui-btn layui-btn-warm layui-btn-sm layui-btn-radius">写的不错，朕要赏</a>
+        </div>
         <br/>
         <br/>
         <br/>
     </div>
-    <script src="{% static 'echarts/echarts.js' %}"></script>
-    <script src="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.js' %}"></script>
+    {#    <script src="{% static 'echarts/echarts.js' %}"></script>#}
+    {#    <script src="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.js' %}"></script>#}
+
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>
+    <script src="https://cdn.bootcss.com/leaflet/1.3.1/leaflet.js"></script>
     <script src="{% static 'echarts/extension/echarts-leaflet/dist/echarts-leaflet.js' %}"></script>
+
     <script>
         $(document).ready(function () {
             var data = [
@@ -502,8 +506,6 @@
             myChart.setOption({
                 title: {
                     text: '我的足迹',
-                    {#subtext: 'data from PM25.in',#}
-                    {#sublink: 'http://www.pm25.in',#}
                     left: 'center',
                     textStyle: {
                         color: '#000'

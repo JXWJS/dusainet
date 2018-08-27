@@ -1,13 +1,13 @@
 {% load staticfiles %}
 {% load mptt_tags %}
 
-<link rel="stylesheet" href="{% static 'editormd/css/editormd.css' %}">
-<link rel="stylesheet" href="{% static 'editormd/css/editormd.preview.css' %}">
+<link rel="stylesheet" href="{% static 'editormd/css/editormd.min.css' %}">
+<link rel="stylesheet" href="{% static 'editormd/css/editormd.preview.min.css' %}">
 
 <div class="layui-card layui-card-body">
     <br/>
     <div>
-        <div class="">
+        <div>
             <h1 style="color: black;font-size: xx-large; font-weight: bold; line-height: 110%">{{ article.title }}</h1>
             <br/>
             <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.readbook_comments.count }}评论 ·
@@ -18,7 +18,7 @@
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md8 layui-col-lg6" id="book_box">
             <img src="{{ article.avatar_thumbnail.url }}" class="layui-col-sm3 layui-col-xs3"
                  style="margin: 10px; box-shadow: 1px 1px 3px black">
-            <div class="layui-col-sm4 layui-col-xs4">
+            <div class="layui-col-sm4 layui-col-xs8">
                 <h3 style="color: #01a252; font-weight: bold; text-align: center; margin: 10px;">{{ article.title }}</h3>
                 <p><span>作者：</span>{{ article.writer }}</p>
                 <p><span>页数：</span>{{ article.book_page }}</p>
@@ -35,7 +35,7 @@
                 <p id="professionalism" hidden>{{ article.professionalism }}</p>
                 <p id="binding_quality" hidden>{{ article.binding_quality }}</p>
             </div>
-            <div class="layui-col-sm5 layui-col-xs5" id="echarts_book"
+            <div class="layui-col-sm5 layui-hide-xs" id="echarts_book"
                  style="width:200px;height:200px"></div>
         </div>
         <hr/>
@@ -189,7 +189,8 @@
 <script src="{% static 'editormd/editormd.js' %}"></script>
 <script src="{% static 'layui-v2.3.0/layui/layui.js' %}"></script>
 <!-- 引入 ECharts -->
-<script src="{% static 'echarts/echarts.js' %}"></script>
+{#<script src="{% static 'echarts/echarts.js' %}"></script>#}
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>
 <script src="{% static 'myjs.js' %}"></script>
 
 <script type="text/javascript">
