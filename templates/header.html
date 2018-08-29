@@ -16,6 +16,7 @@
             <dd><a href="{% url 'course:course_list' %}">教程</a></dd>
             <dd><a href="{% url 'readbook:book_list' %}">读书</a></dd>
             <dd><a href="{% url 'album:album_list' %}">照片墙</a></dd>
+            <dd class="layui-hide-sm"><a href="#" onclick="mobile_search()">搜索</a></dd>
             <dd><a href="{% url 'aboutme:footpoint' %}">关于</a></dd>
         </dl>
     </li>
@@ -51,13 +52,13 @@
     {% else %}
         <li class="layui-nav-item " style="float: right;"><a href="/accounts/weibo/login/?process=login">登录</a></li>
     {% endif %}
-    <li style="float: right; margin: 12px 20px;" class="layui-hide-xs layui-hide-sm  layui-show-md-inline-block">
+    <li style="float: right; margin: 12px 20px;" class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
         <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
             <input style=" background-color: #dddddd" type="search" name="q" placeholder="搜索文章.." required
                    class="layui-input">
         </form>
     </li>
-    <li class="layui-nav-item layui-hide-md" style="float: right"><a href="#" onclick="mobile_search()"><i
+    <li class="layui-nav-item layui-hide-md layui-hide-xs" style="float: right"><a href="#" onclick="mobile_search()"><i
             class="layui-icon layui-icon-search" style="font-weight: bold"></i></a></li>
 
 
@@ -76,11 +77,12 @@
             var layer2 = layui.layer;
 
             layer2.open({
-                title: '搜索',
+                title: '搜索文章..',
                 type: 1,
                 shadeClose: true,
+                area: '300px',
                 content: '<form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">\n' +
-                '<input style=" background-color: #dddddd" type="search" name="q" placeholder="搜索文章.." required\n' +
+                '<input style=" background-color: #dddddd" type="search" name="q" placeholder="输入回车确认" required\n' +
                 'class="layui-input">\n' +
                 '</form>'
             });

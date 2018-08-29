@@ -1,4 +1,5 @@
 from django.core.mail import send_mail
+from django.shortcuts import render
 
 
 class PaginatorMixin:
@@ -145,3 +146,11 @@ def send_email_to_user(recipient):
                   fail_silently=False)
     except:
         pass
+
+
+def page_not_found(request):
+    return render(request, '404.html')
+
+
+def page_errors(request):
+    return render(request, '500.html')

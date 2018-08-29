@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}404 - 杜赛的个人网站{% endblock %}
+{% block content %}
+    <br/>
+    <div style="text-align: center">
+        <i class="layui-icon layui-icon-404" style="font-size: 9em;color: #0E674D"></i>
+        <h2>你要找的页面走丢了...</h2>
+        <h2>点击<a href="{% url 'article:article_list' %}" style="color: #01a252">首页</a>看看别的精彩内容吧~</h2>
+    </div>
+    <br/>
+    <hr/>
+{% endblock %}
