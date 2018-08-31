@@ -18,6 +18,7 @@ layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
 ## 2018.08.31
 1. 网站全面升级为https安全连接
 2. 优化多处页面显示效果
+3. 修复文章目录鼠标悬停显示bug
 
 ## 2018.08.29
 1. 重新解决文章正文偏右bug
