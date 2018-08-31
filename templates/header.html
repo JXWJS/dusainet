@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load notifications_tags %}
+{% load weibo_utils %}
 
 <ul class="layui-nav">
     <li class="layui-nav-item "><a href="/" style="font-size: 1.2em;">杜赛的个人网站</a></li>
@@ -25,7 +26,7 @@
     {% if user.is_authenticated %}
         <li class="layui-nav-item" style="float: right;"><a href="javascript:">
             {% if user.socialaccount_set.all.0.get_avatar_url %}
-                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
+                <img src="{% translate_avatar_ssl user.socialaccount_set.all.0.get_avatar_url %}"
                      style="max-height: 40px; border-radius: 20%">
             {% else %}
                 {{ user.username }}

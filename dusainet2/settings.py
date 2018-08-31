@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'imagesource',  # 图库
     'aboutme',  # 作者
 
+    'utils', # 工具
+
     # django-allauth
     # 必须安装的app
     'django.contrib.sites',

@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load mptt_tags %}
+{% load weibo_utils %}
 
 <link rel="stylesheet" href="{% static 'editormd/css/editormd.min.css' %}">
 <link rel="stylesheet" href="{% static 'editormd/css/editormd.preview.min.css' %}">
@@ -130,10 +131,10 @@
                         <div style="text-align: center">
                             {% if node.user.socialaccount_set.all.0.get_avatar_url %}
                                 {% if node.reply_to %}
-                                    <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
+                                    <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
                                          style="width: 60%; border-radius: 20%">
                                 {% else %}
-                                    <img src="{{ node.user.socialaccount_set.all.0.get_avatar_url }}"
+                                    <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
                                          style="width: 80%; border-radius: 20%">
                                 {% endif %}
                             {% else %}
