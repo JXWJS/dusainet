@@ -1,62 +1,99 @@
-{% extends 'base.html' %}
+{% extends 'base_with_rslider.html' %}
 {% load staticfiles %}
 {% load my_haystack_hight_tags %}
 {% block title %}搜索{% endblock %}
 
 {% block content %}
     <br/>
-    <h2><i class="layui-icon layui-icon-search" style="font-size: x-large"></i> "<span class="highlighted">{{ query }}</span>"的相关文章如下：</h2>
+    <h2><i class="layui-icon layui-icon-search" style="font-size: x-large"></i> "<span
+            class="highlighted">{{ query }}</span>"的相关文章如下：</h2>
     {% if query %}
         {% for result in page.object_list %}
-            <hr/>
+            {% with article=result.object %}
+                <hr/>
 
-            <div class="layui-row">
-                {% if result.object.avatar_thumbnail %}
-                    <div class="layui-col-md2">
-                        <img src="{{ result.object.avatar_thumbnail.url }}" style="margin-bottom: 8px;max-width: 95%">
+                {#            <div class="layui-row">#}
+                {#                {% if result.object.avatar_thumbnail %}#}
+                {#                    <div class="layui-col-md2">#}
+                {#                        <img src="{{ result.object.avatar_thumbnail.url }}" style="margin-bottom: 8px;max-width: 95%">#}
+                {#                    </div>#}
+                {#                {% endif %}#}
+                {##}
+                {#                <div class="">#}
+                {#                    <p class="layui-text" style="color: #8D8D8D;">#}
+                {#                    栏目#}
+                {#                        {% if result.object.column.title == '编程' %}#}
+                {#                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"#}
+                {#                               class="layui-btn layui-btn-xs">{{ result.object.column }} </a>#}
+                {#                        {% elif result.column.object.title == '摄影' %}#}
+                {#                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"#}
+                {#                               class="layui-btn layui-btn-warm layui-btn-xs">{{ result.object.column }} </a>#}
+                {#                        {% elif result.column.object.title == '光学' %}#}
+                {#                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"#}
+                {#                               class="layui-btn layui-btn-normal layui-btn-xs">{{ result.object.column }} </a>#}
+                {#                        {% elif result.object.column.title == '闲聊' %}#}
+                {#                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"#}
+                {#                               class="layui-btn layui-btn-primary layui-btn-xs">{{ result.object.column }} </a>#}
+                {#                        {% endif %}#}
+
+                {#标签#}
+                {#                        {% for tag in result.object.tags.all %}#}
+                {#                            <a class="layui-bg-gray"#}
+                {#                               href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>#}
+                {#                        {% endfor %}#}
+
+                <div class="layui-row">
+                {% if article.avatar_thumbnail %}
+                    <div class="layui-col-sm3 layui-hide-xs">
+                        <img src="{{ article.avatar_thumbnail.url }}"
+                             style="max-width: 95%; margin-bottom: 8px; border-radius: 16px">
                     </div>
+                    <div class="layui-col-sm9" style="margin-bottom: 6px">
+                {% else %}
+                    <div class="layui-col-sm12" style="margin-bottom: 6px">
+                {% endif %}
+            <p class="layui-text" style="color: #8D8D8D;">
+                {#                    栏目#}
+                {% if article.column.title == '编程' %}
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
+                       class="layui-btn layui-btn-xs">{{ article.column }} </a>
+                {% elif article.column.title == '摄影' %}
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
+                       class="layui-btn layui-btn-warm layui-btn-xs">{{ article.column }} </a>
+                {% elif article.column.title == '光学' %}
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
+                       class="layui-btn layui-btn-normal layui-btn-xs">{{ article.column }} </a>
+                {% elif article.column.title == '闲聊' %}
+                    <a href="{% url 'article:article_list_by_column' article.column.id %}"
+                       class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
                 {% endif %}
 
-                <div class="">
-                    <p class="layui-text" style="color: #8D8D8D;">
-                        {#                    栏目#}
-                        {% if result.object.column.title == '编程' %}
-                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"
-                               class="layui-btn layui-btn-xs">{{ result.object.column }} </a>
-                        {% elif result.column.object.title == '摄影' %}
-                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"
-                               class="layui-btn layui-btn-warm layui-btn-xs">{{ result.object.column }} </a>
-                        {% elif result.column.object.title == '光学' %}
-                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"
-                               class="layui-btn layui-btn-normal layui-btn-xs">{{ result.object.column }} </a>
-                        {% elif result.object.column.title == '闲聊' %}
-                            <a href="{% url 'article:article_list_by_column' result.object.column.id %}"
-                               class="layui-btn layui-btn-primary layui-btn-xs">{{ result.object.column }} </a>
-                        {% endif %}
+                {#标签#}
+                {% for tag in article.tags.all %}
+                    <a class="layui-bg-gray"
+                       href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
+                {% endfor %}
 
-                        {#标签#}
-                        {% for tag in result.object.tags.all %}
-                            <a class="layui-bg-gray"
-                               href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
-                        {% endfor %}
-                    <h2><a href="{{ result.object.get_absolute_url }}"
-                           style="font-weight: bold">{% myhighlight result.object.title with query start_head True %}</a>
-                    </h2>
-                    <p class="layui-text" style="color: #8D8D8D;">{% myhighlight result.object.body with query %}...</p>
-                    <p class="layui-text"><i class="layui-icon layui-icon-read"
-                                             style="color: #01a252;"></i> {{ result.object.total_views }}
-                        <i class="layui-icon layui-icon-dialogue"
-                           style="color: #DE8E30;"></i> {{ result.object.comments.count }}
-                        <i class="layui-icon layui-icon-log"
-                           style="color: #1E9FFF;"></i> {{ result.object.created|date:"Y-m-d" }}
-                        {#            教程#}
-                        {% if result.object.course_id %}
-                            <i class="layui-icon layui-icon-list" style="color: #ee00ee;"></i>
-                            <a href="{% url 'course:course_articles_list' result.object.course_id %}"
-                               style="color: #8D8D8D;">{{ result.object.course.title }}</a>
-                        {% endif %}</p>
-                </div>
+
+            <h2><a href="{{ article.get_absolute_url }}"
+                   style="font-weight: bold">{% myhighlight article.title with query start_head True %}</a>
+            </h2>
+            <p class="layui-text" style="color: #8D8D8D;">{% myhighlight article.body with query %}...</p>
+            <p class="layui-text"><i class="layui-icon layui-icon-read"
+                                     style="color: #01a252;"></i> {{ article.total_views }}
+                <i class="layui-icon layui-icon-dialogue"
+                   style="color: #DE8E30;"></i> {{ article.comments.count }}
+                <i class="layui-icon layui-icon-log"
+                   style="color: #1E9FFF;"></i> {{ article.created|date:"Y-m-d" }}
+                {#            教程#}
+                {% if article.course_id %}
+                    <i class="layui-icon layui-icon-list" style="color: #ee00ee;"></i>
+                    <a href="{% url 'course:course_articles_list' article.course_id %}"
+                       style="color: #8D8D8D;">{{ article.course.title }}</a>
+                {% endif %}</p>
             </div>
+            </div>
+            {% endwith %}
         {% empty %}
             <div class="layui-row">没有搜索到你想要的结果！</div>
         {% endfor %}
@@ -69,16 +106,16 @@
                 {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next
                 &raquo;{% if page.has_next %}</a>{% endif %}
             </div>
-
         {% endif %}
+        <hr>
     {% else %}
         请输入搜索关键词，例如 django
     {% endif %}
 
 
-    <style>
-        span.highlighted {
-            color: red;
-        }
-    </style>
+<style>
+    span.highlighted {
+        color: red;
+    }
+</style>
 {% endblock content %}

@@ -5,24 +5,11 @@
 {% block content %}
     <div class="layui-row layui-card layui-card-body">
         <a class="layui-btn layui-btn-normal layui-btn-sm" href="{% url 'my_notifications:mark_all_read' %}">标记全部已读</a>
-        <hr/>
         {% for unread in unread_notify %}
-            {% if unread.description == 'album' %}
-                <p id="green">
-                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 1 %}#F{{ unread.target.id }}"
-                       target="_blank"><span
-                            style="color: #5897fb;">{{ unread.actor }}</span>
-                        {% if unread.actor.is_superuser %}
-                            <span style="color: #FF5722">[博主]</span>
-                        {% elif unread.actor.is_staff %}
-                            <i style="color: #5897fb;">[管理员]</i>
-                        {% endif %}
-                        在照片墙 <span style="color: #01a252;">《{{ unread.target }}》</span>
-                        中回复了你。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ unread.timestamp|date:"Y-m-d H:i:s" }}</a>
-                </p>
-            {% elif unread.description == 'article' %}
+            <hr/>
+            {% if unread.description == 'article' %}
                 <p>
-                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 0 %}#F{{ unread.action_object.id }}"
+                    <a id="my_link" href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 0 %}#F{{ unread.action_object.id }}"
                        target="_blank"><span
                             style="color: #5897fb;">{{ unread.actor }}</span>
                         {% if unread.actor.is_superuser %}
@@ -34,9 +21,9 @@
                                 style="color: #01a252;">《{{ unread.target }}》</span>
                         中回复了你。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ unread.timestamp|date:"Y-m-d H:i:s" }}</a>
                 </p>
-            {% elif unread.description == 'readbook' %}
-                <p id="green">
-                    <a href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 1 0 %}#F{{ unread.action_object.id }}"
+            {% else %}
+                <p>
+                    <a id="my_link" href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 1 0 %}#F{{ unread.action_object.id }}"
                        target="_blank"><span
                             style="color: #5897fb;">{{ unread.actor }}</span>
                         {% if unread.actor.is_superuser %}

@@ -9,8 +9,6 @@ span {
     box-shadow: 1px 1px 2px #dadada;
 }
 
-
-
 #star {
     color: #FFB800;
 }
@@ -19,4 +17,33 @@ span {
     color: #01a252;
 }
 
+#my_link {
+    color: black;
+}
 
+#my_link:link {
+    color: black;;
+}
+
+#my_link:visited {
+    color: #D3D4D3;
+}
+
+#my_link:hover {
+    color: darkgoldenrod;
+}
+
+#my_link:active {
+    color: darkgoldenrod;
+}
+
+#book_link {
+    color: #01a252;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 8px;
+}
+
+#book_link:hover {
+    color: #0E674D;
+}
