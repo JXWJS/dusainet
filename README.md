@@ -15,6 +15,9 @@ layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 # 更新日志：
+## 2018.08.31
+1. 网站全面升级为https安全连接
+
 ## 2018.08.29
 1. 重新解决文章正文偏右bug
 2. 增加404、500页面
