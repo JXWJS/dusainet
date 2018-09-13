@@ -27,10 +27,11 @@
         {% endif %}
 
         <a href="#" style="float: right;" id="add_rss"><i
-                class="layui-icon layui-icon-cellphone"></i>RSS 订阅</a>
+                class="layui-icon layui-icon-cellphone"
+                onclick="_hmt.push(['_trackEvent', 'rss', 'click', '订阅'])"></i>RSS
+            订阅</a>
         {% include 'article/article_list_base.html' %}
     </div>
-
 
 
     <script>

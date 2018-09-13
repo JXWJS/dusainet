@@ -33,14 +33,6 @@ class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
         return self.render_to_response({"forms": forms})
 
 
-# def album_list(request):
-#     album = Album.objects.all()
-#     comment_form = AlbumCommentForm()
-#     context = {'album': album,
-#                'comment_form': comment_form,
-#                }
-#     return render(request, 'album/album_list.html', context=context)
-
 class AlbumListView(PaginatorMixin, ListView):
     paginate_by = 5
     model = Album
@@ -57,7 +49,6 @@ class AlbumListView(PaginatorMixin, ListView):
         return context
 
 
-
 def album_delete(request, image_id):
     if request.user.is_superuser:
         image = Album.objects.get(id=image_id)
@@ -68,5 +59,3 @@ def album_delete(request, image_id):
 def album_manage(request):
     album = Album.objects.all()
     return render(request, 'album/album_manage.html', {'album': album})
-
-

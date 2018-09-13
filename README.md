@@ -1,13 +1,13 @@
 # 简介
-这是一个由杜赛开发的博客网站Django项目。
+这是一个由杜赛开发的博客网站Django项目。Python==3.6, Django==2.0
 
-网站链接在这里：[杜赛的个人网站](http://www.dusaiphoto.com)
+网站链接在这里：[杜赛的个人网站](https://www.dusaiphoto.com)
 
-里面包含博客、教程、读书、照片墙几个板块功能。
+里面包含博客、教程、读书、照片墙几个板块。安装好requirements.txt中的依赖项即可使用。
 
 作者是一个光学工程师，编程是业余爱好。这也是我写的第一个Django项目，欢迎各位前辈提出宝贵的意见。
 
-作者邮箱：dusaiphoto@foxmail.com
+有问题请联系作者：dusaiphoto@foxmail.com
 
 # 注意事项：
 layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
@@ -15,10 +15,16 @@ layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 # 更新日志：
+## 2018.09.13
+1. 常规表现优化
+2. 评论功能优化
+
+
 ## 2018.08.31
 1. 网站全面升级为https安全连接
 2. 优化多处页面显示效果
 3. 修复文章目录鼠标悬停显示bug
+
 
 ## 2018.08.29
 1. 重新解决文章正文偏右bug
@@ -37,6 +43,7 @@ layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
 8. 修改了文章正文、目录等多处的样式
 9. 使用生产环境的引入（主要是editormd.min.css和editormd.preview.min.css）
 10. echarts/leaflet静态资源cdn加速；
+
 
 ## 2018.08.23
 1. 去除editor.md代码块的序号

@@ -163,7 +163,7 @@
                                 <i style="color: #5897fb;">[管理员]</i>
                             {% endif %}
                         {% endif %}
-                        <div style="font-size: 1.1em; color: black;">{{ node.body }}</div>
+                        <pre style="font-size: 1.1em; color: black; padding-top: 6px">{{ node.body }}</pre>
                         <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
                             <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id %}"
                                style="color: #01a252">回复</a></p></div>
