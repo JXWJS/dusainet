@@ -27,7 +27,7 @@ with open('secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.dusaiphoto.com', '.dusai.net']
 
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'article',  # 文章
     'comments',  # 评论
     'album',  # 相册
@@ -53,7 +55,7 @@ INSTALLED_APPS = [
     'imagesource',  # 图库
     'aboutme',  # 作者
 
-    'utils', # 工具
+    'utils',  # 工具
 
     # django-allauth
     # 必须安装的app
@@ -77,7 +79,6 @@ INSTALLED_APPS = [
 
     # haystack search
     'haystack',
-
 
 ]
 
@@ -220,3 +221,11 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'rest_framework.renderers.JSONRenderer',
+#     ),
+#     'DEFAULT_PARSER_CLASSES': (
+#         'rest_framework.parsers.JSONParser',
+#     )
+# }

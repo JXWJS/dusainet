@@ -22,8 +22,12 @@ from django.conf.urls.static import static
 
 from article.views import ArticlePostView
 from article.feeds import ArticlesPostRssFeed, ArticlesPostColumnRssFeed
-import notifications.urls
 
+from article.api.views import (
+    ArticleListAPIView,
+)
+
+import notifications.urls
 
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
@@ -56,5 +60,12 @@ urlpatterns = [
 
     # notifications
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+
+    # rest-framework login view
+    url(r'^api/auth/', include('rest_framework.urls')),
+
+    # api-article
+    path('api/article/', include('article.api.urls', namespace='api_article')),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
