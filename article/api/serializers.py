@@ -1,91 +1,81 @@
 from rest_framework.serializers import (
     ModelSerializer,
-    ReadOnlyField,
     HyperlinkedIdentityField,
     SerializerMethodField,
 )
 
 from article.models import ArticlesPost
 
-
-# from comment.serializers import CommentListSerializer, CommentDetailSerializer
-# from comment.models import Comment
-
-# from account.serializers import UserDetailSerializer
+from comments.api.serializers import CommentForArticleSerializer
+from comments.models import Comment
 
 
 class ArticleCreateUpdateSerializer(ModelSerializer):
-    author = SerializerMethodField()
+    comments = SerializerMethodField()
+    column_r = SerializerMethodField()
+    course_r = SerializerMethodField()
 
     class Meta:
         model = ArticlesPost
         fields = [
-            'author',
             'title',
             'course_title',
             'column',
             'course',
+            'column_r',
+            'course_r',
             'course_sequence',
-            # 'tags',
             'body',
             'created',
+            'comments',
         ]
-
-    def get_author(self, obj):
-        return str(obj.author)
-
-
-class ArticleDetailSerializer(ModelSerializer):
-    # author = UserDetailSerializer(read_only=True)
-    # comments = SerializerMethodField()
-    author = SerializerMethodField()
-
-    class Meta:
-        model = ArticlesPost
-        fields = [
-            'id',
-            'author',
-            'title',
-            'body',
-            # 'comments',
+        read_only_fields = [
+            'created',
         ]
+        extra_kwargs = {
+            'course_sequence': {'write_only': True},
+            'column': {'write_only': True},
+            'course': {'write_only': True},
+        }
 
-    # def get_comments(self, obj):
-    #     c_qs = Comment.objects.filter(article=obj.id)
-    #     comments = CommentListSerializer(c_qs, many=True, context=self.context).data
-    #     return comments
+    def get_comments(self, obj):
+        c_qs = Comment.objects.filter(article=obj.id)
+        comments = CommentForArticleSerializer(c_qs, many=True, context=self.context).data
+        return comments
 
-    def get_author(self, obj):
-        return str(obj.author)
+    def get_column_r(self, obj):
+        try:
+            result = obj.column.title
+        except:
+            result = None
+        return result
+
+    def get_course_r(self, obj):
+        try:
+            result = obj.course.title
+        except:
+            result = None
+        return result
 
 
 class ArticleListSerializer(ModelSerializer):
     url = HyperlinkedIdentityField(
         view_name='api_article:detail',
     )
-    # author = UserDetailSerializer(read_only=True)
-    author = SerializerMethodField()
     column = SerializerMethodField()
     course = SerializerMethodField()
-
-    # tags = SerializerMethodField()
+    comment_counts = SerializerMethodField()
 
     class Meta:
         model = ArticlesPost
         fields = [
             'url',
-            'id',
-            'author',
             'title',
-            'course_title',
             'column',
             'course',
-            # 'tags',
+            'comment_counts',
             'total_views',
         ]
-
-    def get_author(self, obj):
-        return str(obj.author)
 
     def get_column(self, obj):
         if obj.column:
@@ -99,8 +89,6 @@ class ArticleListSerializer(ModelSerializer):
         else:
             return None
 
-    # def get_tags(self, obj):
-    #     if obj.tags:
-    #         return str(obj.tags.slug)
-    #     else:
-    #         return None
+    def get_comment_counts(self, obj):
+        c_qs = Comment.objects.filter(article=obj.id)
+        return c_qs.count()

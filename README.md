@@ -15,6 +15,10 @@ layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 # 更新日志：
+## 2018.09.17
+1. 增加文章/评论API
+2. 表现优化
+
 ## 2018.09.13
 1. 常规表现优化
 2. 评论功能优化

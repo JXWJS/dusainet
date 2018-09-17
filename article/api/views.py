@@ -7,18 +7,14 @@ from rest_framework.filters import (
 
 from rest_framework.generics import (
     CreateAPIView,
-    DestroyAPIView,
     ListAPIView,
-    UpdateAPIView,
-    RetrieveAPIView,
     RetrieveUpdateDestroyAPIView,
 )
 
 from rest_framework.permissions import (
-    AllowAny,
-    IsAuthenticated,
     IsAuthenticatedOrReadOnly,
     IsAdminUser,
+
 
 )
 
@@ -26,12 +22,10 @@ from article.models import ArticlesPost
 from article.api.serializers import (
     ArticleCreateUpdateSerializer,
     ArticleListSerializer,
-    ArticleDetailSerializer,
 )
 
-
-# from .permissions import IsOwnerOrReadOnly
-# from .pagination import ArticleLimitOffsetPagination, ArticlePageNumberPagination
+from .permissions import IsOwnerOrReadOnly
+from .pagination import ArticlePageNumberPagination
 
 
 # Create your views here.
@@ -44,22 +38,23 @@ class ArticleCreateAPIView(CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
+
 # 删改查
 class ArticleUpdateAPIView(RetrieveUpdateDestroyAPIView):
     queryset = ArticlesPost.objects.all()
     serializer_class = ArticleCreateUpdateSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def perform_update(self, serializer):
         serializer.save(author=self.request.user)
+
 
 # 列表
 class ArticleListAPIView(ListAPIView):
     serializer_class = ArticleListSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'body', 'author__first_name', 'author__last_name']
-
-    # pagination_class = ArticlePageNumberPagination
+    pagination_class = ArticlePageNumberPagination
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = ArticlesPost.objects.all()

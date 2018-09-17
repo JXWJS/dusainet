@@ -30,11 +30,11 @@
     <br/>
 
     {% if pre_article %}
-        <a class="layui-btn layui-btn-sm" href="{{ pre_article.get_absolute_url }}"><< {{ pre_article.title }}</a>
+        <a class="layui-btn layui-btn-sm" href="{{ pre_article.get_absolute_url }}"><< {{ pre_article.course_title }}</a>
     {% endif %}
     {% if next_article %}
         <a class="layui-btn layui-btn-sm" style="float: right;"
-           href="{{ next_article.get_absolute_url }}">{{ next_article.title }} >></a>
+           href="{{ next_article.get_absolute_url }}">{{ next_article.course_title }} >></a>
         <br>
     {% endif %}
 
@@ -120,7 +120,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="layui-col-xs10 layui-col-sm11">
+                    <div class="layui-col-xs10 layui-col-sm11 layui-text">
                         {{ node.user }}
                         {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>
@@ -135,8 +135,8 @@
                                 <i style="color: #5897fb;">[管理员]</i>
                             {% endif %}
                         {% endif %}
-                        <pre style="font-size: 1.1em; color: black; padding-top: 6px">{{ node.body }}</pre>
-                        <div class="layui-text" style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
+                        <pre style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 4px">{{ node.body }}</pre>
+                        <div style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
                             <a href="{% url 'comments:reply_post_comment' article.id node.id %}"
                                style="color: #01a252">回复</a></p></div>
                         {% if not node.is_leaf_node %}

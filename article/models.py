@@ -10,7 +10,6 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
 
-
 # Create your models here.
 
 class ArticlesColumn(models.Model):
@@ -63,6 +62,10 @@ class ArticlesPost(models.Model):
     # 获取文章地址
     def get_absolute_url(self):
         return reverse('article:article_detail', args=[self.id])
+
+    # 获取文章api地址
+    def get_api_url(self):
+        return reverse('api_article:detail', args=[self.id])
 
     # 统计浏览量
     def increase_views(self):

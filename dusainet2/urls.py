@@ -67,5 +67,8 @@ urlpatterns = [
     # api-article
     path('api/article/', include('article.api.urls', namespace='api_article')),
 
+    # api-comments
+    path('api/comments/', include('comments.api.urls', namespace='api_comments')),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
