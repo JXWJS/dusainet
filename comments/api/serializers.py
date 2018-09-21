@@ -26,6 +26,7 @@ class CommentListSerializer(ModelSerializer):
         model = Comment
         fields = [
             'url',
+            'id',
             'article',
             'user',
             'body',
@@ -49,7 +50,7 @@ class CommentDetailSerializer(ModelSerializer):
         fields = [
             'article_url',
             'article',
-
+            'id',
             'user',
             'reply_to',
             'body',
@@ -83,6 +84,7 @@ class CommentForArticleSerializer(ModelSerializer):
         model = Comment
         fields = [
             'url',
+            'id',
             'user',
             'body',
         ]

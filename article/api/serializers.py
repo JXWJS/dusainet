@@ -18,6 +18,7 @@ class ArticleCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = ArticlesPost
         fields = [
+            'id',
             'title',
             'course_title',
             'column',
@@ -70,6 +71,7 @@ class ArticleListSerializer(ModelSerializer):
         model = ArticlesPost
         fields = [
             'url',
+            'id',
             'title',
             'column',
             'course',
