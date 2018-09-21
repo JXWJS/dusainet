@@ -9,6 +9,7 @@ Django==2.0.6
 django-allauth==0.36.0
 django-appconf==1.0.2
 django-braces==1.13.0
+django-cors-headers==2.4.0
 django-filter==2.0.0
 django-haystack==2.8.1
 django-imagekit==4.0.2
