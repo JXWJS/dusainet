@@ -1,4 +1,5 @@
 .vscode/
+.idea/
 bin/
 lib/
 /email_host_password.txt

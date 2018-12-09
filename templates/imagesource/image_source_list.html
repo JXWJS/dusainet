@@ -2,34 +2,100 @@
 {% load staticfiles %}
 {% block title %}图库管理 - 杜赛的个人网站{% endblock %}
 {% block content %}
+
+    {#    clipboard: 复制url到剪切板#}
+    <script src="{% static 'clipboard/dist/clipboard.min.js' %}"></script>
+    <script>
+        var clipboard = new ClipboardJS('.btn');
+
+        clipboard.on('success', function (e) {
+
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('复制成功');
+            });
+
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('Error');
+            });
+        });
+    </script>
+
     <br/>
     {% if user.is_superuser %}
+        {#        处理上传的图片#}
+        <hr>
+        <form class="layui-form"
+              action="."
+              method="post"
+              enctype="multipart/form-data"
+        >{% csrf_token %}
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传：</label>
+                <div class="layui-input-block">
+                    <input type="file"
+                           name="file_field"
+                           required
+                           placeholder="请输入标题"
+                           autocomplete="off"
+                           class="layui-upload-form"
+                           multiple="multiple"
+                    >
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="submit" value="提交新照片" class="layui-btn layui-btn-warm">
+                </div>
+            </div>
+        </form>
+        <hr>
+
+        {#        循环显示图片list#}
         {% for image in images %}
-            <table class="layui-table" lay-size="sm">
+            <table class="layui-table">
                 <colgroup>
-                    <col style="width: 120px;">
-                    <col style="width: 100px">
+                    <col style="width: 100px;">
+                    <col style="width: 300px;">
                     <col>
                 </colgroup>
                 <thead>
                 <tr>
                     <th>图片</th>
-                    <th>上传时间</th>
                     <th>地址</th>
+                    <th>上传时间</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td><img src="{{ image.avatar_thumbnail.url }}" style="max-height: 100px"></td>
+                    <td>
+                        <img src="{{ image.avatar_thumbnail.url }}"
+                             style="max-height: 300px"
+                             alt="图片"
+                        >
+                    </td>
+                    <td>
+                        <button class="btn layui-btn layui-btn-normal"
+                                data-clipboard-text="https://www.dusaiphoto.com{{ image.avatar_thumbnail.url }}"
+                        >
+                            复制
+                        </button>
+                    </td>
                     <td>{{ image.created }}</td>
-                    <td>{{ image.avatar_thumbnail.url }}</td>
                 </tr>
                 </tbody>
             </table>
 
         {% endfor %}
     {% endif %}
-{% include 'paginator.html' %}
+    {% include 'paginator.html' %}
     <br/>
     <hr/>
 
