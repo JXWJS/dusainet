@@ -6,12 +6,29 @@ from urllib import request
 
 
 class ArticleCreateForm(forms.ModelForm):
+    """
+    写新文章的表单
+    """
     class Meta:
         model = ArticlesPost
-        fields = ['title', 'course_title', 'column', 'tags', 'body', 'url', 'course', 'course_sequence']
+        fields = [
+            'title',
+            'course_title',
+            'column',
+            'tags',
+            'body',
+            'url',
+            'course',
+            'course_sequence'
+        ]
 
     def clean_url(self):
+        """
+        获取网络图片的url
+        :return: url
+        """
         url = self.cleaned_data['url']
+        # 检查url的图片格式
         if url:
             valid_extensions = ['jpg', 'jpeg', 'png']
             extension = url.rsplit('.', 1)[1].lower()
@@ -20,6 +37,10 @@ class ArticleCreateForm(forms.ModelForm):
         return url
 
     def save(self, force_insert=False, force_update=False, commit=True):
+        """
+        重写save(), 修改图片的名字为slug
+        :return: 提交的article表单类对象
+        """
         article = super(ArticleCreateForm, self).save(commit=False)
         article_url = self.cleaned_data['url']
         if article_url:

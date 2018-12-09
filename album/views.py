@@ -1,22 +1,20 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, UpdateView
-from django.http import HttpResponse
-from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin
+from django.views.generic import ListView, CreateView
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 from .forms import AlbumForm
 from .models import Album
 from utils.utils import PaginatorMixin
 
 from comments.forms import AlbumCommentForm
-from comments.models import AlbumComment
-
 
 # Create your views here.
 class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
+    """
+    上传图片的视图
+    未开发完成，不建议使用
+    暂用admin代替
+    """
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_upload.html'
@@ -34,12 +32,21 @@ class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
 
 
 class AlbumListView(PaginatorMixin, ListView):
+    """
+    album list主页面
+    """
     paginate_by = 5
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_list.html'
 
     def get_context_data(self, **kwargs):
+        """
+        添加评论表单对象，传递到模板
+        已废弃此功能
+        :param kwargs:
+        :return: 传递至模板的上下文对象
+        """
         context = super().get_context_data(**kwargs)
         comment_form = AlbumCommentForm()
         data = {
@@ -50,6 +57,13 @@ class AlbumListView(PaginatorMixin, ListView):
 
 
 def album_delete(request, image_id):
+    """
+    删除图片
+    未开发，暂用admin代替
+    :param request:
+    :param image_id: 图片的id
+    :return: 重定向到album list模板
+    """
     if request.user.is_superuser:
         image = Album.objects.get(id=image_id)
         image.delete()
@@ -57,5 +71,11 @@ def album_delete(request, image_id):
 
 
 def album_manage(request):
+    """
+    album管理页面
+    未开发，暂用admin代替
+    :param request:
+    :return: 管理页面模板
+    """
     album = Album.objects.all()
     return render(request, 'album/album_manage.html', {'album': album})

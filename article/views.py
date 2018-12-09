@@ -7,7 +7,6 @@ from .forms import ArticleCreateForm
 
 from comments.models import Comment
 from comments.forms import CommentForm
-from course.models import Course
 from utils.utils import PaginatorMixin
 
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
@@ -15,8 +14,10 @@ from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 # Create your views here.
 
-# 文章列表Mixin
 class ArticleMixin(PaginatorMixin):
+    """
+    文章Mixin
+    """
     model = ArticlesPost
     context_object_name = 'articles'
     template_name = 'article/article_list.html'
@@ -31,16 +32,25 @@ class ArticleMixin(PaginatorMixin):
         return context
 
 
-# 所有文章
+# 所有文章的list
 class ArticlePostView(ArticleMixin, ListView):
     pass
 
 
-# 栏目文章
 class ArticlePostByColumnView(ArticleMixin, ListView):
-    template_name = 'article/article_list.html'
+    """
+    栏目文章list
+    """
 
     def get_context_data(self, **kwargs):
+        """
+        添加is_list_by_column上下文标记
+        若标记为true
+        模板显示栏目最热文章
+        false则显示综合最热文章
+        :param kwargs:
+        :return: 上下文对象
+        """
         context = super(ArticlePostByColumnView, self).get_context_data(**kwargs)
         is_list_by_column = True
         data = {
@@ -50,19 +60,35 @@ class ArticlePostByColumnView(ArticleMixin, ListView):
         return context
 
     def get_queryset(self):
+        """
+        :return: 栏目的qs
+        """
         qs = super(ArticlePostByColumnView, self).get_queryset()
         return qs.filter(column=self.kwargs['column_id'])
 
 
-# 标签文章
 class ArticlePostByTagView(ArticleMixin, ListView):
+    """
+    根据标签检索文章
+    按热度排序
+    """
+
     def get_queryset(self):
         qs = super(ArticlePostByTagView, self).get_queryset()
         return qs.filter(tags__name__in=[self.kwargs['tag_name']]).order_by('-total_views')
 
 
 class ArticlePostByMostViewedView(ArticleMixin, ListView):
+    """
+    按浏览数排序的list
+    """
+
     def get_context_data(self, **kwargs):
+        """
+        如果模板传入了column_id
+        则添加is_list_by_column标记
+        :return: context上下文
+        """
         context = super(ArticlePostByMostViewedView, self).get_context_data(**kwargs)
         if 'column_id' in self.kwargs:
             is_list_by_column = True
@@ -73,6 +99,12 @@ class ArticlePostByMostViewedView(ArticleMixin, ListView):
         return context
 
     def get_queryset(self):
+        """
+        如果is_list_by_column为true
+        则在栏目中检索
+        否则检索所有文章
+        :return: qs
+        """
         qs = super(ArticlePostByMostViewedView, self).get_queryset()
         if 'column_id' in self.kwargs:
             self.template_name = 'article/article_list.html'
@@ -81,8 +113,11 @@ class ArticlePostByMostViewedView(ArticleMixin, ListView):
             return qs.order_by('-total_views')
 
 
-# 文章内容
 def article_detail(request, article_id):
+    """
+    文章详情的view
+    :param article_id: 文章的id
+    """
     article = ArticlesPost.objects.get(id=article_id)
     article.total_views = article.total_views
     article.increase_views()
@@ -90,14 +125,18 @@ def article_detail(request, article_id):
     # 评论
     comment_form = CommentForm()
 
-    # 取出教程中前一条和后一条文章
+    # 根据教程序号，取出教程中前一条和后一条文章
     if article.course:
-        next_article = ArticlesPost.objects.filter(course_sequence__gt=article.course_sequence,
-                                                   course=article.course).order_by(
-            'course_sequence')
-        pre_article = ArticlesPost.objects.filter(course_sequence__lt=article.course_sequence,
-                                                  course=article.course).order_by(
-            '-course_sequence')
+        next_article = ArticlesPost.objects.filter(
+            course_sequence__gt=article.course_sequence,
+            course=article.course,
+        ).order_by('course_sequence')
+
+        pre_article = ArticlesPost.objects.filter(
+            course_sequence__lt=article.course_sequence,
+            course=article.course
+        ).order_by('-course_sequence')
+
         if pre_article.count() > 0:
             pre_article = pre_article[0]
         else:
@@ -109,6 +148,7 @@ def article_detail(request, article_id):
             next_article = None
 
         course_articles = article.course.article.all().order_by('course_sequence')
+
         context = {'article': article,
                    'comment_form': comment_form,
                    # 生成树形评论
@@ -117,7 +157,9 @@ def article_detail(request, article_id):
                    'pre_article': pre_article,
                    'next_article': next_article,
                    }
+
         return render(request, 'course/article_detail.html', context=context)
+    # 文章不属于任何教程
     else:
         context = {'article': article,
                    'comment_form': comment_form,
@@ -128,8 +170,20 @@ def article_detail(request, article_id):
 
 
 # 发表文章
-class ArticleCreateView(LoginRequiredMixin, StaffuserRequiredMixin, ArticleMixin, CreateView):
-    fields = ['title', 'column', 'tags', 'body', 'url', 'course', 'course_sequence']
+class ArticleCreateView(LoginRequiredMixin,
+                        StaffuserRequiredMixin,
+                        ArticleMixin,
+                        CreateView):
+    fields = [
+        'title',
+        'column',
+        'tags',
+        'body',
+        'url',
+        'course',
+        'course_sequence',
+    ]
+
     template_name = 'article/article_create.html'
 
     def post(self, request, *args, **kwargs):
@@ -146,8 +200,14 @@ class ArticleCreateView(LoginRequiredMixin, StaffuserRequiredMixin, ArticleMixin
         return self.render_to_response({"forms": forms})
 
 
-# 更新文章
-class ArticleUpdateView(LoginRequiredMixin, StaffuserRequiredMixin, ArticleMixin, UpdateView):
+class ArticleUpdateView(LoginRequiredMixin,
+                        StaffuserRequiredMixin,
+                        ArticleMixin,
+                        UpdateView):
+    """
+    更新文章
+    废弃，暂用admin代替
+    """
     success_url = reverse_lazy("article:article_list")
     context_object_name = 'article'
     template_name = 'article/article_create.html'

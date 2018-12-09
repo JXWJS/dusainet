@@ -3,6 +3,9 @@ from .models import ArticlesPost
 
 
 class ArticlesPostIndex(indexes.SearchIndex, indexes.Indexable):
+    """
+    haystack搜索位置
+    """
     text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):

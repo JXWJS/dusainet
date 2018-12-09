@@ -7,28 +7,37 @@ from uuslug import slugify
 
 # Create your models here.
 class Album(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='album')
+    """
+    照片墙
+    """
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='album',
+        verbose_name='发布员',
+    )
+
     url = models.URLField(blank=True)
     slug = models.SlugField(max_length=500, blank=True)
     # 需要展示的内容
-    title = models.CharField(max_length=300)
-    photographer = models.TextField(blank=True)
-    location = models.TextField(blank=True)
-    photo_time = models.TextField(blank=True)
-    camera = models.TextField(blank=True)
-    lens = models.TextField(blank=True)
-    focal_length = models.TextField(blank=True)
-    aperture = models.TextField(blank=True)
-    exposure_time = models.TextField(blank=True)
-    description = models.TextField(blank=True)
+    title = models.CharField(max_length=300, verbose_name="标题")
+    photographer = models.TextField(blank=True, verbose_name='拍摄者')
+    location = models.TextField(blank=True, verbose_name='拍摄地')
+    photo_time = models.TextField(blank=True, verbose_name='拍摄时间')
+    camera = models.TextField(blank=True, verbose_name='相机型号')
+    lens = models.TextField(blank=True, verbose_name='镜头型号')
+    focal_length = models.TextField(blank=True, verbose_name='焦距')
+    aperture = models.TextField(blank=True, verbose_name='光圈')
+    exposure_time = models.TextField(blank=True, verbose_name='曝光时间')
+    description = models.TextField(blank=True, verbose_name='简介')
     image = models.ImageField(upload_to='image/album/%Y%m%d')
     created = models.DateField(auto_now_add=True, db_index=True)
-
+    # 点赞功能。暂未使用
     total_likes = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ('-created',)
-
+        verbose_name_plural = '照片墙'
 
     def __str__(self):
         return self.title
@@ -37,7 +46,7 @@ class Album(models.Model):
         self.slug = slugify(self.title)
         super(Album, self).save(*args, **kwargs)
 
-    # 统计喜欢
+    # 评论数+1
     def increase_comments(self):
         self.total_likes += 1
         self.save(update_fields=['total_likes'])

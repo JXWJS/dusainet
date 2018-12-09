@@ -23,10 +23,6 @@ from django.conf.urls.static import static
 from article.views import ArticlePostView
 from article.feeds import ArticlesPostRssFeed, ArticlesPostColumnRssFeed
 
-from article.api.views import (
-    ArticleListAPIView,
-)
-
 import notifications.urls
 
 urlpatterns = [

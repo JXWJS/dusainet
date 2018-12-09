@@ -3,6 +3,10 @@ from django.shortcuts import render
 
 
 class PaginatorMixin:
+    """
+    作者: 追梦人物
+    site: www.zmrenwu.com
+    """
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
@@ -138,12 +142,19 @@ class PaginatorMixin:
 
 
 def send_email_to_user(recipient):
+    """
+    发送邮件的小函数
+    :param recipient:
+    :return:
+    """
     try:
-        send_mail(subject='[杜赛的个人网站]有你的新回复',
-                  message='有人在[杜赛的个人网站]回复了你，快去看看吧：http://www.dusaiphoto.com',
-                  from_email='dusaiphoto@foxmail.com',
-                  recipient_list=[recipient],
-                  fail_silently=False)
+        send_mail(
+            subject='[杜赛的个人网站]有你的新回复',
+            message='有人在[杜赛的个人网站]回复了你，快去看看吧：http://www.dusaiphoto.com',
+            from_email='dusaiphoto@foxmail.com',
+            recipient_list=[recipient],
+            fail_silently=False,
+        )
     except:
         pass
 

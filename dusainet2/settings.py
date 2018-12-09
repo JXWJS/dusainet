@@ -120,6 +120,7 @@ WSGI_APPLICATION = 'dusainet2.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# 开发数据库
 
 # DATABASES = {
 #     'default': {
@@ -130,6 +131,7 @@ WSGI_APPLICATION = 'dusainet2.wsgi.application'
 
 with open('email_host_password.txt') as f:
     MYSQL_PASSWORD = f.read().strip()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
