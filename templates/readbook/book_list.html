@@ -9,7 +9,9 @@
                 <a href="{% url 'readbook:book_detail' article.id %}" target="_blank">
                     <div class="layui-col-md3 layui-col-sm3 layui-col-xs5" style="text-align: center;">
                         <img src="{{ article.avatar_thumbnail.url }}"
-                             style="margin: 5%; max-width: 80%">
+                             style="margin: 5%; max-width: 80%"
+                             alt="缩略图"
+                        >
                     </div>
                     <div class="layui-col-lg6 layui-col-md5 layui-col-sm5 layui-col-xs7">
                         <h3 id="book_link">{{ article.title }}</h3>
@@ -22,7 +24,10 @@
                                                  style="color: #01a252;"></i> {{ article.total_views }}
                             <i class="layui-icon layui-icon-dialogue"
                                style="color: #DE8E30;"></i> {{ article.readbook_comments.count }}</p>
-                        <p class="layui-text">{{ article.body|slice:'100' }}...</p>
+                        <p class="layui-text"
+                           style="color: #8D8D8D; word-break: break-all">{{ article.body|truncatechars:120 }}</p>
+
+                        {#                        传递参数#}
                         <p id="practicality_{{ forloop.counter }}" hidden>{{ article.practicality }}</p>
                         <p id="interesting_{{ forloop.counter }}" hidden>{{ article.interesting }}</p>
                         <p id="readability_{{ forloop.counter }}" hidden>{{ article.readability }}</p>

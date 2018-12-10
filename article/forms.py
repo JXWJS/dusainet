@@ -44,9 +44,16 @@ class ArticleCreateForm(forms.ModelForm):
         article = super(ArticleCreateForm, self).save(commit=False)
         article_url = self.cleaned_data['url']
         if article_url:
-            album_name = '{0}.{1}'.format(slugify(article.title), article_url.rsplit('.', 1)[1].lower())
+            album_name = '{0}.{1}'.format(
+                slugify(article.title),
+                article_url.rsplit('.', 1)[1].lower()
+            )
             response = request.urlopen(article_url)
-            article.avatar_thumbnail.save(album_name, ContentFile(response.read()), save=False)
+            article.avatar_thumbnail.save(
+                album_name,
+                ContentFile(response.read()),
+                save=False
+            )
         if commit:
             article.save()
         return article
