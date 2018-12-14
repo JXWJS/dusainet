@@ -1,16 +1,10 @@
 from django import forms
-from .models import Comment, AlbumComment, ReadBookComment
+from .models import Comment, ReadBookComment
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body']
-
-
-class AlbumCommentForm(forms.ModelForm):
-    class Meta:
-        model = AlbumComment
         fields = ['body']
 
 

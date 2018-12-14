@@ -11,7 +11,7 @@
         <br/>
         <form id="comment_form"
               class="layui-form"
-              action="{% url 'comments:reply_post_comment' article_id node_id %}"
+              action="{% url 'comments:reply_post_comment' article_id node_id 'article' %}"
               method="post">
             {% csrf_token %}
             <div class="layui-form-item layui-form-text">
@@ -22,6 +22,7 @@
                               placeholder="请输入评论内容"></textarea>
                 </div>
             </div>
+            <input type="hidden" name="article_type" value="article">
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn layui-btn-sm layui-btn-primary" id="submit_btn" type="submit"

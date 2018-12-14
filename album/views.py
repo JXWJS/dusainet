@@ -6,7 +6,6 @@ from .forms import AlbumForm
 from .models import Album
 from utils.utils import PaginatorMixin
 
-from comments.forms import AlbumCommentForm
 
 # Create your views here.
 class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
@@ -39,21 +38,6 @@ class AlbumListView(PaginatorMixin, ListView):
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_list.html'
-
-    def get_context_data(self, **kwargs):
-        """
-        添加评论表单对象，传递到模板
-        已废弃此功能
-        :param kwargs:
-        :return: 传递至模板的上下文对象
-        """
-        context = super().get_context_data(**kwargs)
-        comment_form = AlbumCommentForm()
-        data = {
-            'comment_form': comment_form
-        }
-        context.update(data)
-        return context
 
 
 def album_delete(request, image_id):

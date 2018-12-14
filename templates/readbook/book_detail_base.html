@@ -85,6 +85,8 @@
                     </div>
                 </div>
 
+                <input type="hidden" name="article_type" value="readbook">
+
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
@@ -165,7 +167,7 @@
                         {% endif %}
                         <pre style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 6px">{{ node.body }}</pre>
                         <div style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
-                            <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id %}"
+                            <a href="{% url 'comments:read_book_reply_post_comment' article.id node.id 'readbook' %}"
                                style="color: #01a252">回复</a></p></div>
                         {% if not node.is_leaf_node %}
                             <ul class="children">

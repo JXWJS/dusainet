@@ -10,6 +10,11 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 # 博文的评论
 class Comment(MPTTModel):
+    """
+    博文评论
+    与读书、视频的评论model只有细微差别
+    为防止数据库出错，未做抽象
+    """
     article = models.ForeignKey(
         ArticlesPost,
         on_delete=models.CASCADE,
@@ -47,34 +52,6 @@ class Comment(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['-created_time']
-
-    def __str__(self):
-        return self.body[:20]
-
-
-class AlbumComment(models.Model):
-    """
-    album的评论
-    废弃，未使用
-    """
-    photo = models.ForeignKey(
-        Album,
-        on_delete=models.CASCADE,
-        related_name='album_comments',
-    )
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='album_comments_user',
-    )
-    reply_to = models.ForeignKey(
-        User,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name='album_comments_reply_to',
-    )
-    body = models.TextField()
-    created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.body[:20]

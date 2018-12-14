@@ -4,14 +4,19 @@
 {% block title %}通知列表 - 杜赛的个人网站{% endblock %}
 {% block content %}
     <div class="layui-row layui-card layui-card-body">
-        <a class="layui-btn layui-btn-normal layui-btn-sm" href="{% url 'my_notifications:mark_all_read' %}">标记全部已读</a>
+        <a class="layui-btn layui-btn-normal layui-btn-sm"
+           href="{% url 'my_notifications:mark_all_read' %}">标记全部已读
+        </a>
         {% for unread in unread_notify %}
             <hr/>
             {% if unread.description == 'article' %}
                 <p>
-                    <a id="my_link" href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 0 %}#F{{ unread.action_object.id }}"
-                       target="_blank"><span
-                            style="color: #5897fb;">{{ unread.actor }}</span>
+                    <a id="my_link"
+                       href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 0 0 %}#F{{ unread.action_object.id }}"
+                       target="_blank">
+                        <span style="color: #5897fb;">
+                            {{ unread.actor }}
+                        </span>
                         {% if unread.actor.is_superuser %}
                             <span style="color: #FF5722">[博主]</span>
                         {% elif unread.actor.is_staff %}
@@ -23,9 +28,12 @@
                 </p>
             {% else %}
                 <p>
-                    <a id="my_link" href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 1 0 %}#F{{ unread.action_object.id }}"
-                       target="_blank"><span
-                            style="color: #5897fb;">{{ unread.actor }}</span>
+                    <a id="my_link"
+                       href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id 1 0 %}#F{{ unread.action_object.id }}"
+                       target="_blank">
+                        <span style="color: #5897fb;">
+                            {{ unread.actor }}
+                        </span>
                         {% if unread.actor.is_superuser %}
                             <span style="color: #FF5722">[博主]</span>
                         {% elif unread.actor.is_staff %}

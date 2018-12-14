@@ -1,42 +1,32 @@
 from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 app_name = 'comments'
 urlpatterns = [
     # 文章的回复
-    url(
-        r'^post-comment/(?P<article_id>\d+)/$',
-        views.post_comment,
+    path(
+        'post-comment/<int:article_id>/',
+        views.CommentCreateView.as_view(),
         name='post_comment'
     ),
-    url(
-        r'^reply-post-comment/(?P<article_id>\d+)/(?P<node_id>\d+)/',
-        views.post_comment,
+    path(
+        'reply-post-comment/<int:article_id>/<int:node_id>/<article_type>/',
+        views.CommentCreateView.as_view(),
         name='reply_post_comment'
     ),
 
     # 读书版块的回复
     url(
         r'^read-book-post-comment/(?P<article_id>\d+)/$',
-        views.read_book_post_comment,
+        views.CommentCreateView.as_view(),
         name='read_book_post_comment'
     ),
-    url(
-        r'^read-book-reply-post-comment/(?P<article_id>\d+)/(?P<node_id>\d+)/',
-        views.read_book_post_comment,
+    path(
+        'read-book-reply-post-comment/<int:article_id>/<int:node_id>/<article_type>/',
+        views.CommentCreateView.as_view(),
         name='read_book_reply_post_comment'
     ),
 
-    # 图片回复, 废弃未使用
-    url(
-        r'^album-comment/(?P<photo_id>\d+)/$',
-        views.album_comment,
-        name='album_comment'
-    ),
-    url(
-        r'^album-comment/(?P<photo_id>\d+)/(?P<reply_to>\d+)/$',
-        views.album_comment,
-        name='reply_album_comment'
-    ),
 ]
