@@ -1,0 +1,57 @@
+{% extends 'base_with_rslider.html' %}
+{% load staticfiles %}
+{% block title %}视频 - 杜赛的个人网站{% endblock %}
+{% block content %}
+    <div class="layui-card layui-card-body">
+
+        {% for article in articles %}
+            <hr>
+
+            <div class="layui-row">
+
+                <div class="layui-col-sm3">
+                    <img src="{{ article.avatar_url }}"
+                         alt="avatar"
+                         style="max-width: 95%"
+                    >
+                </div>
+                <div class="layui-col-sm9">
+                    <h2 style="font-weight: bold;">
+                        <a href="{{ article.get_absolute_url }}"
+                           target="_blank"
+                        >
+                            {{ article.title }}
+                        </a>
+                    </h2>
+                    <p class="layui-text"
+                       style="color: #8D8D8D; word-break: break-all;"
+                    >
+                        {{ article.body|truncatechars:120 }}
+                    </p>
+                    <p class="layui-text">
+                        <i class="layui-icon layui-icon-read"
+                           style="color: #01a252;"
+                        >
+                        </i>
+                        {{ article.total_views }}
+                        <i class="layui-icon layui-icon-dialogue"
+                           style="color: #DE8E30;"
+                        >
+                        </i>
+                        {{ article.comments.count }}
+                        <i class="layui-icon layui-icon-log"
+                           style="color: #1E9FFF;"
+                        >
+                        </i> {{ article.created|date:"Y-m-d" }}
+                    </p>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        {% include 'paginator.html' %}
+
+    </div>
+
+{% endblock %}

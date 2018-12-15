@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'course',  # 教程
     'readbook',  # 读书
     'imagesource',  # 图库
+    'vlog', # 视频
     'aboutme',  # 作者
 
     'utils',  # 工具
@@ -238,3 +239,5 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"

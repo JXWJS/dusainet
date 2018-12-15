@@ -37,9 +37,15 @@ urlpatterns = [
     url(r'comments/', include('comments.urls', namespace='comments')),
     path('album/', include('album.urls', namespace='album')),
     path('course/', include('course.urls', namespace='course')),
+
     path('readbook/', include('readbook.urls', namespace='readbook')),
+
     path('imagesource/', include('imagesource.urls', namespace='imagesource')),
+
+    path('vlog/', include('vlog.urls', namespace='vlog')),
+
     path('aboutme/', include('aboutme.urls', namespace='aboutme')),
+
     path('my-notifications/', include('mynotifications.urls', namespace='my_notifications')),
 
     # RSS订阅

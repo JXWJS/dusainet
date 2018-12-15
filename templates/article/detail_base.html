@@ -81,7 +81,7 @@
                 <div class="" style="margin-top: 10px">
                         <span class="weibo mr-3">
 {#                            <a href="/accounts/weibo/login/">#}
-                            <a href="#weibologin" onclick="weibo_login()">
+                            <a href="/accounts/weibo/login/?process=login">
                                 <i class="layui-icon layui-icon-login-weibo"
                                    style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
                             </a>
@@ -189,17 +189,4 @@
 
 
     });
-
-    function weibo_login() {
-        layui.use('layer', function () {
-            var layer = layui.layer;
-
-            layer.open({
-                type: 2,
-                area: ['90%', '80%'],
-                shadeClose: true,
-                content: '/accounts/weibo/login/?process=login'
-            });
-        });
-    }
 </script>

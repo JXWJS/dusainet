@@ -12,7 +12,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 class Comment(MPTTModel):
     """
     博文评论
-    与读书、视频的评论model只有细微差别
+    与读书、视频的评论model只有外键的差别
     为防止数据库出错，未做抽象
     """
     article = models.ForeignKey(

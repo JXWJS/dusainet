@@ -1,0 +1,46 @@
+{% extends 'base_with_rslider.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+{% load weibo_utils %}
+
+{% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
+{% block content %}
+    <div>
+        <div class="layui-col-sm12 layui-card layui-card-body">
+            <br/>
+            <div>
+                <div>
+                    <h1 style="color: black;font-size: xx-large; font-weight: bold; line-height: 110%">
+                        {{ article.title }}
+                    </h1>
+                    <br/>
+                    <p style="color: #8D8D8D;">
+                        {{ article.total_views }}阅读 ·
+                        {{ article.comments.count }}评论 ·
+                        于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
+                    </p>
+                    <video src="{{ article.video_url }}"
+                           controls
+                           style="max-width: 100%;"
+                    >
+                        您的浏览器太老，无法运行视频哦
+                    </video>
+                    <p style="color: #8D8D8D;">
+                        {{ article.body }}
+                    </p>
+                </div>
+            </div>
+            <br/>
+            <div style="text-align: center">
+                <a href="/admiration/" target="_blank"
+                   class="layui-btn layui-btn-warm layui-btn-sm layui-btn-radius"
+                >
+                    写的不错，朕要赏
+                </a>
+            </div>
+            <br><br>
+
+        </div>
+    </div>
+
+{% endblock %}
