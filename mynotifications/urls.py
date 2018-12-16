@@ -15,7 +15,7 @@ urlpatterns = [
         name='mark_all_read',
     ),
     path(
-        'notify-box/mark-as-read/<int:article_id>/<int:notify_id>/<int:is_readbook>/<int:is_album>/',
+        'notify-box/mark-as-read/<int:article_id>/<int:notify_id>/<article_type>/',
          views.comments_notification_mark_as_read,
         name='mark_as_read',
     ),

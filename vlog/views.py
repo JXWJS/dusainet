@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 
 from .models import Vlog
 
-from comments.models import Comment
-from comments.forms import CommentForm
+from comments.models import VlogComment
+from comments.forms import VlogCommentForm
 from utils.utils import PaginatorMixin
 
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
@@ -35,4 +35,12 @@ class VlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(VlogDetailView, self).get_context_data(**kwargs)
         self.object.increase_views()
+
+        comment_form = VlogCommentForm()
+        extra_data = {
+            'comment_form': comment_form,
+            # 生成树形评论
+            'comments': VlogComment.objects.filter(article_id=self.object.id),
+        }
+        context.update(extra_data)
         return context

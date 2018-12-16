@@ -1,12 +1,27 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    redirect,
+)
+
 from django.contrib.auth.models import User
 from notifications.signals import notify
 
-from .models import Comment, ReadBookComment
-from .forms import CommentForm, ReadBookCommentForm
+from .models import (
+    Comment,
+    ReadBookComment,
+    VlogComment,
+)
+
+from .forms import (
+    CommentForm,
+    ReadBookCommentForm,
+    VlogCommentForm,
+)
 
 from article.models import ArticlesPost
 from readbook.models import ReadBook
+from vlog.models import Vlog
 
 from utils.utils import send_email_to_user
 
@@ -20,7 +35,7 @@ from braces.views import LoginRequiredMixin
 class CommentCreateView(LoginRequiredMixin,
                         CreateView):
     """
-    发布博文、读书的新评论的视图
+    发布博文、读书、vlog 的新评论的视图
     可处理get或post请求
     """
     fields = [
@@ -38,8 +53,8 @@ class CommentCreateView(LoginRequiredMixin,
             article = get_object_or_404(ReadBook, id=article_id)
             comment_form = ReadBookCommentForm(request.POST)
         else:
-            article = None
-            comment_form = None
+            article = get_object_or_404(Vlog, id=article_id)
+            comment_form = VlogCommentForm(request.POST)
         return (article, comment_form)
 
     def get_comment_form(self, article_type):
@@ -51,7 +66,7 @@ class CommentCreateView(LoginRequiredMixin,
         elif article_type == 'readbook':
             comment_form = ReadBookCommentForm()
         else:
-            comment_form = None
+            comment_form = VlogCommentForm()
         return comment_form
 
     def get_parent_comment(self, article_type, node_id):
@@ -63,7 +78,7 @@ class CommentCreateView(LoginRequiredMixin,
         elif article_type == 'readbook':
             parent_comment = ReadBookComment.objects.get(id=node_id)
         else:
-            parent_comment = None
+            parent_comment = VlogComment.objects.get(id=node_id)
         return parent_comment
 
     def get_template(self, article_type):
@@ -72,7 +87,7 @@ class CommentCreateView(LoginRequiredMixin,
         elif article_type == 'readbook':
             template = 'comments/read_book_reply_post_comment.html'
         else:
-            template = None
+            template = 'comments/vlog_reply_post_comment.html'
         return template
 
     def get(self, request, *args, **kwargs):

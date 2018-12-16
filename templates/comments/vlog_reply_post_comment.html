@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}回复{{ comment.user }} - 杜赛的个人网站{% endblock %}
+{% block content %}
+    <div class="layui-card layui-card-body">
+        <div class="">
+            <p class="layui-text">{{ comment.user }}</p>
+            <pre style="font-size: large">{{ comment.body }}</pre>
+        </div>
+        <br/>
+        <br/>
+        <form id="comment_form"
+              class="layui-form"
+              action="{% url 'comments:vlog_reply_post_comment' article_id node_id 'vlog' %}"
+              method="post">
+            {% csrf_token %}
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label" for="id_body">发表评论： </label>
+                <div class="layui-input-block">
+                    <textarea rows="6"
+                              id="id_body" class="layui-textarea" name="body"
+                              placeholder="请输入评论内容"></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="article_type" value="vlog">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="submit_btn" type="submit"
+                            name="submit"><i class="layui-icon layui-icon-release"></i> 发布
+                    </button>
+                    <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
