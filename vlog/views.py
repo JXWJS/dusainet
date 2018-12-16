@@ -1,6 +1,4 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView
 
 from .models import Vlog
 
@@ -8,17 +6,11 @@ from comments.models import VlogComment
 from comments.forms import VlogCommentForm
 from utils.utils import PaginatorMixin
 
-from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
-
-
-# Create your views here.
 
 class VlogListView(PaginatorMixin, ListView):
     """
     vlog列表
     """
-    # paginate_by = 1
-
     model = Vlog
     context_object_name = 'articles'
     template_name = 'vlog/list.html'

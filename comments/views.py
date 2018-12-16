@@ -163,5 +163,5 @@ class CommentCreateView(LoginRequiredMixin,
                 action_object=new_comment,
             )
             # 给博主发送通知邮件
-            # send_email_to_user(recipient='dusaiphoto@foxmail.com')
+            send_email_to_user(recipient='dusaiphoto@foxmail.com')
         return redirect(article)
