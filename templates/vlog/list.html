@@ -9,16 +9,16 @@
 
             <div class="layui-row">
                 {% if article.avatar_url %}
-                    <div class="layui-col-sm3 layui-col-xs3">
+                    <div class="layui-col-sm3 layui-hide-xs">
                         <img src="{{ article.avatar_url }}"
                              alt="avatar"
-                             style="max-width: 95%"
+                             style="max-width: 95%; border-radius: 16px"
                         >
                     </div>
 
-                <div class="layui-col-sm9 layui-col-xs9">
+                <div class="layui-col-sm9">
                 {% else %}
-                <div class="layui-col-sm12 layui-col-xs12">
+                <div class="layui-col-sm12">
                 {% endif %}
                     <h2 style="font-weight: bold;">
                         <a href="{{ article.get_absolute_url }}"

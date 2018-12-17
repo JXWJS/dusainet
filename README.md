@@ -1,15 +1,15 @@
 # 简介
-这是一个由杜赛开发的博客网站Django项目。
+这是一个博客网站的Django项目。
 
 Python==3.6, Django==2.0, Bootstrap==4.0
 
 网站链接在这里：[杜赛的个人网站](https://www.dusaiphoto.com)
 
-包含博客、教程、读书、照片墙几个板块。
+包含博客、教程、读书、照片墙、视频几个板块。
 
 作者是一个光学工程师，编程是业余爱好。
 
-这也是我写的第一个Django项目，欢迎各位前辈提出宝贵的意见。
+这也是我写的第一个Django项目，有很多不完善的地方，欢迎各位前辈提出宝贵的意见。
 
 有问题请联系作者：dusaiphoto@foxmail.com
 
@@ -18,11 +18,15 @@ Python==3.6, Django==2.0, Bootstrap==4.0
 - 修改`dusainet2/settings.py`中的所有需要账号密码的部分
 
 # 注意事项：
-静态文件layui.css/layui.min.css和editormd.css/editormd.min.css均有更改
+静态文件layui.css/layui.min.css和editormd.css/editormd.min.css均有更改。使用原生版本的layui和editormd可能UI会不一致，请根据需要修改。
+
 - .editormd-preview-container, .editormd-html-preview修改了font-size和padding
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 # 更新日志：
+## 2018.12.17
+- 优化视频版块UI
+
 ## 2018.12.15
 - 优化comments代码结构
 - 增加视频版块
