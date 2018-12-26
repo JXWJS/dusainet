@@ -24,6 +24,9 @@ Python==3.6, Django==2.0, Bootstrap==4.0
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 # 更新日志：
+## 2018.12.26
+- bug修复
+
 ## 2018.12.17
 - 优化视频版块UI
 

@@ -134,7 +134,7 @@
                             <i class="layui-icon layui-icon-next"></i> {{ node.reply_to }}
                             {% if node.reply_to.is_superuser %}
                                 <i style="color: #ff5500;">[博主]</i>
-                            {% elif node.user.is_staff %}
+                            {% elif node.reply_to.is_staff %}
                                 <i style="color: #5897fb;">[管理员]</i>
                             {% endif %}
                         {% endif %}
