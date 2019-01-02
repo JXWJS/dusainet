@@ -13,7 +13,7 @@
             <div class="layui-col-sm12" style="margin-bottom: 6px">
         {% endif %}
         <p class="layui-text" style="color: #8D8D8D;">
-            {#                    栏目#}
+            <!-- 文章标题的栏目 -->
             {% if article.column.title == '编程' %}
                 <a href="{% url 'article:article_list_by_column' article.column.id %}"
                    class="layui-btn layui-btn-xs">{{ article.column }} </a>
@@ -28,7 +28,7 @@
                    class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
             {% endif %}
 
-            {#标签#}
+            <!-- 标签 -->
             {% for tag in article.tags.all %}
                 <a class="layui-bg-gray"
                    href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
@@ -52,9 +52,8 @@
                    style="color: #8D8D8D;">{{ article.course.title }}</a>
             {% endif %}
         </p>
-
         </div>
-        </div>
+    </div>
 {% endfor %}
 
 {% include 'paginator.html' %}

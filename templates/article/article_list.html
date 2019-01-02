@@ -38,6 +38,7 @@
             {% endfor %}
         </div>
 
+        <!-- 面包屑 -->
         <span class="layui-breadcrumb">
             <a href="?order=created-time&column_id={{ column_id }}"
 
@@ -58,10 +59,12 @@
             </a>
         </span>
 
-        <a href="#" style="float: right;" id="add_rss"><i
-                class="layui-icon layui-icon-cellphone"
-                onclick="_hmt.push(['_trackEvent', 'rss', 'click', '订阅'])"></i>RSS
-            订阅</a>
+        <a href="#" style="float: right;" id="add_rss">
+            <i class="layui-icon layui-icon-cellphone"
+               onclick="_hmt.push(['_trackEvent', 'rss', 'click', '订阅'])"
+            ></i>
+            RSS 订阅
+        </a>
         {% include 'article/article_list_base.html' %}
     </div>
 
