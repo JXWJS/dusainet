@@ -38,16 +38,19 @@ class ArticlePostView(ArticleMixin, ListView):
     def get_queryset(self):
         """
         获取模型数组
-        :return: result
+        :return: queryset
         """
         column_id = self.request.GET.get('column_id')
+        order = self.request.GET.get('order')
 
         queryset = super(ArticlePostView, self).get_queryset()
         if column_id:
-            result = queryset.filter(column=column_id)
-        else:
-            result = queryset
-        return result
+            queryset = queryset.filter(column=column_id)
+
+        if order == 'total_views':
+            queryset = queryset.order_by('-total_views')
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         """
@@ -55,13 +58,22 @@ class ArticlePostView(ArticleMixin, ListView):
         :return: context
         """
         column_id = self.request.GET.get('column_id')
+        order = self.request.GET.get('order')
+
         context = super(ArticlePostView, self).get_context_data(**kwargs)
+
+        # 更新栏目信息
         if column_id:
-            data = {
+            c_data = {
                 'column_id': int(column_id),
             }
-            context.update(data)
-            print(context)
+            context.update(c_data)
+        # 更新排序信息
+        if order:
+            o_data = {
+                'order': order
+            }
+            context.update(o_data)
         return context
 
 

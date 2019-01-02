@@ -6,21 +6,22 @@
 
         <!-- 栏目导航 -->
         <div class="layui-btn-container">
-            <a class=
-                       "
+            <a class="
                         layui-btn
                         layui-btn-radius
                         layui-btn-sm
                         {% if column_id == None %}
-                        layui-btn-warm
+                        layui-btn
                         {% else %}
                         layui-btn-primary
                         {% endif %}
-                        "
-               href="{% url 'article:article_list' %}">综合</a>
+                     "
+               href="/"
+            >
+                综合
+            </a>
             {% for column in columns %}
-                <a class=
-                           "
+                <a class="
                         layui-btn
                         layui-btn-radius
                         layui-btn-sm
@@ -30,23 +31,32 @@
                         layui-btn-primary
                         {% endif %}
                         "
-                   href="?column_id={{ column.id }}">{{ column.title }}</a>
+                   href="?column_id={{ column.id }}"
+                >
+                    {{ column.title }}
+                </a>
             {% endfor %}
         </div>
 
-        {% if is_list_by_column %}
-            {% if articles.0 %}
-                <span class="layui-breadcrumb">
-                <a href="{% url 'article:article_list_by_column' articles.0.column_id %}">最近</a>
-                <a href="{% url 'article:article_list_by_column_most_viewed' articles.0.column_id %}">热门</a>
-            </span>
-            {% endif %}
-        {% else %}
-            <span class="layui-breadcrumb">
-            <a href="{% url 'article:article_list' %}">最近</a>
-            <a href="{% url 'article:article_list_by_most_viewed' %}">热门</a>
-            </span>
-        {% endif %}
+        <span class="layui-breadcrumb">
+            <a href="?order=created-time&column_id={{ column_id }}"
+
+            >
+               {% if order != 'total_views' %}
+                   <cite>最近</cite>
+               {% else %}
+                   最近
+               {% endif %}
+            </a>
+            <a href="?order=total_views&column_id={{ column_id }}"
+            >
+               {% if order == 'total_views' %}
+                   <cite>热门</cite>
+               {% else %}
+                   热门
+               {% endif %}
+            </a>
+        </span>
 
         <a href="#" style="float: right;" id="add_rss"><i
                 class="layui-icon layui-icon-cellphone"
