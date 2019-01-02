@@ -14,18 +14,22 @@
         {% endif %}
         <p class="layui-text" style="color: #8D8D8D;">
             <!-- 文章标题的栏目 -->
-            {% if article.column.title == '编程' %}
-                <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                   class="layui-btn layui-btn-xs">{{ article.column }} </a>
-            {% elif article.column.title == '摄影' %}
-                <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                   class="layui-btn layui-btn-warm layui-btn-xs">{{ article.column }} </a>
-            {% elif article.column.title == '光学' %}
-                <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                   class="layui-btn layui-btn-normal layui-btn-xs">{{ article.column }} </a>
-            {% elif article.column.title == '闲聊' %}
-                <a href="{% url 'article:article_list_by_column' article.column.id %}"
-                   class="layui-btn layui-btn-primary layui-btn-xs">{{ article.column }} </a>
+            {% if article.column.id %}
+                <a href="?column_id={{ article.column.id }}"
+                   class=   "
+                            layui-btn
+                            layui-btn-xs
+                            {% if article.column.title == '摄影' %}
+                            layui-btn-warm
+                            {% elif article.column.title == '光学' %}
+                            layui-btn-normal
+                            {% else %}
+                            layui-btn-primary
+                            {% endif %}
+                            "
+                >
+                    {{ article.column }}
+                </a>
             {% endif %}
 
             <!-- 标签 -->
