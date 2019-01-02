@@ -34,7 +34,35 @@ class ArticleMixin(PaginatorMixin):
 
 # 所有文章的list
 class ArticlePostView(ArticleMixin, ListView):
-    pass
+
+    def get_queryset(self):
+        """
+        获取模型数组
+        :return: result
+        """
+        column_id = self.request.GET.get('column_id')
+
+        queryset = super(ArticlePostView, self).get_queryset()
+        if column_id:
+            result = queryset.filter(column=column_id)
+        else:
+            result = queryset
+        return result
+
+    def get_context_data(self, **kwargs):
+        """
+        获取上下文
+        :return: context
+        """
+        column_id = self.request.GET.get('column_id')
+        context = super(ArticlePostView, self).get_context_data(**kwargs)
+        if column_id:
+            data = {
+                'column_id': int(column_id),
+            }
+            context.update(data)
+            print(context)
+        return context
 
 
 class ArticlePostByColumnView(ArticleMixin, ListView):

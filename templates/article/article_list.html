@@ -3,12 +3,34 @@
 {% block title %}杜赛的个人网站{% endblock %}
 {% block content %}
     <div class="layui-card layui-card-body">
+
+        <!-- 栏目导航 -->
         <div class="layui-btn-container">
-            <a class="layui-btn layui-btn-radius layui-btn-sm layui-btn-primary"
+            <a class=
+                       "
+                        layui-btn
+                        layui-btn-radius
+                        layui-btn-sm
+                        {% if column_id == None %}
+                        layui-btn-warm
+                        {% else %}
+                        layui-btn-primary
+                        {% endif %}
+                        "
                href="{% url 'article:article_list' %}">综合</a>
             {% for column in columns %}
-                <a class="layui-btn layui-btn-radius layui-btn-sm layui-btn-primary"
-                   href="{% url 'article:article_list_by_column' column.id %}">{{ column.title }}</a>
+                <a class=
+                           "
+                        layui-btn
+                        layui-btn-radius
+                        layui-btn-sm
+                        {% if column.id == column_id %}
+                        layui-btn-warm
+                        {% else %}
+                        layui-btn-primary
+                        {% endif %}
+                        "
+                   href="?column_id={{ column.id }}">{{ column.title }}</a>
             {% endfor %}
         </div>
 
@@ -44,21 +66,21 @@
                         shadeClose: true,
                         title: '订阅栏目',
                         content: '<div class="layui-card">\n' +
-                        '    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>\n' +
-                        '    <div class="layui-card-body">\n' +
-                        '        <div class="rss">\n' +
-                        '            <a href="{% url 'rss' %}" style="color: #ff5500">\n' +
-                        '                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>\n' +
-                        '        </div>\n' +
-                        '        {% for column in columns %}\n'+
-                            '            <div class="column_rss">\n'+
-                            '                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">\n'+
-                            '                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>\n'
-                            +
-                            '            </div>\n'+
-                            '        {% endfor %}\n' +
-                        '    </div>\n' +
-                        '</div>' //这里content是一个普通的String
+                            '    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>\n' +
+                            '    <div class="layui-card-body">\n' +
+                            '        <div class="rss">\n' +
+                            '            <a href="{% url 'rss' %}" style="color: #ff5500">\n' +
+                            '                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>\n' +
+                            '        </div>\n' +
+                            '        {% for column in columns %}\n'+
+                                '            <div class="column_rss">\n'+
+                                '                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">\n'+
+                                '                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>\n'
+                                +
+                                '            </div>\n'+
+                                '        {% endfor %}\n' +
+                            '    </div>\n' +
+                            '</div>' //这里content是一个普通的String
                     });
                     {#layer.msg('hello');#}
                 });
