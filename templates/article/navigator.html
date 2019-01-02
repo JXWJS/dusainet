@@ -1,0 +1,54 @@
+<!-- 栏目导航 -->
+<div class="layui-btn-container">
+    <a class="
+                layui-btn
+                layui-btn-radius
+                layui-btn-sm
+                {% if column_id == None %}
+                layui-btn
+                {% else %}
+                layui-btn-primary
+                {% endif %}
+             "
+       href="/"
+    >
+        综合
+    </a>
+    {% for column in columns %}
+        <a class="
+                layui-btn
+                layui-btn-radius
+                layui-btn-sm
+                {% if column.id == column_id %}
+                layui-btn-warm
+                {% else %}
+                layui-btn-primary
+                {% endif %}
+                "
+           href="?column_id={{ column.id }}"
+        >
+            {{ column.title }}
+        </a>
+    {% endfor %}
+</div>
+
+<!-- 面包屑 -->
+<span class="layui-breadcrumb">
+    <a href="?order=created-time&column_id={{ column_id }}&tag={{ tag }}"
+
+    >
+       {% if order != 'total_views' %}
+           <cite>最近</cite>
+       {% else %}
+           最近
+       {% endif %}
+    </a>
+    <a href="?order=total_views&column_id={{ column_id }}&tag={{ tag }}"
+    >
+       {% if order == 'total_views' %}
+           <cite>热门</cite>
+       {% else %}
+           热门
+       {% endif %}
+    </a>
+</span>

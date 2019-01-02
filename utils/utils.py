@@ -7,7 +7,7 @@ class PaginatorMixin:
     作者: 追梦人物
     site: www.zmrenwu.com
     """
-    paginate_by = 2
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         """

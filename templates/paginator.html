@@ -2,7 +2,7 @@
 {% if is_paginated %}
     <div class="pagination" style="text-align: center">
         {% if first %}
-            <a href="?page=1&order={{ order }}&column_id={{ column_id }}"
+            <a href="?page=1&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
                class="layui-btn layui-btn-primary layui-btn-sm"
             >
                 1
@@ -13,7 +13,7 @@
                 <span>...</span>
             {% endif %}
             {% for i in left %}
-                <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}"
+                <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
                    class="layui-btn layui-btn-primary
                    layui-btn-sm"
                 >
@@ -21,14 +21,14 @@
                 </a>
             {% endfor %}
         {% endif %}
-        <a href="?page={{ page_obj.number }}&order={{ order }}&column_id={{ column_id }}"
+        <a href="?page={{ page_obj.number }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
            class="layui-btn layui-btn"
         >
             {{ page_obj.number }}
         </a>
         {% if right %}
             {% for i in right %}
-                <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}"
+                <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
                    class="layui-btn layui-btn-primary layui-btn-sm"
                 >
                     {{ i }}
@@ -39,7 +39,7 @@
             {% endif %}
         {% endif %}
         {% if last %}
-            <a href="?page={{ paginator.num_pages }}&order={{ order }}&column_id={{ column_id }}"
+            <a href="?page={{ paginator.num_pages }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
                class="layui-btn layui-btn-primary layui-btn-sm"
             >
                 {{ paginator.num_pages }}

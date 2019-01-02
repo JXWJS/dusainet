@@ -1,3 +1,18 @@
+
+<!-- 提示语 -->
+{% if tag %}
+<h2>
+    <i class="layui-icon layui-icon-search" style="font-size: x-large"></i>
+    标签 "
+    <span style="color: red;">
+        {{ tag }}
+    </span>"
+    的相关文章如下：
+</h2>
+{% endif %}
+
+
+<!-- 列表循环 -->
 {% for article in articles %}
     <hr/>
     <div class="layui-row">
@@ -35,25 +50,51 @@
             <!-- 标签 -->
             {% for tag in article.tags.all %}
                 <a class="layui-bg-gray"
-                   href="{% url 'article:article_list_by_tag' tag %}">{{ tag }}</a>
+                   href="?tag={{ tag }}"
+                >
+                    {{ tag }}
+                </a>
             {% endfor %}
 
-        <h2><a href="{{ article.get_absolute_url }}" style="font-weight: bold"
-               target="_blank">{{ article.title }}</a></h2>
+        <h2>
+            <a href="{{ article.get_absolute_url }}"
+               style="font-weight: bold"
+               target="_blank"
+            >
+                {{ article.title }}
+            </a>
+        </h2>
         <p class="layui-text"
            style="color: #8D8D8D; word-break: break-all"
         >
             {{ article.body|truncatechars:120 }}
         </p>
-        <p class="layui-text"><i class="layui-icon layui-icon-read"
-                                 style="color: #01a252;"></i> {{ article.total_views }}
-            <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i> {{ article.comments.count }}
-            <i class="layui-icon layui-icon-log" style="color: #1E9FFF;"></i> {{ article.created|date:"Y-m-d" }}
-            {#            教程#}
+        <p class="layui-text">
+            <i class="
+                    layui-icon
+                    layui-icon-read"
+               style="color: #01a252;"></i>
+            {{ article.total_views }}
+            <i class="
+                    layui-icon
+                    layui-icon-dialogue"
+               style="color: #DE8E30;"></i>
+            {{ article.comments.count }}
+            <i class="
+                    layui-icon
+                    layui-icon-log"
+               style="color: #1E9FFF;"></i>
+            {{ article.created|date:"Y-m-d" }}
+            <!-- 教程 -->
             {% if article.course_id %}
-                <i class="layui-icon layui-icon-list" style="color: #ee00ee;"></i>
+                <i class="
+                        layui-icon
+                        layui-icon-list"
+                   style="color: #ee00ee;"></i>
                 <a href="{% url 'course:course_articles_list' article.course_id %}"
-                   style="color: #8D8D8D;">{{ article.course.title }}</a>
+                   style="color: #8D8D8D;">
+                    {{ article.course.title }}
+                </a>
             {% endif %}
         </p>
         </div>

@@ -42,6 +42,7 @@ class ArticlePostView(ArticleMixin, ListView):
         """
         column_id = self.request.GET.get('column_id')
         order = self.request.GET.get('order')
+        tag = self.request.GET.get('tag')
 
         queryset = super(ArticlePostView, self).get_queryset()
         if column_id:
@@ -49,6 +50,10 @@ class ArticlePostView(ArticleMixin, ListView):
 
         if order == 'total_views':
             queryset = queryset.order_by('-total_views')
+
+        if tag:
+            queryset = queryset.filter(tags__name__in=[tag])
+            print(queryset)
 
         return queryset
 
@@ -59,6 +64,7 @@ class ArticlePostView(ArticleMixin, ListView):
         """
         column_id = self.request.GET.get('column_id')
         order = self.request.GET.get('order')
+        tag = self.request.GET.get('tag')
 
         context = super(ArticlePostView, self).get_context_data(**kwargs)
 
@@ -74,6 +80,12 @@ class ArticlePostView(ArticleMixin, ListView):
                 'order': order
             }
             context.update(o_data)
+        # 更新标签信息
+        if tag:
+            t_data = {
+                'tag': tag
+            }
+            context.update(t_data)
         return context
 
 
