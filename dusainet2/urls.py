@@ -38,7 +38,7 @@ urlpatterns = [
     path('album/', include('album.urls', namespace='album')),
     path('course/', include('course.urls', namespace='course')),
 
-    path('readbook/', include('readbook.urls', namespace='readbook')),
+    path('book/', include('readbook.urls', namespace='readbook')),
 
     path('imagesource/', include('imagesource.urls', namespace='imagesource')),
 

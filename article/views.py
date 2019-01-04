@@ -20,7 +20,6 @@ class ArticleMixin(PaginatorMixin):
     """
     model = ArticlesPost
     context_object_name = 'articles'
-    template_name = 'article/article_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -32,8 +31,9 @@ class ArticleMixin(PaginatorMixin):
         return context
 
 
-# 所有文章的list
+# 文章列表
 class ArticlePostView(ArticleMixin, ListView):
+    template_name = 'article/article_list.html'
 
     def dispatch(self, request, *args, **kwargs):
         """

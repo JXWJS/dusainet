@@ -1,7 +1,7 @@
 # 简介
 这是一个博客网站的Django项目。
 
-Python==3.6, Django==2.0, Bootstrap==4.0
+Python==3.6, Django==2.0, layUI==2.3
 
 网站链接在这里：[杜赛的个人网站](https://www.dusaiphoto.com)
 
@@ -11,6 +11,8 @@ Python==3.6, Django==2.0, Bootstrap==4.0
 
 这也是我写的第一个Django项目，有很多不完善的地方，欢迎各位前辈提出宝贵的意见。
 
+>网站运行半年后：代码真的写得太烂啦！会持续进行优化
+
 有问题请联系作者：dusaiphoto@foxmail.com
 
 # 使用方法
@@ -18,12 +20,18 @@ Python==3.6, Django==2.0, Bootstrap==4.0
 - 修改`dusainet2/settings.py`中的所有需要账号密码的部分
 
 # 注意事项：
-静态文件layui.css/layui.min.css和editormd.css/editormd.min.css均有更改。使用原生版本的layui和editormd可能UI会不一致，请根据需要修改。
+静态文件layui.css/layui.min.css和editormd.css/editormd.min.css均有更改。
+
+使用原生版本的layui和editormd可能UI会不一致，请根据需要修改。
 
 - .editormd-preview-container, .editormd-html-preview修改了font-size和padding
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 # 更新日志：
+## 2019.01.04
+- 优化业务逻辑、url
+- 优化UI显示
+
 ## 2018.12.26
 - bug修复
 

@@ -4,14 +4,14 @@ from . import views
 
 app_name = 'readbook'
 urlpatterns = [
-    url(
-        r'^book-list/$',
+    path(
+        '',
         views.ReadBookListView.as_view(),
         name='book_list',
     ),
 
     url(
-        r'^book-detail/(?P<article_id>\d+)/$',
+        r'^detail/(?P<article_id>\d+)/$',
         views.read_book_detail,
         name='book_detail',
     ),

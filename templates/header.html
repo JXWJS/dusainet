@@ -3,18 +3,91 @@
 {% load weibo_utils %}
 
 <ul class="layui-nav">
-    <li class="layui-nav-item "><a href="/" style="font-size: 1.2em;">杜赛的个人网站</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="/">文章</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'course:course_list' %}">教程</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'readbook:book_list' %}">读书</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'album:album_list' %}">照片墙</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'vlog:list' %}">视频</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="{% url 'aboutme:footpoint' %}">关于</a></li>
+    <!-- PC导航 -->
+    <li class="layui-nav-item ">
+        <a href="/" style="font-size: 1.2em;">
+            杜赛的个人网站
+        </a>
+    </li>
+    <li class=  "
+                layui-nav-item
+                layui-hide-xs
+                {% if 'article' in request.path or request.path == '/' %}
+                layui-this
+                {% endif %}
+                "
+    >
+        <a href="/">
+            文章
+        </a>
+    </li>
+    <li class=  "
+                layui-nav-item
+                layui-hide-xs
+                {% if '/course' in request.path %}
+                layui-this
+                {% endif %}
+                "
+    >
+        <a href="{% url 'course:course_list' %}">
+            教程
+        </a>
+    </li>
+    <li class=  "
+                layui-nav-item
+                layui-hide-xs
+                {% if '/book' in request.path %}
+                layui-this
+                {% endif %}
+                "
+    >
+        <a href="{% url 'readbook:book_list' %}">
+            读书
+        </a>
+    </li>
+    <li class=  "
+                layui-nav-item
+                layui-hide-xs
+                {% if '/album' in request.path %}
+                layui-this
+                {% endif %}
+                "
+    >
+        <a href="{% url 'album:album_list' %}">
+            照片墙
+        </a>
+    </li>
+    <li class=  "
+                layui-nav-item
+                layui-hide-xs
+                {% if '/vlog' in request.path %}
+                layui-this
+                {% endif %}
+                "
+    >
+        <a href="{% url 'vlog:list' %}">
+            视频
+        </a>
+    </li>
+    <li class=  "
+                layui-nav-item
+                layui-hide-xs
+                {% if '/aboutme' in request.path %}
+                layui-this
+                {% endif %}
+                "
+    >
+        <a href="{% url 'aboutme:footpoint' %}">
+            关于
+        </a>
+    </li>
 
+    <!-- 移动端导航 -->
     <li class="layui-nav-item layui-hide-sm" style="float: right">
         <a href="javascript:"><i class="layui-icon layui-icon-spread-left"></i></a>
-        <dl class="layui-nav-child"> <!-- 二级菜单 -->
-            <dd><a href="{% url 'article:article_list' %}">文章</a></dd>
+        <dl class="layui-nav-child">
+            <!-- 二级菜单 -->
+            <dd><a href="/">文章</a></dd>
             <dd><a href="{% url 'course:course_list' %}">教程</a></dd>
             <dd><a href="{% url 'readbook:book_list' %}">读书</a></dd>
             <dd><a href="{% url 'album:album_list' %}">照片墙</a></dd>
@@ -24,12 +97,14 @@
         </dl>
     </li>
 
-
+    <!-- 用户下拉条 -->
     {% if user.is_authenticated %}
         <li class="layui-nav-item" style="float: right;"><a href="javascript:">
             {% if user.socialaccount_set.all.0.get_avatar_url %}
                 <img src="{% translate_avatar_ssl user.socialaccount_set.all.0.get_avatar_url %}"
-                     style="max-height: 40px; border-radius: 20%">
+                     style="max-height: 40px; border-radius: 20%"
+                     alt="头像"
+                >
             {% else %}
                 {{ user.username }}
             {% endif %}
@@ -39,10 +114,12 @@
             {% endif %}
         </a>
             <dl class="layui-nav-child">
-                <dd><a href="{% url 'my_notifications:notify_box' %}" target="_blank">通知
-                    {% if unread_count %}
-                        <span class="layui-badge" style="left: 50%;">{{ unread_count }}</span>
-                    {% endif %}</a></dd>
+                <dd>
+                    <a href="{% url 'my_notifications:notify_box' %}" target="_blank">
+                        通知
+                        {% if unread_count %}
+                            <span class="layui-badge" style="left: 50%;">{{ unread_count }}</span>
+                        {% endif %}</a></dd>
                 {% if user.is_superuser %}
                     <dd><a href="{% url 'article:article_create' %}">写文章</a></dd>
                     <dd><a href="{% url 'album:album_manage' %}">照片墙</a></dd>
@@ -53,16 +130,39 @@
         </li>
 
     {% else %}
-        <li class="layui-nav-item " style="float: right;"><a href="/accounts/weibo/login/?process=login">登录</a></li>
+        <li class="layui-nav-item "
+            style="float: right;">
+            <a href="/accounts/weibo/login/?process=login">
+                登录
+            </a>
+        </li>
     {% endif %}
-    <li style="float: right; margin: 12px 20px;" class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-        <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-            <input style=" background-color: #dddddd" type="search" name="q" placeholder="搜索文章.." required
-                   class="layui-input">
+
+    <!-- 搜索框 -->
+    <li style="float: right; margin: 12px 20px;"
+        class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"
+    >
+        <form role="search"
+              method="get"
+              id="searchform"
+              action="{% url 'haystack_search' %}"
+        >
+            <input style=" background-color: #dddddd"
+                   type="search"
+                   name="q"
+                   placeholder="搜索文章.."
+                   required
+                   class="layui-input"
+            >
         </form>
     </li>
-    <li class="layui-nav-item layui-hide-md layui-hide-xs" style="float: right"><a href="#" onclick="mobile_search()"><i
-            class="layui-icon layui-icon-search" style="font-weight: bold"></i></a></li>
+    <li class="layui-nav-item layui-hide-md layui-hide-xs"
+        style="float: right"
+    >
+        <a href="#" onclick="mobile_search()">
+            <i class="layui-icon layui-icon-search" style="font-weight: bold"></i>
+        </a>
+    </li>
 
 
 </ul>
@@ -85,9 +185,9 @@
                 shadeClose: true,
                 area: '300px',
                 content: '<form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">\n' +
-                '<input style=" background-color: #dddddd" type="search" name="q" placeholder="输入回车确认" required\n' +
-                'class="layui-input">\n' +
-                '</form>'
+                    '<input style=" background-color: #dddddd" type="search" name="q" placeholder="输入回车确认" required\n' +
+                    'class="layui-input">\n' +
+                    '</form>'
             });
         });
     }
