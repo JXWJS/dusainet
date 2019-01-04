@@ -46,7 +46,7 @@
                         <br>
                         <form id="comment_form"
                               class="layui-form"
-                              action="{% url 'comments:vlog_post_comment' article.id %}"
+                              action="{% url 'comments:post_comment' article.id %}"
                               method="post">
                             {% csrf_token %}
                             <div class="layui-form-item layui-form-text">
@@ -140,7 +140,7 @@
                                 {% endif %}
                                 <pre style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 4px">{{ node.body }}</pre>
                                 <div style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
-                                    <a href="{% url 'comments:vlog_reply_post_comment' article.id node.id 'vlog' %}"
+                                    <a href="{% url 'comments:reply_post_comment' article.id node.id 'vlog' %}"
                                        style="color: #01a252">回复</a></p></div>
                                 {% if not node.is_leaf_node %}
                                     <ul class="children">

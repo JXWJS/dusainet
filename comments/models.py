@@ -13,7 +13,7 @@ class Comment(MPTTModel):
     """
     博文评论
     与读书、视频的评论model只有外键的差别
-    为防止数据库出错，未做抽象
+    generic foreignkey?
     """
     article = models.ForeignKey(
         ArticlesPost,
@@ -51,7 +51,7 @@ class Comment(MPTTModel):
     )
 
     class MPTTMeta:
-        order_insertion_by = ['-created_time']
+        order_insertion_by = ['created_time']
 
     def __str__(self):
         return self.body[:20]
@@ -95,7 +95,7 @@ class ReadBookComment(MPTTModel):
     )
 
     class MPTTMeta:
-        order_insertion_by = ['-created_time']
+        order_insertion_by = ['created_time']
 
     def __str__(self):
         return self.body[:20]
@@ -141,7 +141,7 @@ class VlogComment(MPTTModel):
     )
 
     class MPTTMeta:
-        order_insertion_by = ['-created_time']
+        order_insertion_by = ['created_time']
 
     def __str__(self):
         return self.body[:20]

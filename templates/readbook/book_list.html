@@ -6,7 +6,7 @@
     <div class="layui-row layui-card layui-card-body">
         {% for article in articles %}
             <div class="layui-col-sm12 layui-col-xs12" id="book_box">
-                <a href="{% url 'readbook:book_detail' article.id %}" target="_blank">
+                <a href="{% url 'readbook:book_detail' article.id %}">
                     <div class="layui-col-md3 layui-col-sm3 layui-col-xs5" style="text-align: center;">
                         <img src="{{ article.avatar_thumbnail.url }}"
                              style="margin: 5%; max-width: 80%"

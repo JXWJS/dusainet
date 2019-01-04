@@ -52,14 +52,12 @@
                 <a class="layui-bg-gray"
                    href="?tag={{ tag }}"
                 >
-                    {{ tag }}
-                </a>
+                    {{ tag }}&nbsp;</a>
             {% endfor %}
 
         <h2>
             <a href="{{ article.get_absolute_url }}"
                style="font-weight: bold"
-               target="_blank"
             >
                 {{ article.title }}
             </a>

@@ -81,15 +81,6 @@ class CommentCreateView(LoginRequiredMixin,
             parent_comment = VlogComment.objects.get(id=node_id)
         return parent_comment
 
-    def get_template(self, article_type):
-        if article_type == 'article':
-            template = 'comments/reply_post_comment.html'
-        elif article_type == 'readbook':
-            template = 'comments/read_book_reply_post_comment.html'
-        else:
-            template = 'comments/vlog_reply_post_comment.html'
-        return template
-
     def get(self, request, *args, **kwargs):
         """
         处理get请求
@@ -99,7 +90,7 @@ class CommentCreateView(LoginRequiredMixin,
         article_type = kwargs.get('article_type')
         comment_form = self.get_comment_form(article_type)
         comment = self.get_parent_comment(article_type, node_id)
-        template = self.get_template(article_type)
+        template = 'comments/reply_post_comment.html'
 
         return render(
             request,
@@ -108,6 +99,7 @@ class CommentCreateView(LoginRequiredMixin,
              'article_id': article_id,
              'node_id': node_id,
              'comment': comment,
+             'article_type': article_type,
              }
         )
 
@@ -128,7 +120,6 @@ class CommentCreateView(LoginRequiredMixin,
             # 对二级评论，赋值root节点的id
             if self.kwargs.get('node_id'):
                 node_id = kwargs.get('node_id')
-                # print(node_id)
 
                 # 判断回复属于博文、读书或视频
                 # 并赋值父级评论
@@ -162,6 +153,7 @@ class CommentCreateView(LoginRequiredMixin,
                 description=article_type,
                 action_object=new_comment,
             )
+
             # 给博主发送通知邮件
-            send_email_to_user(recipient='dusaiphoto@foxmail.com')
+            # send_email_to_user(recipient='dusaiphoto@foxmail.com')
         return redirect(article)
