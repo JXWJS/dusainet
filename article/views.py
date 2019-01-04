@@ -35,24 +35,32 @@ class ArticleMixin(PaginatorMixin):
 # 所有文章的list
 class ArticlePostView(ArticleMixin, ListView):
 
+    def dispatch(self, request, *args, **kwargs):
+        """
+        init
+        """
+        self.column_id = self.request.GET.get('column_id')
+        self.order = self.request.GET.get('order')
+        self.tag = self.request.GET.get('tag')
+
+        # call the view
+        return super(ArticlePostView, self).dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
         """
         获取模型数组
         :return: queryset
         """
-        column_id = self.request.GET.get('column_id')
-        order = self.request.GET.get('order')
-        tag = self.request.GET.get('tag')
 
         queryset = super(ArticlePostView, self).get_queryset()
-        if column_id:
-            queryset = queryset.filter(column=column_id)
+        if self.column_id:
+            queryset = queryset.filter(column=self.column_id)
 
-        if order == 'total_views':
+        if self.order == 'total_views':
             queryset = queryset.order_by('-total_views')
 
-        if tag:
-            queryset = queryset.filter(tags__name__in=[tag])
+        if self.tag:
+            queryset = queryset.filter(tags__name__in=[self.tag])
             print(queryset)
 
         return queryset
@@ -62,107 +70,28 @@ class ArticlePostView(ArticleMixin, ListView):
         获取上下文
         :return: context
         """
-        column_id = self.request.GET.get('column_id')
-        order = self.request.GET.get('order')
-        tag = self.request.GET.get('tag')
 
         context = super(ArticlePostView, self).get_context_data(**kwargs)
 
         # 更新栏目信息
-        if column_id:
+        if self.column_id:
             c_data = {
-                'column_id': int(column_id),
+                'column_id': int(self.column_id),
             }
             context.update(c_data)
         # 更新排序信息
-        if order:
+        if self.order:
             o_data = {
-                'order': order
+                'order': self.order
             }
             context.update(o_data)
         # 更新标签信息
-        if tag:
+        if self.tag:
             t_data = {
-                'tag': tag
+                'tag': self.tag
             }
             context.update(t_data)
         return context
-
-
-class ArticlePostByColumnView(ArticleMixin, ListView):
-    """
-    栏目文章list
-    """
-
-    def get_context_data(self, **kwargs):
-        """
-        添加is_list_by_column上下文标记
-        若标记为true
-        模板显示栏目最热文章
-        false则显示综合最热文章
-        :param kwargs:
-        :return: 上下文对象
-        """
-        context = super(ArticlePostByColumnView, self).get_context_data(**kwargs)
-        is_list_by_column = True
-        data = {
-            'is_list_by_column': is_list_by_column
-        }
-        context.update(data)
-        return context
-
-    def get_queryset(self):
-        """
-        :return: 栏目的qs
-        """
-        qs = super(ArticlePostByColumnView, self).get_queryset()
-        return qs.filter(column=self.kwargs['column_id'])
-
-
-class ArticlePostByTagView(ArticleMixin, ListView):
-    """
-    根据标签检索文章
-    按热度排序
-    """
-
-    def get_queryset(self):
-        qs = super(ArticlePostByTagView, self).get_queryset()
-        return qs.filter(tags__name__in=[self.kwargs['tag_name']]).order_by('-total_views')
-
-
-class ArticlePostByMostViewedView(ArticleMixin, ListView):
-    """
-    按浏览数排序的list
-    """
-
-    def get_context_data(self, **kwargs):
-        """
-        如果模板传入了column_id
-        则添加is_list_by_column标记
-        :return: context上下文
-        """
-        context = super(ArticlePostByMostViewedView, self).get_context_data(**kwargs)
-        if 'column_id' in self.kwargs:
-            is_list_by_column = True
-            data = {
-                'is_list_by_column': is_list_by_column
-            }
-            context.update(data)
-        return context
-
-    def get_queryset(self):
-        """
-        如果is_list_by_column为true
-        则在栏目中检索
-        否则检索所有文章
-        :return: qs
-        """
-        qs = super(ArticlePostByMostViewedView, self).get_queryset()
-        if 'column_id' in self.kwargs:
-            self.template_name = 'article/article_list.html'
-            return qs.filter(column=self.kwargs['column_id']).order_by('-total_views')
-        else:
-            return qs.order_by('-total_views')
 
 
 def article_detail(request, article_id):
