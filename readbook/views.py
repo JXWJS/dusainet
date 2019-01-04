@@ -21,8 +21,10 @@ class ReadBookListView(PaginatorMixin, ListView):
 # 文章内容
 def read_book_detail(request, article_id):
     article = ReadBook.objects.get(id=article_id)
-    article.total_views = article.total_views
     article.increase_views()
+
+    # 传递给模板文章类型，用于评论表单区分
+    article_type = 'readbook'
 
     # 评论
     comment_form = ReadBookCommentForm()
@@ -30,5 +32,6 @@ def read_book_detail(request, article_id):
                'comment_form': comment_form,
                # 生成树形评论
                'comments': ReadBookComment.objects.filter(article_id=article_id),
+               'article_type': article_type,
                }
     return render(request, 'readbook/book_detail.html', context=context)

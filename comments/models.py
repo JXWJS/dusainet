@@ -62,7 +62,7 @@ class ReadBookComment(MPTTModel):
     article = models.ForeignKey(
         ReadBook,
         on_delete=models.CASCADE,
-        related_name='readbook_comments',
+        related_name='comments',
         verbose_name='文章',
     )
 
@@ -108,7 +108,7 @@ class VlogComment(MPTTModel):
     article = models.ForeignKey(
         Vlog,
         on_delete=models.CASCADE,
-        related_name='vlog_comments',
+        related_name='comments',
         verbose_name='文章',
     )
 

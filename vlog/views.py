@@ -28,11 +28,15 @@ class VlogDetailView(DetailView):
         context = super(VlogDetailView, self).get_context_data(**kwargs)
         self.object.increase_views()
 
+        # 传递给模板文章类型，用于评论表单区分
+        article_type = 'vlog'
+
         comment_form = VlogCommentForm()
         extra_data = {
             'comment_form': comment_form,
             # 生成树形评论
             'comments': VlogComment.objects.filter(article_id=self.object.id),
+            'article_type': article_type,
         }
         context.update(extra_data)
         return context

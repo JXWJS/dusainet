@@ -100,8 +100,10 @@ def article_detail(request, article_id):
     :param article_id: 文章的id
     """
     article = ArticlesPost.objects.get(id=article_id)
-    article.total_views = article.total_views
     article.increase_views()
+
+    # 传递给模板文章类型，用于评论表单区分
+    article_type = 'article'
 
     # 评论
     comment_form = CommentForm()
@@ -137,6 +139,7 @@ def article_detail(request, article_id):
                    'course_articles': course_articles,
                    'pre_article': pre_article,
                    'next_article': next_article,
+                   'article_type': article_type,
                    }
 
         return render(request, 'course/article_detail.html', context=context)
@@ -146,6 +149,7 @@ def article_detail(request, article_id):
                    'comment_form': comment_form,
                    # 生成树形评论
                    'comments': Comment.objects.filter(article_id=article_id),
+                   'article_type': article_type,
                    }
         return render(request, 'article/article_detail.html', context=context)
 
