@@ -60,8 +60,10 @@ class ArticlePostView(ArticleMixin, ListView):
             queryset = queryset.order_by('-total_views')
 
         if self.tag:
-            queryset = queryset.filter(tags__name__in=[self.tag])
-            print(queryset)
+            try:
+                queryset = queryset.filter(tags__name__in=[self.tag])
+            except:
+                pass
 
         return queryset
 
