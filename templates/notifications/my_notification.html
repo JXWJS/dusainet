@@ -5,7 +5,9 @@
 {% block content %}
     <div class="layui-row layui-card layui-card-body">
         <a class="layui-btn layui-btn-normal layui-btn-sm"
-           href="{% url 'my_notifications:mark_all_read' %}">标记全部已读
+           href="{% url 'my_notifications:mark_all_read' %}"
+        >
+            标记全部已读
         </a>
         {% for unread in unread_notify %}
             <hr/>

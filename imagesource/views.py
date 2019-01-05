@@ -29,7 +29,7 @@ class ImageSourceListView(PaginatorMixin,
 
     # FormView相关
     form_class = ImageUploadForm
-    success_url = '/imagesource/imagesource-list'
+    success_url = '/imagesource'
 
     def post(self, request, *args, **kwargs):
         """
