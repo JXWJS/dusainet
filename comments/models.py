@@ -13,7 +13,7 @@ class Comment(MPTTModel):
     """
     博文评论
     与读书、视频的评论model只有外键的差别
-    代码基本都是重复的，应该用generic foreignkey优化
+    代码基本重复太多，设计时应该继承，或者用generic foreignkey
     """
     article = models.ForeignKey(
         ArticlesPost,
