@@ -11,7 +11,7 @@ Python==3.6, Django==2.0, layUI==2.3
 
 这也是我写的第一个Django项目，有很多不完善的地方，欢迎各位前辈提出宝贵的意见。
 
->网站运行半年后review：代码真的写得太烂啦！会持续进行优化
+>网站运行半年后review：代码真的写得太烂啦！会持续进行优化...
 
 有问题请联系作者：dusaiphoto@foxmail.com
 
@@ -28,6 +28,9 @@ Python==3.6, Django==2.0, layUI==2.3
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 ## 更新日志：
+### 2019.01.05
+- 优化通知app
+
 ### 2019.01.04
 - 优化业务逻辑、url
 - 优化UI显示
