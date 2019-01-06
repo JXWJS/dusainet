@@ -69,18 +69,26 @@
                         {% if node.user.socialaccount_set.all.0.get_avatar_url %}
                             {% if node.reply_to %}
                                 <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
-                                     style="width: 60%; border-radius: 20%">
+                                     style="width: 60%; border-radius: 20%"
+                                     alt="avatar"
+                                >
                             {% else %}
                                 <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
-                                     style="width: 80%; border-radius: 20%">
+                                     style="width: 80%; border-radius: 20%"
+                                     alt="avatar"
+                                >
                             {% endif %}
                         {% else %}
                             {% if node.reply_to %}
                                 <img src="{% static 'default_avatar.jpg' %}"
-                                     style="width: 60%; border-radius: 20%">
+                                     style="width: 60%; border-radius: 20%"
+                                     alt="avatar"
+                                >
                             {% else %}
                                 <img src="{% static 'default_avatar.jpg' %}"
-                                     style="width: 80%; border-radius: 20%">
+                                     style="width: 80%; border-radius: 20%"
+                                     alt="avatar"
+                                >
                             {% endif %}
                         {% endif %}
                     </div>
@@ -100,10 +108,58 @@
                             <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
                     {% endif %}
-                    <pre style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 4px">{{ node.body }}</pre>
-                    <div style="color: #999999;"><p>{{ node.created_time|date:"Y-m-d H:i:s" }}
-                        <a href="{% url 'comments:reply_post_comment' article.id node.id article_type %}"
-                           style="color: #01a252">回复</a></p></div>
+
+                    <!-- 正文 -->
+                    {% if node.is_deleted %}
+                        {% if node.is_deleted_by_staff %}
+                            <div style="background-color: #ffecec;
+                                    color: darkred;
+                                    text-align: center;
+                                    padding-top: 10px;
+                                    padding-bottom: 10px;"
+                            >
+                                <p>本回复已被 [博主] 删除</p>
+                            </div>
+                        {% else %}
+
+                            <div style="background-color: #ffecec;
+                                    color: darkred;
+                                    text-align: center;
+                                    padding-top: 10px;
+                                    padding-bottom: 10px;"
+                            >
+                                <p>本回复已被 {{ node.user }} 删除</p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <pre style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 4px">{{ node.body }}</pre>
+                    {% endif %}
+
+                    <!-- 附加信息 -->
+                    <div style="color: #999999;">
+                        <p>{{ node.created_time|date:"Y-m-d H:i:s" }}
+                            <a href="{% url 'comments:reply_post_comment' article.id node.id article_type %}"
+                               style="color: #01a252">
+                                回复
+                            </a>
+
+                            <!-- 删除 -->
+                            {% if node.user == user or user.is_staff %}
+                                {% if not node.is_deleted %}
+                                    <span style=" float: right">
+                                        <a href="javascript:"
+                                           title="删除"
+                                           onclick="confirm_delete({{ node.id }});"
+                                        >
+                                            <i class="layui-icon layui-icon-delete"
+                                               style="color: darkred;"
+                                            ></i>
+                                        </a>
+                                    </span>
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    </div>
                     {% if not node.is_leaf_node %}
                         <ul class="children">
                             {{ children }}
@@ -114,3 +170,23 @@
         {% endrecursetree %}
     </ul>
 </div>
+
+<script>
+    // 删除文章的函数
+    confirm_delete = function (node_id) {
+        // 调用layer弹窗组件
+        layer.open({
+            // 弹窗标题
+            title: "删除回复",
+            // 正文
+            content: "确认删除此留言吗？",
+            // 点击确定按钮后调用的回调函数
+            yes: function (index, layero) {
+                // 指定应当前往的 url
+                location.href = "{% url 'comments:soft_delete' %}?"
+                    + "comment_id=" + node_id +
+                    "&" + "article_type=" + "{{ article_type }}"
+            },
+        })
+    }
+</script>

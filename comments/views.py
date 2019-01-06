@@ -4,7 +4,12 @@ from django.shortcuts import (
     redirect,
 )
 
+from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.http import HttpResponse
+
 from notifications.signals import notify
 
 from .models import (
@@ -30,6 +35,35 @@ from braces.views import LoginRequiredMixin
 
 
 # Create your views here.
+
+
+@login_required(login_url='/accounts/weibo/login/?process=login')
+def comment_soft_delete(request):
+    comment_id = request.GET.get('comment_id')
+
+    # get model
+    article_type = request.GET.get('article_type')
+    if article_type == 'article':
+        comment = get_object_or_404(Comment, id=comment_id)
+    elif article_type == 'readbook':
+        print('test')
+        comment = get_object_or_404(ReadBookComment, id=comment_id)
+        print(comment)
+    else:
+        comment = get_object_or_404(VlogComment, id=comment_id)
+
+    # 鉴权
+    if request.user != comment.user and not request.user.is_staff:
+        return HttpResponse('您没有修改的权限。')
+
+    # 添加删除标记
+    if request.user.is_staff:
+        comment.is_deleted_by_staff = True
+    comment.is_deleted = True
+    comment.save()
+
+    redirect_url = comment.article.get_absolute_url() + '#F' + str(comment.id)
+    return redirect(redirect_url)
 
 
 class CommentCreateView(LoginRequiredMixin,

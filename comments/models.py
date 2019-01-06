@@ -13,7 +13,7 @@ class Comment(MPTTModel):
     """
     博文评论
     与读书、视频的评论model只有外键的差别
-    generic foreignkey?
+    代码基本都是重复的，应该用generic foreignkey优化
     """
     article = models.ForeignKey(
         ArticlesPost,
@@ -49,6 +49,10 @@ class Comment(MPTTModel):
         related_name='children',
         verbose_name='父级',
     )
+
+    # 软删除标记
+    is_deleted = models.BooleanField(default=False)
+    is_deleted_by_staff = models.BooleanField(default=False)
 
     class MPTTMeta:
         order_insertion_by = ['created_time']
@@ -93,6 +97,10 @@ class ReadBookComment(MPTTModel):
         related_name='children',
         verbose_name='父级',
     )
+
+    # 软删除标记
+    is_deleted = models.BooleanField(default=False)
+    is_deleted_by_staff = models.BooleanField(default=False)
 
     class MPTTMeta:
         order_insertion_by = ['created_time']
@@ -139,6 +147,10 @@ class VlogComment(MPTTModel):
         related_name='children',
         verbose_name='父级',
     )
+
+    # 软删除标记
+    is_deleted = models.BooleanField(default=False)
+    is_deleted_by_staff = models.BooleanField(default=False)
 
     class MPTTMeta:
         order_insertion_by = ['created_time']
