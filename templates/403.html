@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}403 - 杜赛的个人网站{% endblock %}
+{% block content %}
+    <br/>
+    <div style="text-align: center">
+        <i class="layui-icon layui-icon-face-cry" style="font-size: 9em; color: darkred"></i>
+        <br/>
+        <br/>
+        <h2>抱歉，你没有权限进行此操作...</h2>
+        <h2>点击<a href="{% url 'article:article_list' %}" style="color: #01a252">首页</a>看看别的精彩内容吧~</h2>
+    </div>
+    <br/>
+    <hr/>
+{% endblock %}

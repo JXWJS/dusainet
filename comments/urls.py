@@ -25,4 +25,11 @@ urlpatterns = [
         views.comment_soft_delete,
         name='soft_delete'
     ),
+
+    # edit
+    path(
+        'edit/<int:pk>/',
+        views.CommentUpdateView.as_view(),
+        name='edit'
+    )
 ]

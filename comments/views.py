@@ -4,11 +4,9 @@ from django.shortcuts import (
     redirect,
 )
 
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.models import User
-from django.urls import reverse
-from django.http import HttpResponse
 
 from notifications.signals import notify
 
@@ -30,15 +28,55 @@ from vlog.models import Vlog
 
 from utils.utils import send_email_to_user
 
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from braces.views import LoginRequiredMixin
 
 
 # Create your views here.
 
+class CommentUpdateView(LoginRequiredMixin,
+                        UpdateView):
+    """
+    更新回复
+    """
+    context_object_name = 'comment'
+    template_name = 'comments/edit.html'
+    fields = ['body']
+
+    def dispatch(self, request, *args, **kwargs):
+        """初始化"""
+        self.article_type = self.request.GET.get('article_type')
+        return super(CommentUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        """获取 models"""
+        if self.article_type == 'article':
+            queryset = Comment.objects.all()
+        elif self.article_type == 'readbook':
+            queryset = ReadBookComment.objects.all()
+        else:
+            queryset = VlogComment.objects.all()
+        return queryset
+
+    def form_valid(self, form):
+        """鉴权"""
+        if self.request.user != self.object.user and not self.request.user.is_staff:
+            raise PermissionDenied
+        return super(CommentUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        """获取重定向url"""
+        obj = self.get_object()
+        redirect_url = obj.article.get_absolute_url() + '#F' + str(obj.id)
+        return redirect_url
+
 
 @login_required(login_url='/accounts/weibo/login/?process=login')
 def comment_soft_delete(request):
+    """
+    软删除回复
+    本人及管理员可操作
+    """
     comment_id = request.GET.get('comment_id')
 
     # get model
@@ -46,15 +84,13 @@ def comment_soft_delete(request):
     if article_type == 'article':
         comment = get_object_or_404(Comment, id=comment_id)
     elif article_type == 'readbook':
-        print('test')
         comment = get_object_or_404(ReadBookComment, id=comment_id)
-        print(comment)
     else:
         comment = get_object_or_404(VlogComment, id=comment_id)
 
     # 鉴权
     if request.user != comment.user and not request.user.is_staff:
-        return HttpResponse('您没有修改的权限。')
+        raise PermissionDenied
 
     # 添加删除标记
     if request.user.is_staff:
@@ -78,7 +114,7 @@ class CommentCreateView(LoginRequiredMixin,
 
     def get_article_and_commentform(self, request, article_id):
         """
-        获取回复的文章种类、绑定的评论表单
+        获取: 回复的文章种类、绑定的评论表单
         """
         if request.POST['article_type'] == 'article':
             article = get_object_or_404(ArticlesPost, id=article_id)
@@ -190,4 +226,10 @@ class CommentCreateView(LoginRequiredMixin,
 
             # 给博主发送通知邮件
             # send_email_to_user(recipient='dusaiphoto@foxmail.com')
-        return redirect(article)
+
+        # 输入不合法
+        else:
+            raise PermissionDenied
+
+        redirect_url = article.get_absolute_url() + '#F' + str(new_comment.id)
+        return redirect(redirect_url)

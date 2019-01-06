@@ -19,7 +19,8 @@
                           id="id_body"
                           class="layui-textarea"
                           name="body"
-                          placeholder="请输入评论内容"></textarea>
+                          required
+                          placeholder="请输入评论内容（暂不支持表情符号）"></textarea>
             </div>
 
             <input type="hidden" name="article_type" value={{ article_type }}>
@@ -93,7 +94,17 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="layui-col-xs10 layui-col-sm11 layui-text">
+
+                <div class="layui-col-xs10 layui-col-sm11 layui-text"
+
+                >
+                    {% if user == node.user %}
+                        <span class="layui-badge layui-bg-orange">
+                            <i class="layui-icon layui-icon-username"
+                               style="margin: 0 -4px 0 -4px;"
+                            ></i>
+                        </span>
+                    {% endif %}
                     {{ node.user }}
                     {% if node.user.is_superuser %}
                         <i style="color: #ff5500;">[博主]</i>
@@ -132,7 +143,11 @@
                             </div>
                         {% endif %}
                     {% else %}
-                        <pre style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 4px">{{ node.body }}</pre>
+                        <pre style="font-family: inherit;
+                                    font-size: 1.1em;
+                                     color: black;
+                                      padding: 10px 0 10px 10px;"
+                        >{{ node.body }}</pre>
                     {% endif %}
 
                     <!-- 附加信息 -->
@@ -143,16 +158,20 @@
                                 回复
                             </a>
 
-                            <!-- 删除 -->
+                            <!-- 删除/编辑 -->
                             {% if node.user == user or user.is_staff %}
                                 {% if not node.is_deleted %}
+                                    <a href="{% url 'comments:edit' node.id %}?article_type={{ article_type }}"
+                                       style="color: lightskyblue;">
+                                        编辑
+                                    </a>
                                     <span style=" float: right">
                                         <a href="javascript:"
                                            title="删除"
                                            onclick="confirm_delete({{ node.id }});"
                                         >
                                             <i class="layui-icon layui-icon-delete"
-                                               style="color: darkred;"
+                                               style="color: darkred; font-size: large"
                                             ></i>
                                         </a>
                                     </span>
@@ -177,9 +196,11 @@
         // 调用layer弹窗组件
         layer.open({
             // 弹窗标题
-            title: "删除回复",
+            title: "当心！",
             // 正文
-            content: "确认删除此留言吗？",
+            content: "确认删除此回复吗？",
+            shadeClose: true,
+            anim: 6,
             // 点击确定按钮后调用的回调函数
             yes: function (index, layero) {
                 // 指定应当前往的 url
