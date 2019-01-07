@@ -171,6 +171,7 @@ class ArticleCreateView(LoginRequiredMixin,
         'course_sequence',
     ]
 
+    login_url = "/accounts/weibo/login/?process=login"
     template_name = 'article/article_create.html'
 
     def post(self, request, *args, **kwargs):
@@ -199,3 +200,5 @@ class ArticleUpdateView(LoginRequiredMixin,
     context_object_name = 'article'
     template_name = 'article/article_create.html'
     fields = ['title', 'column', 'tags', 'body']
+    login_url = "/accounts/weibo/login/?process=login"
+

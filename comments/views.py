@@ -42,6 +42,7 @@ class CommentUpdateView(LoginRequiredMixin,
     context_object_name = 'comment'
     template_name = 'comments/edit.html'
     fields = ['body']
+    login_url = "/accounts/weibo/login/?process=login"
 
     def dispatch(self, request, *args, **kwargs):
         """初始化"""
@@ -108,6 +109,7 @@ class CommentCreateView(LoginRequiredMixin,
     发布博文、读书、vlog 的新评论的视图
     可处理get或post请求
     """
+    login_url = "/accounts/weibo/login/?process=login"
     fields = [
         'body',
     ]

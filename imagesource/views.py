@@ -2,7 +2,6 @@ from django.views.generic import ListView
 from utils.utils import PaginatorMixin
 from django.urls import reverse
 
-
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 from .models import ImageSource
@@ -26,6 +25,7 @@ class ImageSourceListView(PaginatorMixin,
     model = ImageSource
     template_name = 'imagesource/image_source_list.html'
     context_object_name = 'images'
+    login_url = "/accounts/weibo/login/?process=login"
 
     # FormView相关
     form_class = ImageUploadForm
