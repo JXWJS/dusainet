@@ -29,7 +29,7 @@ Python==3.6, Django==2.0, layUI==2.3
 
 ## 更新日志：
 ### 2019.01.06
-- comment增加编辑和删除功能
+- model更新：comment增加编辑和删除功能
 - 优化comment及其他
 
 ### 2019.01.05
