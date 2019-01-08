@@ -1,7 +1,8 @@
 {% load mptt_tags %}
 {% load weibo_utils %}
 {% load staticfiles %}
-
+<!-- ckeditor -->
+<link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/prism/css/prism.css' %}">
 
 {#发表评论#}
 {% if user.is_authenticated %}
@@ -15,12 +16,10 @@
                 <h3 style="color: green; margin-bottom: 10px">
                     发表评论：
                 </h3>
-                <textarea rows="10"
-                          id="id_body"
-                          class="layui-textarea"
-                          name="body"
-                          required
-                          placeholder="请输入评论内容（暂不支持表情符号）"></textarea>
+
+                <!-- ckeditor 正文 -->
+                {{ comment_form.body }}
+
             </div>
 
             <input type="hidden" name="article_type" value={{ article_type }}>
@@ -42,12 +41,12 @@
         <div>
             <div class="layui-text" style="font-size: large" id="weibologin"><span>登录后回复</span></div>
             <div class="" style="margin-top: 10px">
-                        <span class="weibo mr-3">
-                            <a href="/accounts/weibo/login/?process=login">
-                                <i class="layui-icon layui-icon-login-weibo"
-                                   style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
-                            </a>
-                        </span>
+                <span class="weibo mr-3">
+                    <a href="/accounts/weibo/login/?process=login">
+                        <i class="layui-icon layui-icon-login-weibo"
+                           style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
+                    </a>
+                </span>
             </div>
         </div>
     </div>
@@ -95,30 +94,32 @@
                     </div>
                 </div>
 
-                <div class="layui-col-xs10 layui-col-sm11 layui-text"
+                <div class="layui-col-xs10 layui-col-sm11"
 
                 >
-                    {% if user == node.user %}
-                        <span class="layui-badge layui-bg-orange">
+                    <div style="color: gray;">
+                        {% if user == node.user %}
+                            <span class="layui-badge layui-bg-orange">
                             <i class="layui-icon layui-icon-username"
                                style="margin: 0 -4px 0 -4px;"
                             ></i>
                         </span>
-                    {% endif %}
-                    {{ node.user }}
-                    {% if node.user.is_superuser %}
-                        <i style="color: #ff5500;">[博主]</i>
-                    {% elif node.user.is_staff %}
-                        <i style="color: #5897fb;">[管理员]</i>
-                    {% endif %}
-                    {% if node.reply_to %}
-                        <i class="layui-icon layui-icon-next"></i> {{ node.reply_to }}
-                        {% if node.reply_to.is_superuser %}
+                        {% endif %}
+                        {{ node.user }}
+                        {% if node.user.is_superuser %}
                             <i style="color: #ff5500;">[博主]</i>
-                        {% elif node.reply_to.is_staff %}
+                        {% elif node.user.is_staff %}
                             <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
-                    {% endif %}
+                        {% if node.reply_to %}
+                            <i class="layui-icon layui-icon-next"></i> {{ node.reply_to }}
+                            {% if node.reply_to.is_superuser %}
+                                <i style="color: #ff5500;">[博主]</i>
+                            {% elif node.reply_to.is_staff %}
+                                <i style="color: #5897fb;">[管理员]</i>
+                            {% endif %}
+                        {% endif %}
+                    </div>
 
                     <!-- 正文 -->
                     {% if node.is_deleted %}
@@ -143,11 +144,9 @@
                             </div>
                         {% endif %}
                     {% else %}
-                        <pre style="font-family: inherit;
-                                    font-size: 1.1em;
-                                     color: black;
-                                      padding: 10px 0 10px 10px;"
-                        >{{ node.body }}</pre>
+                        <br>
+                        <p>{{ node.body|safe }}</p>
+                        <br>
                     {% endif %}
 
                     <!-- 附加信息 -->
@@ -189,6 +188,14 @@
         {% endrecursetree %}
     </ul>
 </div>
+
+
+
+<!-- ckeditor -->
+<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script>$(".django-ckeditor-widget").removeAttr('style');</script>
 
 <script>
     // 删除文章的函数

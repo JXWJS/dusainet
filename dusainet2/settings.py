@@ -27,7 +27,7 @@ with open('secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.dusaiphoto.com', '.dusai.net']
 
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'course',  # 教程
     'readbook',  # 读书
     'imagesource',  # 图库
-    'vlog', # 视频
+    'vlog',  # 视频
     'aboutme',  # 作者
 
     'utils',  # 工具
@@ -81,6 +81,9 @@ INSTALLED_APPS = [
 
     # haystack search
     'haystack',
+
+    # 富文本编辑器
+    'ckeditor',
 
 ]
 
@@ -239,3 +242,24 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# ckeditor
+CKEDITOR_CONFIGS = {
+    # django-ckeditor默认使用配置
+    'default': {
+        'language': 'zh-cn',
+        'width': 'auto',
+        'height': '200px',
+        'tabSpaces': 4,
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Smiley', 'CodeSnippet', '-', 'Bold', 'Italic', 'Underline', 'RemoveFormat', ],
+            ['TextColor', 'BGColor'],
+            ['Link', 'Unlink'],
+            ['Undo', 'Redo', 'Marker'],
+            ['Maximize']
+        ],
+        # 插件
+        'extraPlugins': ','.join(['codesnippet', 'prism', 'widget', 'lineutils', ]),
+    }
+}

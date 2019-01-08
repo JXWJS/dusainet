@@ -4,6 +4,7 @@ from django.shortcuts import (
     redirect,
 )
 
+
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -49,6 +50,27 @@ class CommentUpdateView(LoginRequiredMixin,
         self.article_type = self.request.GET.get('article_type')
         return super(CommentUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+
+        # 禁止编辑已删除的comment
+        if self.object.is_deleted:
+            raise PermissionDenied
+
+        # 初始化旧正文
+        context = super().get_context_data(**kwargs)
+        ini = {'body': self.object.body}
+        if self.article_type == 'article':
+            comment_form = CommentForm(initial=ini)
+        elif self.article_type == 'readbook':
+            comment_form = ReadBookCommentForm(initial=ini)
+        else:
+            comment_form = VlogCommentForm(initial=ini)
+        data = {
+            'comment_form': comment_form
+        }
+        context.update(data)
+        return context
+
     def get_queryset(self):
         """获取 models"""
         if self.article_type == 'article':
@@ -70,6 +92,12 @@ class CommentUpdateView(LoginRequiredMixin,
         obj = self.get_object()
         redirect_url = obj.article.get_absolute_url() + '#F' + str(obj.id)
         return redirect_url
+
+    def post(self, request, *args, **kwargs):
+        # 暂时用这种方法来检查空值，需优化
+        if request.POST['body'] == '':
+            self.get(request, *args, **kwargs)
+        return super(CommentUpdateView, self).post(request, *args, **kwargs)
 
 
 @login_required(login_url='/accounts/weibo/login/?process=login')
@@ -186,6 +214,10 @@ class CommentCreateView(LoginRequiredMixin,
             request,
             self.kwargs.get('article_id')
         )
+
+        # 暂时用这种方法来检查空值，需优化
+        if request.POST['body'] == '':
+            return redirect(article)
 
         # 创建新评论
         if comment_form.is_valid():

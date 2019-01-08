@@ -2,13 +2,42 @@
 {% load staticfiles %}
 {% block title %}回复{{ comment.user }} - 杜赛的个人网站{% endblock %}
 {% block content %}
+    <!-- ckeditor -->
+    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/prism/css/prism.css' %}">
+
     <div class="layui-card layui-card-body">
         <div class="">
-            <p class="layui-text">{{ comment.user }} 说：</p>
-            <pre  style="font-family: inherit; font-size: 1.1em; color: black; padding-top: 4px">{{ comment.body }}</pre>
+            <h2>{{ comment.user }} 说：</h2>
+            <hr>
+            <!-- 正文 -->
+            {% if comment.is_deleted %}
+                <br>
+                {% if comment.is_deleted_by_staff %}
+                    <div style="background-color: #ffecec;
+                                    color: darkred;
+                                    text-align: center;
+                                    padding-top: 10px;
+                                    padding-bottom: 10px;"
+                    >
+                        <p>本回复已被 [博主] 删除</p>
+                    </div>
+                {% else %}
+
+                    <div style="background-color: #ffecec;
+                                    color: darkred;
+                                    text-align: center;
+                                    padding-top: 10px;
+                                    padding-bottom: 10px;"
+                    >
+                        <p>本回复已被 {{ comment.user }} 删除</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <p>{{ comment.body|safe }}</p>
+            {% endif %}
         </div>
-        <br/>
-        <br/>
+        <br>
+        <hr>
         <form id="comment_form"
               class="layui-form"
               action="{% url 'comments:reply_post_comment' article_id node_id article_type %}"
@@ -19,31 +48,34 @@
                 <h3 style="color: green;">
                     发表回复：
                 </h3>
-                    <textarea rows="16"
-                              id="id_body"
-                              class="layui-textarea"
-                              name="body"
-                              required
-                              placeholder="请输入评论内容（暂不支持表情符号）"
-                    ></textarea>
+                <!-- ckeditor 正文 -->
+                {{ comment_form.body }}
+
             </div>
             <input type="hidden"
                    name="article_type"
                    value="{{ article_type }}"
             >
             <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-sm layui-btn-primary"
-                            id="submit_btn"
-                            type="submit"
-                            name="submit"
-                    >
-                        <i class="layui-icon layui-icon-release"></i> 发布
-                    </button>
-                    <input type="hidden"
-                           name="next"
-                           value="{{ article.get_absolute_url }}"
-                    />
+                <button class="layui-btn layui-btn-sm layui-btn-primary"
+                        id="submit_btn"
+                        type="submit"
+                        name="submit"
+                >
+                    <i class="layui-icon layui-icon-release"></i> 发布
+                </button>
+                <input type="hidden"
+                       name="next"
+                       value="{{ article.get_absolute_url }}"
+                />
             </div>
         </form>
     </div>
+
+    <!-- ckeditor -->
+    <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script>$(".django-ckeditor-widget").removeAttr('style');</script>
+
 {% endblock %}

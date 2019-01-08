@@ -7,6 +7,8 @@ from vlog.models import Vlog
 
 from mptt.models import MPTTModel, TreeForeignKey
 
+from ckeditor.fields import RichTextField
+
 
 # 博文的评论
 class Comment(MPTTModel):
@@ -29,7 +31,7 @@ class Comment(MPTTModel):
         verbose_name='评论者',
     )
 
-    body = models.TextField(verbose_name='正文')
+    body = RichTextField(verbose_name='正文')
     created_time = models.DateTimeField(auto_now_add=True)
 
     # 记录二级评论回复给谁, str
@@ -76,7 +78,7 @@ class ReadBookComment(MPTTModel):
         related_name='readbook_comments_user',
         verbose_name='评论者',
     )
-    body = models.TextField(verbose_name='正文')
+    body = RichTextField(verbose_name='正文')
     created_time = models.DateTimeField(auto_now_add=True)
 
     # 记录二级评论回复给谁, str
@@ -127,7 +129,7 @@ class VlogComment(MPTTModel):
         verbose_name='评论者',
     )
 
-    body = models.TextField(verbose_name='正文')
+    body = RichTextField(verbose_name='正文')
     created_time = models.DateTimeField(auto_now_add=True)
 
     # 记录二级评论回复给谁, str
