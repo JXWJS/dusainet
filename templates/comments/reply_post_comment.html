@@ -3,7 +3,7 @@
 {% block title %}回复{{ comment.user }} - 杜赛的个人网站{% endblock %}
 {% block content %}
     <!-- ckeditor -->
-    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/prism/css/prism.css' %}">
+{#    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/prism/css/prism.css' %}">#}
 
     <div class="layui-card layui-card-body">
         <div class="">
@@ -73,7 +73,7 @@
     </div>
 
     <!-- ckeditor -->
-    <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+{#    <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>#}
     <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
     <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     <script>$(".django-ckeditor-widget").removeAttr('style');</script>

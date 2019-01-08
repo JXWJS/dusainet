@@ -247,7 +247,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CKEDITOR_CONFIGS = {
     # django-ckeditor默认使用配置
     'default': {
-        'language': 'zh-cn',
+        'language': 'zh-hans',
         'width': 'auto',
         'height': '200px',
         'tabSpaces': 4,
