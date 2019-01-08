@@ -108,6 +108,7 @@ class CommentCreateView(LoginRequiredMixin,
     """
     发布博文、读书、vlog 的新评论的视图
     可处理get或post请求
+    model设计问题导致if语句臃肿
     """
     login_url = "/accounts/weibo/login/?process=login"
     fields = [
@@ -160,8 +161,10 @@ class CommentCreateView(LoginRequiredMixin,
         article_id = kwargs.get('article_id')
         node_id = kwargs.get('node_id')
         article_type = kwargs.get('article_type')
+
         comment_form = self.get_comment_form(article_type)
         comment = self.get_parent_comment(article_type, node_id)
+
         template = 'comments/reply_post_comment.html'
 
         return render(
