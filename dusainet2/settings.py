@@ -260,6 +260,6 @@ CKEDITOR_CONFIGS = {
             ['Maximize']
         ],
         # 插件
-        'extraPlugins': ','.join(['codesnippet', 'prism', 'widget', 'lineutils', ]),
+        'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils', ]),
     }
 }
