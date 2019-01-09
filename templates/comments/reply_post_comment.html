@@ -57,17 +57,20 @@
                    value="{{ article_type }}"
             >
             <div class="layui-form-item">
-                <button class="layui-btn layui-btn-sm layui-btn-primary"
+                <button class="layui-btn layui-btn-sm"
                         id="submit_btn"
                         type="submit"
                         name="submit"
                 >
                     <i class="layui-icon layui-icon-release"></i> 发布
                 </button>
-                <input type="hidden"
-                       name="next"
-                       value="{{ article.get_absolute_url }}"
-                />
+                <button class="layui-btn
+                               layui-btn-sm
+                               layui-btn-primary"
+                        onclick="history.back(-1);"
+                >
+                    返回
+                </button>
             </div>
         </form>
     </div>

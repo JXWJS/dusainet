@@ -249,7 +249,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'language': 'zh-hans',
         'width': 'auto',
-        'height': '200px',
+        'height': '250px',
         'tabSpaces': 4,
         'toolbar': 'Custom',
         'toolbar_Custom': [

@@ -17,7 +17,13 @@
                     <p style="color: #8D8D8D;">
                         {{ article.total_views }}阅读 ·
                         {{ article.comments.count }}评论 ·
-                        于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
+                        {{ article.created|date:"Y-m-d" }}发布 &nbsp;
+                        <a href="#Fcomments"
+                           style="color: cornflowerblue;
+                           text-decoration-line: underline;"
+                        >
+                            前往评论
+                        </a>
                     </p>
                     <video src="{{ article.video_url }}"
                            controls

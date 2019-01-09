@@ -14,9 +14,17 @@
             <div>
                 <h1 style="color: black;font-size: xx-large; font-weight: bold; line-height: 110%">{{ article.title }}</h1>
                 <br/>
-                <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.readbook_comments.count }}评论 ·
-                    于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
-
+                <p style="color: #8D8D8D;">
+                    {{ article.total_views }}阅读 ·
+                    {{ article.readbook_comments.count }}评论 ·
+                    {{ article.created|date:"Y-m-d" }}发布 &nbsp;
+                    <a href="#Fcomments"
+                       style="color: cornflowerblue;
+                       text-decoration-line: underline;"
+                    >
+                        前往评论
+                    </a>
+                </p>
             </div>
             <br/>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md8 layui-col-lg6" id="book_box">

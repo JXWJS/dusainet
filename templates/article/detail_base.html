@@ -9,8 +9,17 @@
         <div>
             <h1 style="color: black;font-size: xx-large; font-weight: bold; line-height: 110%">{{ article.title }}</h1>
             <br/>
-            <p style="color: #8D8D8D;">{{ article.total_views }}阅读 · {{ article.comments.count }}评论 ·
-                于{{ article.created|date:"Y年m月d日 H:i:s" }}发布
+            <p style="color: #8D8D8D;">
+                {{ article.total_views }}阅读 ·
+                {{ article.comments.count }}评论 ·
+                {{ article.created|date:"Y-m-d" }}发布 &nbsp;
+                <a href="#Fcomments"
+                   style="color: cornflowerblue;
+                   text-decoration-line: underline;"
+                >
+                    前往评论
+                </a>
+            </p>
         </div>
         <div id="editormd-view">
         <textarea id="append-test" style="display: none">

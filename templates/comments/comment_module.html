@@ -1,7 +1,7 @@
 {% load mptt_tags %}
 {% load weibo_utils %}
 {% load staticfiles %}
-{% load static %}
+
 <!-- ckeditor -->
 <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/prism/css/prism.css' %}">
 
@@ -38,7 +38,7 @@
 {% else %}
     <br/>
     <br/>
-    <div class="" style="text-align: center">
+    <div style="text-align: center">
         <div>
             <div class="layui-text" style="font-size: large" id="weibologin"><span>登录后回复</span></div>
             <div class="" style="margin-top: 10px">
@@ -59,7 +59,7 @@
 <br/>
 <br/>
 <br/>
-<h2>共有{{ article.comments.count }}条评论</h2>
+<h2 id="Fcomments">共有{{ article.comments.count }}条评论</h2>
 <div>
     <ul>
         {% recursetree comments %}

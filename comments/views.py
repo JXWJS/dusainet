@@ -4,7 +4,6 @@ from django.shortcuts import (
     redirect,
 )
 
-
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -32,8 +31,6 @@ from utils.utils import send_email_to_user
 from django.views.generic import CreateView, UpdateView
 from braces.views import LoginRequiredMixin
 
-
-# Create your views here.
 
 class CommentUpdateView(LoginRequiredMixin,
                         UpdateView):
@@ -136,7 +133,7 @@ class CommentCreateView(LoginRequiredMixin,
     """
     发布博文、读书、vlog 的新评论的视图
     可处理get或post请求
-    model设计问题导致if语句臃肿
+    model设计问题导致代码臃肿
     """
     login_url = "/accounts/weibo/login/?process=login"
     fields = [
