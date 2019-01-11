@@ -28,6 +28,9 @@ Python==3.6, Django==2.0, layUI==2.3
 - layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
 
 ## 更新日志：
+### 2019.01.11
+- 优化detail页面表现
+
 ### 2019.01.08
 - comment可以用富文本了
 - 其他表现优化

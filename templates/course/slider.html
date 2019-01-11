@@ -1,5 +1,8 @@
-<div class="layui-card layui-card-body layui-col-sm3 layui-hide-xs">
-    <div class="layui-text" style="font-weight: bold; font-size: large">{{ article.course.title }}</div>
+<div class="layui-col-sm2 layui-hide-xs">
+    <div class="layui-text"
+         style="font-weight: bold; font-size: large; padding-top: 10px">
+        {{ article.course.title }}
+    </div>
     <hr>
     {% for article_c in course_articles %}
         {% if article_c.id == article.id %}
