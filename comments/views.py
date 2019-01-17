@@ -128,8 +128,7 @@ def comment_soft_delete(request):
     return redirect(redirect_url)
 
 
-class CommentCreateView(LoginRequiredMixin,
-                        CreateView):
+class CommentCreateView(LoginRequiredMixin, CreateView):
     """
     发布博文、读书、vlog 的新评论的视图
     可处理get或post请求

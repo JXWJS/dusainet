@@ -57,6 +57,11 @@
         </textarea>
             </div>
         </div>
+        <br>
+        <!-- 知识产权署名 -->
+        {% include 'license.html' %}
+
+
         <br/>
         <br/>
         <div style="text-align: center">
@@ -74,6 +79,8 @@
                href="{{ next_article.get_absolute_url }}">{{ next_article.title }} >></a>
             <br>
         {% endif %}
+
+
 
         <hr/>
 
