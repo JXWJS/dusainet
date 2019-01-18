@@ -1,33 +1,64 @@
 {% load staticfiles %}
 <br/>
-<div class="layui-col-md11 layui-col-md-offset1 layui-card" style="box-shadow: 1px 1px 2px #dadada;">
-    <h3 class="layui-card-header" style="font-size: 16px; color: black">重庆妹子来喝好茶了！</h3>
-    <div class="layui-card-body">
-        <a href="https://mp.weixin.qq.com/s/UsF3Pt_96vd6sRn1SNVtcg" target="_blank"
-           onclick="_hmt.push(['_trackEvent', 'adv', 'click', '想你奶茶小筑'])">
-            <img src="{% static 'adv/想你.jpeg' %}"
-                 style="max-width: 100%; width: 270px; border-radius: 10px"></a>
+<div class="layui-col-md11 layui-col-md-offset1">
+    <div class="layui-card" style="box-shadow: 1px 1px 2px #dadada;">
+        <h3 style="font-size: 16px; color: black; margin-left: 12px;">
+            <i class="layui-icon layui-icon-app"
+               style="color: cornflowerblue;"
+            ></i> 重庆妹子来喝好茶了
+        </h3>
+        <div class="layui-card-body">
+            <a href="https://mp.weixin.qq.com/s/UsF3Pt_96vd6sRn1SNVtcg" target="_blank"
+               onclick="_hmt.push(['_trackEvent', 'adv', 'click', '想你奶茶小筑'])">
+                <img src="{% static 'adv/想你.jpeg' %}"
+                     style="max-width: 100%; width: 270px; border-radius: 10px"></a>
+        </div>
     </div>
-</div>
-<br/>
-<div class="layui-col-md11 layui-col-md-offset1 layui-card" style="box-shadow: 1px 1px 2px #dadada;">
-    <h3 class="layui-card-header" style="font-size: 16px; color: black">友情链接</h3>
-    <div class="layui-card-body">
-        <a href="http://www.specube.cn/" target="_blank"
-           onclick="_hmt.push(['_trackEvent', 'adv', 'click', '济南斯派克'])">
-            <img src="{% static 'adv/济南斯派克.jpg' %}"
-                 style="max-width: 100%; width: 270px"></a>
+    <br/>
+    <div class="layui-card" style="box-shadow: 1px 1px 2px #dadada;">
+        <h3 style="font-size: 16px; color: black; margin-left: 12px;">
+            <i class="layui-icon layui-icon-app"
+               style="color: cornflowerblue;"
+            ></i> 光电技术
+        </h3>
+        <div class="layui-card-body">
+            <a href="http://www.specube.cn/" target="_blank"
+               onclick="_hmt.push(['_trackEvent', 'adv', 'click', '济南斯派克'])">
+                <img src="{% static 'adv/济南斯派克.jpg' %}"
+                     style="max-width: 100%; width: 270px"></a>
+        </div>
     </div>
-</div>
-
-<br/>
-<div class="layui-col-md11 layui-col-md-offset1 layui-card layui-card-body" style="box-shadow: 1px 1px 2px #dadada;">
-    <h3>推广</h3>
-    <div id="center_text" style="text-align: center">
-        <a href="mailto:dusaiphoto@foxmail.com"
-           style="color: #01AAED"
-           onclick="_hmt.push(['_trackEvent', 'adv', 'click', '成为赞助商'])"
-        >成为赞助商</a>
+    <div class="layui-card" style="box-shadow: 1px 1px 2px #dadada;">
+        <h3 style="font-size: 16px; color: black; margin-left: 12px;"
+        >
+            <i class="layui-icon layui-icon-link"
+               style="color: lightcoral;"
+            ></i> 友情链接
+        </h3>
+        <div class="layui-card-body layui-text">
+            <img src="https://frostming.com/static/images/favicon.png"
+                 alt="favicon"
+                 style="max-width: 10%;"
+            >
+            <a href="https://frostming.com/" target="_blank"
+            >
+                Frost's Blog
+            </a>
+        </div>
+    </div>
+{#    <br/>#}
+    <div class="layui-card layui-card-body"
+         style="box-shadow: 1px 1px 2px #dadada;">
+        <h3 style="font-size: 16px; color: black;">
+            <i class="layui-icon layui-icon-share"
+               style="color: yellowgreen;"
+            ></i> 推广</h3>
+        <div id="center_text" style="text-align: center">
+            <a href="mailto:dusaiphoto@foxmail.com"
+               style="color: #01AAED"
+               onclick="_hmt.push(['_trackEvent', 'adv', 'click', '成为赞助商'])"
+            >赞助/友链</a>
+        </div>
     </div>
 </div>
 <br/>

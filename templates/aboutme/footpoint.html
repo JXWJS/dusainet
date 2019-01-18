@@ -6,17 +6,20 @@
     <div class="layui-card" style="text-align: center">
         <br/>
         <br/>
-        <h1>自我简介</h1>
+        <h1>About me</h1>
         <div class="layui-text">
-            <p>小设计师，现居成都</p>
+            <p>小光学设计师，目前就职于成都某'知名'军工国企</p>
+            <p>业余敲代码，妄图做网站、做app、做游戏</p>
+            <p>写博客，记录在摄影上的成长</p>
+            <p>2019年想要成为Vloger</p>
+            <p>众生芸芸，寻同道人</p>
         </div>
         <br/>
         <hr/>
-        <h1>我的技术栈</h1>
-        <br/>
-        <h2 style="color: blue">
-            <光学设计>
-        </h2>
+        <h2>技术栈</h2>
+        <h3 style="color: blue">
+            <光学>
+        </h3>
         <table class="layui-table">
             <colgroup>
                 <col width="150px">
@@ -64,9 +67,9 @@
             </tbody>
         </table>
         <br/>
-        <h2 style="color: green">
+        <h3 style="color: green">
             <编程>
-        </h2>
+        </h3>
         <table class="layui-table">
             <colgroup>
                 <col width="150px">
@@ -146,9 +149,9 @@
         </table>
         <br/>
 
-        <h2 style="color: darkgoldenrod">
+        <h3 style="color: darkgoldenrod">
             <爱好>
-        </h2>
+        </h3>
         <table class="layui-table">
             <colgroup>
                 <col width="150px">
@@ -253,14 +256,14 @@
                  alt="我设计的镜头2"
             >
         </div>
-        <hr/>
+        <br>
         <br>
 
         <h3>感谢你的小小停留</h3>
         <h3>愿你会有小小收获</h3>
         <br>
+        <br>
 
-        <hr/>
 
         <h3 class="layui-elem-quote">
             遇到问题、赞助推广，请点击这里:
@@ -272,7 +275,6 @@
         </div>
         <br>
 
-        <hr/>
 
         <h3 class="layui-elem-quote">我的摄影文章<br>
             还可以关注
@@ -333,7 +335,6 @@
                 写的不错，朕要赏
             </a>
         </div>
-        <br/>
         <br/>
         <br/>
     </div>
@@ -618,24 +619,27 @@
                 },
                 leaflet: {
                     center: [80, 30],
-                    zoom: 3,
+                    zoom: 2,
                     roam: true,
                     layerControl: {
                         position: 'topright'
                     },
-                    tiles: [{
-                        label: '天地图',
-                        urlTemplate: 'http://t2.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}',
-                        options: {
-                            attribution: 'tianditu.com'
-                        }
-                    }, {
-                        label: 'Open Street Map',
-                        urlTemplate: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-                        options: {
-                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-                        }
-                    }]
+                    tiles: [
+                        {
+                            label: 'Open Street Map',
+                            urlTemplate: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                            options: {
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+                            }
+                        },
+                        {
+                            label: '天地图',
+                            urlTemplate: 'http://t2.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}',
+                            options: {
+                                attribution: 'tianditu.com'
+                            }
+                        },
+                    ]
                 },
                 series: [{
                     name: 'pm2.5',

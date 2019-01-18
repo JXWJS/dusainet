@@ -201,4 +201,3 @@ class ArticleUpdateView(LoginRequiredMixin,
     template_name = 'article/article_create.html'
     fields = ['title', 'column', 'tags', 'body']
     login_url = "/accounts/weibo/login/?process=login"
-
