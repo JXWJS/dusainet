@@ -1,31 +1,70 @@
 <!-- 知识产权署名 -->
-<p class="layui-text layui-elem-quote layui-quote-nm">
-    <a rel="license"
-       href="https://creativecommons.org/licenses/by-nc/4.0/"
-       target="_blank"
-    >
-        <img alt="知识共享许可协议"
-             style="border-width:0"
-             src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"
-             title="知识共享署名/非商业性使用"
-        />
-    </a>
-    <span>
-        本作品由
-        <a xmlns:cc="https://creativecommons.org/ns#"
-           href="https://www.dusaiphoto.com"
-           property="cc:attributionName"
-           rel="cc:attributionURL"
-        >
-            杜赛
-        </a>
-        采用
+<div class="
+            layui-elem-quote
+            layui-quote-nm
+            layui-text
+            "
+>
+    <p>
+        <span>本文标题：
+            <a href="https://www.dusaiphoto.com{{ request.path }}" style="color: gray;">
+                {{ article.title }}
+            </a>
+        </span>
+    </p>
+    <p>
+        <span>本文作者：
+            <a href="https://www.dusaiphoto.com" style="color: gray;">
+                杜赛
+            </a>
+        </span>
+    </p>
+    <p>
+        <span>发布时间：
+            {{ article.created|date:"Y年m月d日 - H:i" }}
+        </span>
+    </p>
+    <p>
+        <span>最后更新：
+            {{ article.updated|date:"Y年m月d日 - H:i" }}
+        </span>
+    </p>
+    <p>
+        <span>
+            原始链接：
+            <a href="https://www.dusaiphoto.com{{ request.path }}"
+               style="word-break: break-all; color: gray;"
+            >
+                https://www.dusaiphoto.com{{ request.path }}
+            </a>
+        </span>
+    </p>
+    <p>
+        <span>
+            许可协议：
+            <a rel="license"
+               href="https://creativecommons.org/licenses/by-nc/4.0/"
+               target="_blank"
+               style="color: gray;"
+            >
+                署名-非商业性使用 4.0 国际许可协议
+            </a>
+        </span>
+    </p>
+    <p style="margin-top: 6px">
         <a rel="license"
            href="https://creativecommons.org/licenses/by-nc/4.0/"
            target="_blank"
         >
-            知识共享署名-非商业性使用 4.0 国际许可协议
+            <img alt="知识共享许可协议"
+                 style="border-width:0"
+                 src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"
+                 title="知识共享署名/非商业性使用"
+            />
         </a>
-        进行许可。
-    </span>
-</p>
+        <span>
+            &nbsp;&nbsp;<u>转载请保留原文链接及作者</u>
+        </span>
+    </p>
+
+</div>
