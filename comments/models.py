@@ -33,6 +33,7 @@ class Comment(MPTTModel):
     reply_to = models.ForeignKey(
         User,
         null=True,
+        blank=True,
         on_delete=models.CASCADE,
         related_name='comments_reply_to',
         verbose_name='评论给'
