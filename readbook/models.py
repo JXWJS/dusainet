@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
+from comments.models import Comment
 
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
@@ -15,6 +17,8 @@ class ReadBook(models.Model):
         on_delete=models.CASCADE,
         verbose_name='发布人',
     )
+
+    comments = GenericRelation(Comment)
 
     writer = models.CharField(
         max_length=100,
@@ -83,10 +87,10 @@ class ReadBook(models.Model):
         self.save(update_fields=['total_views'])
 
     def save(self,
-            force_insert=False,
-            force_update=False,
-            using=None,
-            update_fields=None):
+             force_insert=False,
+             force_update=False,
+             using=None,
+             update_fields=None):
         self.total_score = round(
             (0.3 * self.practicality
              + 0.3 * self.interesting

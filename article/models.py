@@ -2,8 +2,10 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 
 from course.models import Course
+from comments.models import Comment
 
 from taggit.managers import TaggableManager
 from imagekit.models import ProcessedImageField
@@ -36,6 +38,8 @@ class ArticlesPost(models.Model):
         on_delete=models.CASCADE,
         verbose_name='作者',
     )
+
+    comments = GenericRelation(Comment)
 
     column = models.ForeignKey(
         ArticlesColumn,

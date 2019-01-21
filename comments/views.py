@@ -10,23 +10,14 @@ from django.contrib.auth.models import User
 
 from notifications.signals import notify
 
-from .models import (
-    Comment,
-    ReadBookComment,
-    VlogComment,
-)
-
-from .forms import (
-    CommentForm,
-    ReadBookCommentForm,
-    VlogCommentForm,
-)
+from .models import Comment
+from .forms import CommentForm
 
 from article.models import ArticlesPost
 from readbook.models import ReadBook
 from vlog.models import Vlog
 
-from utils.utils import send_email_to_user
+# from utils.utils import send_email_to_user
 
 from django.views.generic import CreateView, UpdateView
 from braces.views import LoginRequiredMixin
@@ -42,11 +33,6 @@ class CommentUpdateView(LoginRequiredMixin,
     fields = ['body']
     login_url = "/accounts/weibo/login/?process=login"
 
-    def dispatch(self, request, *args, **kwargs):
-        """初始化"""
-        self.article_type = self.request.GET.get('article_type')
-        return super(CommentUpdateView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
 
         # 禁止编辑已删除的comment
@@ -56,12 +42,7 @@ class CommentUpdateView(LoginRequiredMixin,
         # 初始化旧正文
         context = super().get_context_data(**kwargs)
         ini = {'body': self.object.body}
-        if self.article_type == 'article':
-            comment_form = CommentForm(initial=ini)
-        elif self.article_type == 'readbook':
-            comment_form = ReadBookCommentForm(initial=ini)
-        else:
-            comment_form = VlogCommentForm(initial=ini)
+        comment_form = CommentForm(initial=ini)
         data = {
             'comment_form': comment_form
         }
@@ -70,12 +51,7 @@ class CommentUpdateView(LoginRequiredMixin,
 
     def get_queryset(self):
         """获取 models"""
-        if self.article_type == 'article':
-            queryset = Comment.objects.all()
-        elif self.article_type == 'readbook':
-            queryset = ReadBookComment.objects.all()
-        else:
-            queryset = VlogComment.objects.all()
+        queryset = Comment.objects.all()
         return queryset
 
     def form_valid(self, form):
@@ -87,7 +63,7 @@ class CommentUpdateView(LoginRequiredMixin,
     def get_success_url(self):
         """获取重定向url"""
         obj = self.get_object()
-        redirect_url = obj.article.get_absolute_url() + '#F' + str(obj.id)
+        redirect_url = obj.content_object.get_absolute_url() + '#F' + str(obj.id)
         return redirect_url
 
     def post(self, request, *args, **kwargs):
@@ -106,13 +82,7 @@ def comment_soft_delete(request):
     comment_id = request.GET.get('comment_id')
 
     # get model
-    article_type = request.GET.get('article_type')
-    if article_type == 'article':
-        comment = get_object_or_404(Comment, id=comment_id)
-    elif article_type == 'readbook':
-        comment = get_object_or_404(ReadBookComment, id=comment_id)
-    else:
-        comment = get_object_or_404(VlogComment, id=comment_id)
+    comment = get_object_or_404(Comment, id=comment_id)
 
     # 鉴权
     if request.user != comment.user and not request.user.is_staff:
@@ -124,7 +94,7 @@ def comment_soft_delete(request):
     comment.is_deleted = True
     comment.save()
 
-    redirect_url = comment.article.get_absolute_url() + '#F' + str(comment.id)
+    redirect_url = comment.content_object.get_absolute_url() + '#F' + str(comment.id)
     return redirect(redirect_url)
 
 
@@ -139,44 +109,17 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         'body',
     ]
 
-    def get_article_and_commentform(self, request, article_id):
+    def get_article(self, request, article_id):
         """
         获取: 回复的文章种类、绑定的评论表单
         """
         if request.POST['article_type'] == 'article':
             article = get_object_or_404(ArticlesPost, id=article_id)
-            comment_form = CommentForm(request.POST)
         elif request.POST['article_type'] == 'readbook':
             article = get_object_or_404(ReadBook, id=article_id)
-            comment_form = ReadBookCommentForm(request.POST)
         else:
             article = get_object_or_404(Vlog, id=article_id)
-            comment_form = VlogCommentForm(request.POST)
-        return (article, comment_form)
-
-    def get_comment_form(self, article_type):
-        """
-        获取未绑定的评论表单
-        """
-        if article_type == 'article':
-            comment_form = CommentForm()
-        elif article_type == 'readbook':
-            comment_form = ReadBookCommentForm()
-        else:
-            comment_form = VlogCommentForm()
-        return comment_form
-
-    def get_parent_comment(self, article_type, node_id):
-        """
-        获取二级回复的父级回复
-        """
-        if article_type == 'article':
-            parent_comment = Comment.objects.get(id=node_id)
-        elif article_type == 'readbook':
-            parent_comment = ReadBookComment.objects.get(id=node_id)
-        else:
-            parent_comment = VlogComment.objects.get(id=node_id)
-        return parent_comment
+        return article
 
     def get(self, request, *args, **kwargs):
         """
@@ -186,8 +129,8 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         node_id = kwargs.get('node_id')
         article_type = kwargs.get('article_type')
 
-        comment_form = self.get_comment_form(article_type)
-        comment = self.get_parent_comment(article_type, node_id)
+        comment_form = CommentForm()
+        comment = Comment.objects.get(id=node_id)
 
         template = 'comments/reply_post_comment.html'
 
@@ -206,10 +149,8 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         """
         处理post请求
         """
-        article, comment_form = self.get_article_and_commentform(
-            request,
-            self.kwargs.get('article_id')
-        )
+        article = self.get_article(request, self.kwargs.get('article_id'))
+        comment_form = CommentForm(request.POST)
 
         # 暂时用这种方法来检查空值，需优化
         if request.POST['body'] == '':
@@ -226,7 +167,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
                 # 判断回复属于博文、读书或视频
                 # 并赋值父级评论
-                parent_comment = self.get_parent_comment(article_type, node_id)
+                parent_comment = Comment.objects.get(id=node_id)
                 new_comment.parent_id = parent_comment.get_root().id
                 new_comment.reply_to = parent_comment.user
 
@@ -243,7 +184,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
             else:
                 new_comment.reply_to = None
 
-            new_comment.article = article
+            new_comment.content_object = article
             new_comment.user = request.user
             new_comment.save()
 

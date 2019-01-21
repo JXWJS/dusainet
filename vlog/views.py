@@ -2,8 +2,7 @@ from django.views.generic import ListView, DetailView
 
 from .models import Vlog
 
-from comments.models import VlogComment
-from comments.forms import VlogCommentForm
+from comments.forms import CommentForm
 from utils.utils import PaginatorMixin
 
 
@@ -31,11 +30,11 @@ class VlogDetailView(DetailView):
         # 传递给模板文章类型，用于评论表单区分
         article_type = 'vlog'
 
-        comment_form = VlogCommentForm()
+        comment_form = CommentForm()
         extra_data = {
             'comment_form': comment_form,
             # 生成树形评论
-            'comments': VlogComment.objects.filter(article_id=self.object.id),
+            'comments': self.object.comments.all(),
             'article_type': article_type,
         }
         context.update(extra_data)

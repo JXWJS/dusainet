@@ -9,9 +9,9 @@ Python==3.6, Django==2.0, layUI==2.3
 
 作者是一个光学工程师，编程是业余爱好。
 
-这也是我写的第一个Django项目，很多功能都不完善，欢迎各位前辈提出宝贵的意见。暂时也不建议使用。
+这也是我写的第一个Django项目，很多功能都不完善，欢迎各位前辈提出宝贵的意见。
 
->网站运行半年后review：代码真的写得太烂啦！持续优化中...
+> 代码持续优化中..
 
 有问题请联系作者：dusaiphoto@foxmail.com
 
@@ -20,14 +20,13 @@ Python==3.6, Django==2.0, layUI==2.3
 - 修改`dusainet2/settings.py`中的所有需要账号密码的部分
 
 ## 注意事项：
-静态文件layui.css/layui.min.css和editormd.css/editormd.min.css均有更改。
-
-使用原生版本的layui和editormd可能UI会不一致，请根据需要修改。
-
-- .editormd-preview-container, .editormd-html-preview修改了font-size和padding
-- layui.css 删除了 .layui li; 增加了 .layui-fixbar li 中的 list-style-type
+由于静态文件layui.css和editormd.css样式有些小的冲突，因此都稍有更改。
+因此使用原生版本的layui和editormd可能UI会不一致。
 
 ## 更新日志：
+### 2019.01.21
+- 使用 GenericForeignKey 优化了 Comment APP
+
 ### 2019.01.11
 - 优化detail页面表现
 - 修改License

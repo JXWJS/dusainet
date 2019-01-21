@@ -2,7 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 
+from comments.models import Comment
 
 class Vlog(models.Model):
     """
@@ -14,6 +16,9 @@ class Vlog(models.Model):
         on_delete=models.CASCADE,
         verbose_name='作者',
     )
+
+    comments = GenericRelation(Comment)
+
 
     title = models.CharField(max_length=200, verbose_name='标题')
     # 简介正文

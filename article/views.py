@@ -137,7 +137,7 @@ def article_detail(request, article_id):
         context = {'article': article,
                    'comment_form': comment_form,
                    # 生成树形评论
-                   'comments': Comment.objects.filter(article_id=article_id),
+                   'comments': article.comments.all(),
                    'course_articles': course_articles,
                    'pre_article': pre_article,
                    'next_article': next_article,
@@ -150,7 +150,7 @@ def article_detail(request, article_id):
         context = {'article': article,
                    'comment_form': comment_form,
                    # 生成树形评论
-                   'comments': Comment.objects.filter(article_id=article_id),
+                   'comments': article.comments.all(),
                    'article_type': article_type,
                    }
         return render(request, 'article/article_detail.html', context=context)
