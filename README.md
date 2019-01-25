@@ -24,6 +24,9 @@ Python==3.6, Django==2.0, layUI==2.3
 因此使用原生版本的layui和editormd可能UI会不一致。
 
 ## 更新日志：
+### 2019.01.26
+- 增加GitHub/本地登录
+
 ### 2019.01.21
 - 使用 GenericForeignKey 优化了 Comment APP
 
