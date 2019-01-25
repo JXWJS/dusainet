@@ -1,11 +1,11 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block title %}登出 - 杜赛的个人网站{% endblock %}
 
 {% block content %}
     <br/>
-    <div class="layui-card layui-card-body" style="text-align: center">
+    <div style="text-align: center">
         <br/>
         {% if user.socialaccount_set.all.0.get_avatar_url %}
             <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
@@ -22,6 +22,10 @@
             {% endif %}
             <button type="submit" class="layui-btn layui-btn-danger">{% trans '退出登录' %}</button>
         </form>
-
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
 {% endblock %}

@@ -1,0 +1,8 @@
+{% load i18n %}
+{% load account %}
+
+{% user_display user as user_display %}
+<p style="color: darkred">
+    <strong>{% trans "提示" %}: </strong>
+    你已经以 {{ user_display }} 登录了
+</p>

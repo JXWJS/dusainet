@@ -126,26 +126,26 @@ WSGI_APPLICATION = 'dusainet2.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 # 开发数据库
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-with open('email_host_password.txt') as f:
-    MYSQL_PASSWORD = f.read().strip()
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dusainet2',
-        'USER': 'root',
-        'PASSWORD': MYSQL_PASSWORD,
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    with open('email_host_password.txt') as f:
+        MYSQL_PASSWORD = f.read().strip()
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'dusainet2',
+            'USER': 'root',
+            'PASSWORD': MYSQL_PASSWORD,
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -200,7 +200,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Email setting
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'

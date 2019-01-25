@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load account socialaccount %}
+{% block title %}
+    登录 - 杜赛的个人网站
+{% endblock %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <div style="text-align: center">
+        <div>
+            <h2><span>第三方登录</span></h2>
+            <div class="" style="margin-top: 10px">
+                <span class="weibo mr-3">
+                    <a href="/accounts/weibo/login/?process=login">
+                        <i class="layui-icon layui-icon-login-weibo"
+                           style="font-size: xx-large; color: #ee771a;"
+                           aria-hidden="true"
+                           title="新浪微博登录"
+                        ></i>
+                    </a>
+                </span>
+                &nbsp;
+                <span>
+                    <a href="/accounts/github/login/?process=login">
+                        <img src="{% static 'img/github_icon.png' %}"
+                             style="width: 33px; margin-top: -15px"
+                             title="GitHub登录"
+                        >
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <div style="text-align: center">
+        <h2><span>或登录本站账号</span></h2>
+    </div>
+    <br>
+    <br>
+    <div class="layui-col-sm-offset3 layui-col-lg-offset4">
+        <form class="login layui-form"
+              method="POST"
+              action="{% url 'account_login' %}"
+        >
+            {% csrf_token %}
+            <div class="layui-form-item">
+                <label for="id_login" class="layui-form-label">账号: </label>
+                <div class="layui-input-inline">
+                    <input type="text"
+                           name="login"
+                           placeholder="请输入用户名或Email"
+                           autofocus="autofocus"
+                           required
+                           id="id_login"
+                           class="layui-input"
+                    />
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label for="id_password" class="layui-form-label">
+                    密码:
+                </label>
+                <div class="layui-input-inline">
+                    <input type="password"
+                           name="password"
+                           placeholder="请输入密码"
+                           required id="id_password"
+                           class="layui-input"
+                    />
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <a class="secondaryAction layui-text"
+                       href="{% url 'account_reset_password' %}"
+                    >
+                        忘记密码?
+                    </a>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="id_remember" class="layui-form-label">
+                    保持登录:
+                </label>
+                <input type="checkbox"
+                       name="remember"
+                       id="id_remember"
+                       lay-skin="switch"
+                       checked
+                       lay-text="ON|OFF"
+                />
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="primaryAction layui-btn" type="submit">确认</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <p style="text-align: center"
+       class="layui-text"
+    >
+        还没有账号？
+        <a href="{% url 'account_signup' %}" style="color: cornflowerblue; ">
+            注册新账号
+        </a>
+    </p>
+
+    <br>
+    <br>
+    <hr>
+{% endblock %}

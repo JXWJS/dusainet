@@ -9,7 +9,7 @@
             杜赛的个人网站
         </a>
     </li>
-    <li class=  "
+    <li class="
                 layui-nav-item
                 layui-hide-xs
                 {% if 'article' in request.path or request.path == '/' %}
@@ -21,7 +21,7 @@
             文章
         </a>
     </li>
-    <li class=  "
+    <li class="
                 layui-nav-item
                 layui-hide-xs
                 {% if '/course' in request.path %}
@@ -33,7 +33,7 @@
             教程
         </a>
     </li>
-    <li class=  "
+    <li class="
                 layui-nav-item
                 layui-hide-xs
                 {% if '/book' in request.path %}
@@ -45,7 +45,7 @@
             读书
         </a>
     </li>
-    <li class=  "
+    <li class="
                 layui-nav-item
                 layui-hide-xs
                 {% if '/album' in request.path %}
@@ -57,7 +57,7 @@
             照片墙
         </a>
     </li>
-    <li class=  "
+    <li class="
                 layui-nav-item
                 layui-hide-xs
                 {% if '/vlog' in request.path %}
@@ -69,7 +69,7 @@
             视频
         </a>
     </li>
-    <li class=  "
+    <li class="
                 layui-nav-item
                 layui-hide-xs
                 {% if '/aboutme' in request.path %}
@@ -118,21 +118,26 @@
                     <a href="{% url 'my_notifications:notify_box' %}">
                         通知
                         {% if unread_count %}
-                            <span class="layui-badge" style="left: 50%;">{{ unread_count }}</span>
-                        {% endif %}</a></dd>
+                            <span class="layui-badge" style="left: 50%;">
+                                {{ unread_count }}
+                            </span>
+                        {% endif %}
+                    </a>
+                </dd>
+                <dd><a href="{% url 'account_email' %}">邮箱管理</a></dd>
                 {% if user.is_superuser %}
                     <dd><a href="{% url 'article:article_create' %}">写文章</a></dd>
-                    <dd><a href="{% url 'album:album_manage' %}">照片墙</a></dd>
+                    <dd><a href="/admin">后台</a></dd>
                     <dd><a href="{% url 'imagesource:imagesource_list' %}">图库</a></dd>
                 {% endif %}
-                <dd><a href="/accounts/logout">退出登录</a></dd>
+                <dd><a href="{% url 'account_logout' %}">退出登录</a></dd>
             </dl>
         </li>
 
     {% else %}
         <li class="layui-nav-item "
             style="float: right;">
-            <a href="/accounts/weibo/login/?process=login">
+            <a href="{% url 'account_login' %}">
                 登录
             </a>
         </li>
@@ -185,9 +190,9 @@
                 shadeClose: true,
                 area: '300px',
                 content: '<form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">\n' +
-                    '<input style=" background-color: #dddddd" type="search" name="q" placeholder="输入回车确认" required\n' +
-                    'class="layui-input">\n' +
-                    '</form>'
+                '<input style=" background-color: #dddddd" type="search" name="q" placeholder="输入回车确认" required\n' +
+                'class="layui-input">\n' +
+                '</form>'
             });
         });
     }

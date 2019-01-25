@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}登录中 - 杜赛的个人网站{% endblock %}
+
+{% block content %}
+    <br>
+    <h1>登录</h1>
+    <hr>
+    <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}
+        你正在使用 {{ provider_name }}
+        账号登录本站。请确认以下信息：
+    {% endblocktrans %}
+    </p>
+    <br>
+    <form class="signup layui-form" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+        {% csrf_token %}
+        <div class="layui-form-item">
+            <label for="id_email" class="layui-form-label">E-mail：</label>
+            <div class="layui-input-inline">
+                <input type="email"
+                       class="layui-input"
+                       name="email"
+                       value="Du.W.Sai@gmail.com"
+                       placeholder="E-mail address"
+                       required
+                       id="id_email"
+                />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="id_username" class="layui-form-label">
+                用户名：
+            </label>
+            <div class="layui-input-inline">
+                <input type="text"
+                       class="layui-input"
+                       name="username"
+                       value="stacklens"
+                       placeholder="Username"
+                       autofocus="autofocus"
+                       minlength="1"
+                       maxlength="150"
+                       required
+                       id="id_username"
+                />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn">确认 &raquo;</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <hr>
+{% endblock %}

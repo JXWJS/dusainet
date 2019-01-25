@@ -40,12 +40,30 @@
     <br/>
     <div style="text-align: center">
         <div>
-            <div class="layui-text" style="font-size: large" id="weibologin"><span>登录后回复</span></div>
+            <div class="layui-text" style="font-size: large" id="weibologin">
+                <span>
+                    <a href="{% url 'account_login' %}">
+                        登录
+                    </a>
+                    后回复
+                </span>
+            </div>
             <div class="" style="margin-top: 10px">
                 <span class="weibo mr-3">
                     <a href="/accounts/weibo/login/?process=login">
                         <i class="layui-icon layui-icon-login-weibo"
-                           style="font-size: xx-large; color: #ee771a;" aria-hidden="true"></i>
+                           style="font-size: xx-large; color: #ee771a;"
+                           aria-hidden="true"
+                           title="新浪微博登录"
+                        ></i>
+                    </a>
+                </span>
+                <span>
+                    <a href="/accounts/github/login/?process=login">
+                        <img src="{% static 'img/github_icon.png' %}"
+                             style="width: 33px; margin-top: -15px"
+                             title="GitHub登录"
+                        >
                     </a>
                 </span>
             </div>
