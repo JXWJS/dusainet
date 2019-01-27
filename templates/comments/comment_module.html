@@ -1,5 +1,6 @@
 {% load mptt_tags %}
 {% load weibo_utils %}
+{% load get_userinfo %}
 {% load staticfiles %}
 
 <!-- ckeditor -->
@@ -61,7 +62,7 @@
                 <span>
                     <a href="/accounts/github/login/?process=login">
                         <img src="{% static 'img/github_icon.png' %}"
-                             style="width: 33px; margin-top: -15px"
+                             style="width: 33px; margin-top: -16px"
                              title="GitHub登录"
                         >
                     </a>
@@ -85,37 +86,55 @@
                 <hr/>
                 <div class="layui-col-xs2 layui-col-sm1" id="F{{ node.id }}">
                     <div style="text-align: center">
+                        {% get_userinfo node.user.id as userinfo %}
                         {% if node.user.socialaccount_set.all.0.get_avatar_url %}
-                            {% if node.reply_to %}
-                                <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
-                                     style="width: 60%; border-radius: 20%"
+                            <!-- 第三方头像 -->
+                            <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
+                                 alt="avatar"
+                                    {% if node.reply_to %}
+                                 style="width: 60%; border-radius: 20%"
+                                    {% else %}
+                                 style="width: 80%; border-radius: 20%"
+                                    {% endif %}
+                            >
+
+                        {% elif userinfo.avatar %}
+                            <!-- 本地头像 -->
+                            {% if 'static' in userinfo.avatar.url %}
+                                <img src="{{ userinfo.avatar }}"
                                      alt="avatar"
+                                        {% if node.reply_to %}
+                                     style="width: 60%; border-radius: 20%"
+                                        {% else %}
+                                     style="width: 80%; border-radius: 20%"
+                                        {% endif %}
                                 >
                             {% else %}
-                                <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
-                                     style="width: 80%; border-radius: 20%"
+                                <img src="{{ userinfo.avatar.url }}"
                                      alt="avatar"
+                                        {% if node.reply_to %}
+                                     style="width: 60%; border-radius: 20%"
+                                        {% else %}
+                                     style="width: 80%; border-radius: 20%"
+                                        {% endif %}
                                 >
                             {% endif %}
+
                         {% else %}
-                            {% if node.reply_to %}
-                                <img src="{% static 'default_avatar.jpg' %}"
-                                     style="width: 60%; border-radius: 20%"
-                                     alt="avatar"
-                                >
-                            {% else %}
-                                <img src="{% static 'default_avatar.jpg' %}"
-                                     style="width: 80%; border-radius: 20%"
-                                     alt="avatar"
-                                >
-                            {% endif %}
+                            <!-- 无头像 -->
+                            <img src="{% static 'default_avatar.jpg' %}"
+                                 alt="avatar"
+                                    {% if node.reply_to %}
+                                 style="width: 60%; border-radius: 20%"
+                                    {% else %}
+                                 style="width: 80%; border-radius: 20%"
+                                    {% endif %}
+                            >
                         {% endif %}
                     </div>
                 </div>
 
-                <div class="layui-col-xs10 layui-col-sm11"
-
-                >
+                <div class="layui-col-xs10 layui-col-sm11">
                     <div style="color: gray;">
                         {% if user == node.user %}
                             <span class="layui-badge layui-bg-orange">

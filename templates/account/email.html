@@ -1,10 +1,54 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+{% load weibo_utils %}
 {% load i18n %}
 
 {% block title %}邮箱管理 - 杜赛的个人网站{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" href="{% static 'cropper/cropper.min.css' %}">
+
+    <br>
+    <br>
+
+    <div style="text-align: center">
+        {% if user.socialaccount_set.all.0.get_avatar_url %}
+            <!-- 第三方头像 -->
+            <img src="{% translate_avatar_ssl user.socialaccount_set.all.0.get_avatar_url %}"
+                 alt="avatar"
+                 style="max-width: 10%; border-radius: 20%"
+            >
+        {% else %}
+            {% if userinfo.avatar %}
+                <!-- 本地头像 -->
+                {% if 'static' in userinfo.avatar.url %}
+                    <img src="{{ userinfo.avatar }}"
+                         alt="avatar"
+                         style="max-width: 10%; border-radius: 20%">
+                {% else %}
+                    <img src="{{ userinfo.avatar.url }}"
+                         alt="avatar"
+                         style="max-width: 10%; border-radius: 20%">
+                {% endif %}
+            {% else %}
+                <!-- 无头像 -->
+                <img src="{% static 'default_avatar.jpg' %}"
+                     alt="avatar"
+                     style="max-width: 10%; border-radius: 20%">
+            {% endif %}
+        {% endif %}
+        <p style="padding-top: 5px;"><span>{{ user.username }}</span></p>
+    </div>
+
+    {% if not user.socialaccount_set.all.0.get_avatar_url %}
+        <!-- 第三方头像不能修改头像 -->
+        {% include 'account/handle_image_crop_upload.html' %}
+    {% endif %}
+
+
+
+    <br>
+    <br>
     <br>
     <h1>{% trans "邮箱管理" %}</h1>
     <hr>
@@ -20,7 +64,7 @@
         </p>
         <br>
 
-        <form action="{% url 'account_email' %}"
+        <form action="{% url 'userinfo:detail' %}"
               class="email_list layui-form"
               method="post"
         >
@@ -59,11 +103,14 @@
                     <div class="layui-input-block" style="margin-left: 10px">
 
                         <button class="secondaryAction layui-btn layui-btn-warm layui-btn-sm" type="submit"
-                                name="action_primary">成为主邮箱</button>
+                                name="action_primary">成为主邮箱
+                        </button>
                         <button class="secondaryAction layui-btn layui-btn-normal layui-btn-sm" type="submit"
-                                name="action_send">重发认证邮件</button>
+                                name="action_send">重发认证邮件
+                        </button>
                         <button class="primaryAction layui-btn  layui-btn-primary layui-btn-sm" type="submit"
-                                name="action_remove">解除绑定</button>
+                                name="action_remove">解除绑定
+                        </button>
                     </div>
                 </div>
             </fieldset>
@@ -81,7 +128,7 @@
     <p>提交后我们会发送邮件给您。请点击邮件中的链接，以认证您的邮箱。</p>
     <br>
     <form method="post"
-          action="/accounts/email/"
+          action="{% url 'userinfo:detail' %}"
           class="add_email layui-form"
     >
         {% csrf_token %}
@@ -110,6 +157,10 @@
     </p>
     <hr>
 
+
+
+    <script src="{% static 'cropper/cropper.min.js' %}"></script>
+    <script src="{% static 'cropper/jquery-cropper.min.js' %}"></script>
     <script>
         layui.use(['table'], function () {
             var layer = layui.layer;

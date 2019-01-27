@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
+    'userinfo',
     'article',  # 文章
     'comments',  # 评论
     'album',  # 相册

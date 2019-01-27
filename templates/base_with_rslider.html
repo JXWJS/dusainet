@@ -8,11 +8,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="bookmark"  type="image/x-icon"  href="{% static 'img/favicon.ico' %}"/>
+    <link rel="bookmark" type="image/x-icon" href="{% static 'img/favicon.ico' %}"/>
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'layui-v2.3.0/layui/css/layui.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'mystyle.css' %}" CHARSET="UTF-8">
+
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123957004-1"></script>
@@ -43,6 +44,8 @@
 <body>
 <script src="{% static 'jquery.js' %}"></script>
 <script src="{% static 'layui-v2.3.0/layui/layui.js' %}"></script>
+
+
 <div class="layui-header">
     {% include "header.html" %}
     <div class="layui-container">

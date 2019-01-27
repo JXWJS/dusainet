@@ -33,6 +33,8 @@ urlpatterns = [
     url(r'^$', ArticlePostView.as_view(), name='home'),
     path('admiration/', TemplateView.as_view(template_name='admiration.html'), name='admiration'),
 
+    path('userinfo/', include('userinfo.urls', namespace='userinfo')),
+
     path('article/', include('article.urls', namespace='article')),
     url(r'comments/', include('comments.urls', namespace='comments')),
     path('album/', include('album.urls', namespace='album')),

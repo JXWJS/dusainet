@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load notifications_tags %}
 {% load weibo_utils %}
+{% load get_userinfo %}
 
 <ul class="layui-nav">
     <!-- PC导航 -->
@@ -100,11 +101,24 @@
     <!-- 用户下拉条 -->
     {% if user.is_authenticated %}
         <li class="layui-nav-item" style="float: right;"><a href="javascript:">
+            {% get_userinfo user.id as userinfo %}
             {% if user.socialaccount_set.all.0.get_avatar_url %}
                 <img src="{% translate_avatar_ssl user.socialaccount_set.all.0.get_avatar_url %}"
                      style="max-height: 40px; border-radius: 20%"
                      alt="头像"
                 >
+            {% elif userinfo.avatar %}
+                {% if 'static' in userinfo.avatar.url %}
+                    <img src="{{ userinfo.avatar }}"
+                         alt="avatar"
+                         style="max-height: 40px; border-radius: 20%"
+                    >
+                {% else %}
+                    <img src="{{ userinfo.avatar.url }}"
+                         alt="avatar"
+                         style="max-height: 40px; border-radius: 20%"
+                    >
+                {% endif %}
             {% else %}
                 {{ user.username }}
             {% endif %}
@@ -124,7 +138,7 @@
                         {% endif %}
                     </a>
                 </dd>
-                <dd><a href="{% url 'account_email' %}">邮箱管理</a></dd>
+                <dd><a href="{% url 'userinfo:detail' %}">个人信息</a></dd>
                 {% if user.is_superuser %}
                     <dd><a href="{% url 'article:article_create' %}">写文章</a></dd>
                     <dd><a href="/admin">后台</a></dd>

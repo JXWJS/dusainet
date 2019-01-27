@@ -31,7 +31,7 @@ class CommentUpdateView(LoginRequiredMixin,
     context_object_name = 'comment'
     template_name = 'comments/edit.html'
     fields = ['body']
-    login_url = "/accounts/weibo/login/?process=login"
+    login_url = "/accounts/login/"
 
     def get_context_data(self, **kwargs):
 
@@ -73,7 +73,7 @@ class CommentUpdateView(LoginRequiredMixin,
         return super(CommentUpdateView, self).post(request, *args, **kwargs)
 
 
-@login_required(login_url='/accounts/weibo/login/?process=login')
+@login_required(login_url='/accounts/login')
 def comment_soft_delete(request):
     """
     软删除回复
@@ -104,7 +104,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     可处理get或post请求
     model设计问题导致代码臃肿
     """
-    login_url = "/accounts/weibo/login/?process=login"
+    login_url = "/accounts/login"
     fields = [
         'body',
     ]
@@ -170,7 +170,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
                 parent_comment = Comment.objects.get(id=node_id)
                 new_comment.parent_id = parent_comment.get_root().id
                 new_comment.reply_to = parent_comment.user
-
+                new_comment.content_object = article
+                new_comment.user = request.user
+                new_comment.save()
                 # 对不是staff的父级评论发送通知
                 if not parent_comment.user.is_superuser:
                     notify.send(
@@ -183,10 +185,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
                     )
             else:
                 new_comment.reply_to = None
-
-            new_comment.content_object = article
-            new_comment.user = request.user
-            new_comment.save()
+                new_comment.content_object = article
+                new_comment.user = request.user
+                new_comment.save()
 
             # 给staff发送通知
             notify.send(
