@@ -82,7 +82,7 @@ class ArticlesPost(models.Model):
 
     body = models.TextField(verbose_name='正文')
     created = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField()
     total_views = models.PositiveIntegerField(default=0, verbose_name='浏览量')
 
     # 缩略图
@@ -105,13 +105,18 @@ class ArticlesPost(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self, *args, **kwargs):
         """
         重写save(), 自动填写教程序号
         """
         if not self.course_title:
             self.course_title = self.title
-        super(ArticlesPost, self).save()
+
+        # 跳过更新日期
+        if not kwargs.pop('skip_updated', False):
+            self.updated = timezone.now()
+
+        super(ArticlesPost, self).save(*args, **kwargs)
 
     # 获取文章地址
     def get_absolute_url(self):
@@ -124,4 +129,4 @@ class ArticlesPost(models.Model):
     # 统计浏览量
     def increase_views(self):
         self.total_views += 1
-        self.save(update_fields=['total_views'])
+        self.save(update_fields=['total_views'], skip_updated=True)
