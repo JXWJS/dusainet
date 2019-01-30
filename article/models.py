@@ -82,7 +82,7 @@ class ArticlesPost(models.Model):
 
     body = models.TextField(verbose_name='正文')
     created = models.DateTimeField(default=timezone.now)
-    updated = models.DateTimeField()
+    updated = models.DateTimeField(auto_now=True)
     total_views = models.PositiveIntegerField(default=0, verbose_name='浏览量')
 
     # 缩略图
@@ -113,8 +113,8 @@ class ArticlesPost(models.Model):
             self.course_title = self.title
 
         # 跳过更新日期
-        if not kwargs.pop('skip_updated', False):
-            self.updated = timezone.now()
+        # if not kwargs.pop('skip_updated', False):
+        #     self.updated = timezone.now()
 
         super(ArticlesPost, self).save(*args, **kwargs)
 
@@ -129,4 +129,4 @@ class ArticlesPost(models.Model):
     # 统计浏览量
     def increase_views(self):
         self.total_views += 1
-        self.save(update_fields=['total_views'], skip_updated=True)
+        self.save(update_fields=['total_views'])
