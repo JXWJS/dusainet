@@ -45,7 +45,7 @@ class ArticlesPost(models.Model):
         ArticlesColumn,
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='column',
         verbose_name='栏目',
     )
@@ -66,7 +66,7 @@ class ArticlesPost(models.Model):
         related_name='article',
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name='教程',
     )
 

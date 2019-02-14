@@ -86,15 +86,11 @@ class ReadBook(models.Model):
         self.total_views += 1
         self.save(update_fields=['total_views'])
 
-    def save(self,
-             force_insert=False,
-             force_update=False,
-             using=None,
-             update_fields=None):
+    def save(self, *args, **kwargs):
         self.total_score = round(
             (0.3 * self.practicality
              + 0.3 * self.interesting
              + 0.2 * self.readability
              + 0.1 * self.professionalism
              + 0.1 * self.binding_quality), 1)
-        super(ReadBook, self).save()
+        super(ReadBook, self).save(*args, **kwargs)

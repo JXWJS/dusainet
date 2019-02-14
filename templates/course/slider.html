@@ -1,4 +1,6 @@
 <div class="layui-col-sm2 layui-hide-xs">
+
+    <!-- 目录 -->
     <div class="layui-text"
          style="font-weight: bold; font-size: large; padding-top: 10px">
         {{ article.course.title }}
@@ -6,15 +8,55 @@
     <hr>
     {% for article_c in course_articles %}
         {% if article_c.id == article.id %}
-            <div id="top_layer"><p style="font-weight: bold; font-size: 16px" class="layui-text">{{ article_c.course_title }}</p></div>
+            <div id="top_layer"><p style="font-weight: bold; font-size: 16px"
+                                   class="layui-text">{{ article_c.course_title }}</p></div>
             <div id="sidebar" style="overflow: hidden">
                 <div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container
                 </div>
             </div>
         {% else %}
-            <div id="top_layer"><a href="{{ article_c.get_absolute_url }}" style="color: #01a252; font-size: 16px">{{ article_c.course_title }}</a></div>
+            <div id="top_layer"><a href="{{ article_c.get_absolute_url }}"
+                                   style="color: #01a252; font-size: 16px">{{ article_c.course_title }}</a></div>
         {% endif %}
     {% endfor %}
+    <hr>
+
+    <!-- GitHub仓库的小卡片 -->
+    {% if article.course.github_repo %}
+        <fieldset class="layui-elem-field">
+            <legend style="">GitHub Repo</legend>
+            <div class="layui-field-box">
+                {% with article.course.github_repo as repo %}
+                    <div class="layui-text">
+
+                        <a href="https://github.com/{{ repo.user }}/{{ repo.repo }}"
+                           target="_blank"
+                           style="word-break: break-all; font-size: 1.1em"
+                        >
+                            {{ repo.repo }}
+                        </a>
+                        <p>
+                            {{ repo.description }}
+                        </p>
+                    </div>
+
+                    <iframe src="https://ghbtns.com/github-btn.html?user={{ repo.user }}&repo={{ repo.repo }}&type=star&count=true"
+                            frameborder="0"
+                            scrolling="0"
+                            width="100px"
+                            height="30px"
+                            style="margin-top: 8px"
+                    ></iframe>
+                    <iframe src="https://ghbtns.com/github-btn.html?user={{ repo.user }}&repo={{ repo.repo }}&type=fork&count=true&v=2"
+                            frameborder="0"
+                            scrolling="0"
+                            width="100px"
+                            height="20px"
+                    ></iframe>
+                {% endwith %}
+            </div>
+        </fieldset>
+    {% endif %}
 </div>
 
 {#遇到一个神奇的bug：模板中有style标签时，view会执行两次。暂时删去style#}
