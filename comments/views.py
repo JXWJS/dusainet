@@ -190,14 +190,15 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
                 new_comment.save()
 
             # 给staff发送通知
-            notify.send(
-                request.user,
-                recipient=User.objects.filter(is_staff=1),
-                verb='回复了你',
-                target=article,
-                description=article_type,
-                action_object=new_comment,
-            )
+            if not request.user.is_staff:
+                notify.send(
+                    request.user,
+                    recipient=User.objects.filter(is_staff=1),
+                    verb='回复了你',
+                    target=article,
+                    description=article_type,
+                    action_object=new_comment,
+                )
 
             # 给博主发送通知邮件
             # send_email_to_user(recipient='dusaiphoto@foxmail.com')
