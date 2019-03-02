@@ -6,7 +6,7 @@
 {% notifications_unread as unread_count %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- PC导航 -->
+    <!-- 导航 -->
     <a class="navbar-brand" href="/" style="font-size: 1.2em;">
         杜赛的个人网站
     </a>
@@ -37,7 +37,7 @@
                 {% endif %}
                 "
             >
-                <a class="nav-link" href="/">
+                <a class="nav-link mr-2" href="/">
                     文章
                 </a>
             </li>
@@ -48,7 +48,7 @@
                 {% endif %}
                 "
             >
-                <a class="nav-link" href="{% url 'course:course_list' %}">
+                <a class="nav-link mr-2" href="{% url 'course:course_list' %}">
                     教程
                 </a>
             </li>
@@ -59,7 +59,7 @@
                 {% endif %}
                 "
             >
-                <a class="nav-link" href="{% url 'readbook:book_list' %}">
+                <a class="nav-link mr-2" href="{% url 'readbook:book_list' %}">
                     读书
                 </a>
             </li>
@@ -70,7 +70,7 @@
                 {% endif %}
                 "
             >
-                <a class="nav-link" href="{% url 'album:album_list' %}">
+                <a class="nav-link mr-2" href="{% url 'album:album_list' %}">
                     照片墙
                 </a>
             </li>
@@ -81,7 +81,7 @@
                 {% endif %}
                 "
             >
-                <a class="nav-link" href="{% url 'vlog:list' %}">
+                <a class="nav-link mr-2" href="{% url 'vlog:list' %}">
                     视频
                 </a>
             </li>
@@ -92,25 +92,10 @@
                 {% endif %}
                 "
             >
-                <a class="nav-link" href="{% url 'aboutme:footpoint' %}">
+                <a class="nav-link mr-2" href="{% url 'aboutme:footpoint' %}">
                     关于
                 </a>
             </li>
-
-            <!-- 移动端导航 -->
-            {#            <li class="layui-nav-item layui-hide-sm" style="float: right">#}
-            {#                <a href="javascript:"><i class="layui-icon layui-icon-spread-left"></i></a>#}
-            {#                <dl class="layui-nav-child">#}
-            {#                    <!-- 二级菜单 -->#}
-            {#                    <dd><a href="/">文章</a></dd>#}
-            {#                    <dd><a href="{% url 'course:course_list' %}">教程</a></dd>#}
-            {#                    <dd><a href="{% url 'readbook:book_list' %}">读书</a></dd>#}
-            {#                    <dd><a href="{% url 'album:album_list' %}">照片墙</a></dd>#}
-            {#                    <dd><a href="{% url 'vlog:list' %}">视频</a></dd>#}
-            {#                    <dd class="layui-hide-sm"><a href="#" onclick="mobile_search()">搜索</a></dd>#}
-            {#                    <dd><a href="{% url 'aboutme:footpoint' %}">关于</a></dd>#}
-            {#                </dl>#}
-            {#            </li>#}
         </ul>
         <ul class="navbar-nav ml-md-auto" style="margin: -5px 0 -5px 0;">
 
@@ -130,14 +115,7 @@
                        class="form-control mr-sm-2"
                 >
             </form>
-            {#        <li class="layui-nav-item layui-hide-md layui-hide-xs"#}
-            {#            style="float: right"#}
-            {#        >#}
-            {#            <a href="#" onclick="mobile_search()">#}
-            {#                <i class="layui-icon layui-icon-search" style="font-weight: bold"></i>#}
-            {#            </a>#}
-            {#        </li>#}
-            {#        </ul>#}
+
 
 
             <!-- 用户下拉条avatar -->

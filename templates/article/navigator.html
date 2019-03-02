@@ -1,31 +1,33 @@
 <!-- 栏目导航 -->
-<div class="layui-btn-container">
+<div class="mt-2 mb-2">
     <a class="
-                layui-btn
-                layui-btn-radius
-                layui-btn-sm
+                btn
+                btn-sm
+                mr-1
                 {% if column_id == None %}
-                layui-btn
+                btn-success
                 {% else %}
-                layui-btn-primary
+                btn-outline-success
                 {% endif %}
              "
        href="/"
+       role="button"
     >
         综合
     </a>
     {% for column in columns %}
         <a class="
-                layui-btn
-                layui-btn-radius
-                layui-btn-sm
+                btn
+                btn-sm
+                mr-1
                 {% if column.id == column_id %}
-                layui-btn-warm
+                btn-secondary
                 {% else %}
-                layui-btn-primary
+                btn-outline-secondary
                 {% endif %}
                 "
            href="?column_id={{ column.id }}"
+           role="button"
         >
             {{ column.title }}
         </a>
@@ -33,22 +35,34 @@
 </div>
 
 <!-- 面包屑 -->
-<span class="layui-breadcrumb">
-    <a href="?order=created-time&column_id={{ column_id }}&tag={{ tag }}"
-
-    >
-       {% if order != 'total_views' %}
-           <cite>最近</cite>
-       {% else %}
-           最近
-       {% endif %}
-    </a>
-    <a href="?order=total_views&column_id={{ column_id }}&tag={{ tag }}"
-    >
-       {% if order == 'total_views' %}
-           <cite>热门</cite>
-       {% else %}
-           热门
-       {% endif %}
-    </a>
-</span>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: white; padding: 0 0 0 2px; font-size: 0.9em">
+            <li class="breadcrumb-item"
+            >
+                {% if order == 'total_views' %}
+                    <a href="?order=created-time&column_id={{ column_id }}&tag={{ tag }}"
+                       style="color: gray;"
+                    >
+                        最近
+                    </a>
+                {% else %}
+                    <span style="color: dimgray">最近</span>
+                {% endif %}
+            </li>
+            <li class="breadcrumb-item
+                  {% if order != 'total_views' %}
+                  {% endif %}
+                  "
+            >
+                {% if order != 'total_views' %}
+                    <a href="?order=total_views&column_id={{ column_id }}&tag={{ tag }}"
+                       style="color: gray;"
+                    >
+                        热门
+                    </a>
+                {% else %}
+                    <span style="color: dimgray">热门</span>
+                {% endif %}
+            </li>
+        </ol>
+    </nav>

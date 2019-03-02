@@ -2,166 +2,150 @@
 {% load staticfiles %}
 {% block title %}杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-card layui-card-body">
-
+    <div class="container">
         <!-- 栏目导航 -->
         {% include 'article/navigator.html' %}
 
         <!-- RSS -->
-        <a href="#" style="float: right;" id="add_rss">
-            <i class="layui-icon layui-icon-cellphone"
-               onclick="_hmt.push(['_trackEvent', 'rss', 'click', '订阅'])"
-               style="color: darkgoldenrod;"
-            ></i>
-            <span>RSS 订阅</span>
-        </a>
+        {#            <a href="#" style="float: right;" id="add_rss">#}
+        {#                <i class="layui-icon layui-icon-cellphone"#}
+        {#                   onclick="_hmt.push(['_trackEvent', 'rss', 'click', '订阅'])"#}
+        {#                   style="color: darkgoldenrod;"#}
+        {#                ></i>#}
+        {#                <span>RSS 订阅</span>#}
+        {#            </a>#}
 
-        <!-- 列表循环 -->
 
         <!-- 提示语 -->
         {% if tag %}
-            <h2>
-                <i class="layui-icon layui-icon-search" style="font-size: x-large"></i>
-                标签 "
-                <span style="color: red;">
-        {{ tag }}
-    </span>"
-                的相关文章如下：
-            </h2>
+            <h5>
+                <i class="fas fa-search"></i>
+                标签 "<span style="color: red;">{{ tag }}</span>" 的相关文章如下：
+            </h5>
         {% endif %}
 
 
         <!-- 列表循环 -->
         {% for article in articles %}
             <hr/>
-            <div class="layui-row">
-            {% if article.avatar_thumbnail %}
-                <div class="layui-col-sm3 layui-hide-xs">
-                    <img src="{{ article.avatar_thumbnail.url }}"
-                         style="max-width: 95%; margin-bottom: 8px; border-radius: 16px"
-                         alt="缩略图"
-                    >
+            <div class="row no-gutters align-items-center">
+                {% if article.avatar_thumbnail %}
+                    <div class="col-3 d-none d-md-block">
+                        <img src="{{ article.avatar_thumbnail.url }}"
+                             style="max-width: 95%;border-radius: 20px"
+                             alt="缩略图"
+                        >
+                    </div>
+                {% endif %}
+                <div class="col">
+
+
+                    <!-- 标题/正文 -->
+                    <h3 class="mt-0">
+                        <a href="{{ article.get_absolute_url }}"
+                           style="font-weight: bold; color: #2F2F2F;"
+                        >
+                            {{ article.title }}
+                        </a>
+                    </h3>
+
+                    <!-- 文章标题的栏目 -->
+                    <div class="mb-2 ">
+                        {% if article.column.id %}
+                            <a href="?column_id={{ article.column.id }}"
+                               role="button"
+                               class="
+                                    btn
+                                    btn-sm
+                                    {% if article.column.title == '编程' %}
+                                    btn-outline-success
+                                    {% elif article.column.title == '摄影' %}
+                                    btn-outline-warning
+                                    {% elif article.column.title == '光学' %}
+                                    btn-outline-primary
+                                    {% elif article.column.title == '闲聊' %}
+                                    btn-outline-light
+                                    {% endif %}
+                                    "
+                            >
+                                {{ article.column }}
+                            </a>
+                        {% endif %}
+
+                        <!-- 标签 -->
+                        {% for tag in article.tags.all %}
+                            <a class="badge badge-pill badge-light"
+                               href="?tag={{ tag }}"
+                            >
+                                {{ tag }}</a>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- 附加信息 -->
+                    <p class="text-monospace mb-0" style="color: grey;">
+                        <i class="fas fa-eye" style="color: lightskyblue;"></i>
+                        {{ article.total_views }}
+                        <i class="fas fa-comments" style="color: yellowgreen;"></i>
+                        {{ article.comments.count }}
+                        <i class="fas fa-clock" style="color: pink;"></i>
+                        {{ article.created|date:"Y-m-d" }}
+                        <!-- 教程 -->
+                        {% if article.course_id %}
+                            <i class="fas fa-book" style="color: #f0c674;"></i>
+                            <a href="{% url 'course:course_articles_list' article.course_id %}" style="color: #8D8D8D;">
+                                {{ article.course.title }}
+                            </a>
+                        {% endif %}
+                    </p>
                 </div>
-                <div class="layui-col-sm9" style="margin-bottom: 6px">
-            {% else %}
-                <div class="layui-col-sm12" style="margin-bottom: 6px">
-            {% endif %}
-        <p class="layui-text" style="color: #8D8D8D;">
-            <!-- 文章标题的栏目 -->
-            {% if article.column.id %}
-                <a href="?column_id={{ article.column.id }}"
-                   class="
-                            layui-btn
-                            layui-btn-xs
-                            {% if article.column.title == '摄影' %}
-                            layui-btn-warm
-                            {% elif article.column.title == '光学' %}
-                            layui-btn-normal
-                            {% elif article.column.title == '闲聊' %}
-                            layui-btn-primary
-                            {% endif %}
-                            "
-                >
-                    {{ article.column }}
-                </a>
-            {% endif %}
-
-            <!-- 标签 -->
-            {% for tag in article.tags.all %}
-                <a class="layui-bg-gray"
-                   href="?tag={{ tag }}"
-                >
-                    {{ tag }}&nbsp;</a>
-            {% endfor %}
-
-        <h2>
-            <a href="{{ article.get_absolute_url }}"
-               style="font-weight: bold"
-            >
-                {{ article.title }}
-            </a>
-        </h2>
-        <p class="layui-text"
-           style="color: #8D8D8D; word-break: break-all"
-        >
-            {{ article.body|truncatechars:120 }}
-        </p>
-        <p class="layui-text">
-            <i class="
-                    layui-icon
-                    layui-icon-read"
-               style="color: #01a252;"></i>
-            {{ article.total_views }}
-            <i class="
-                    layui-icon
-                    layui-icon-dialogue"
-               style="color: #DE8E30;"></i>
-            {{ article.comments.count }}
-            <i class="
-                    layui-icon
-                    layui-icon-log"
-               style="color: #1E9FFF;"></i>
-            {{ article.created|date:"Y-m-d" }}
-            <!-- 教程 -->
-            {% if article.course_id %}
-                <i class="
-                        layui-icon
-                        layui-icon-list"
-                   style="color: #ee00ee;"></i>
-                <a href="{% url 'course:course_articles_list' article.course_id %}"
-                   style="color: #8D8D8D;">
-                    {{ article.course.title }}
-                </a>
-            {% endif %}
-        </p>
-        </div>
-        </div>
+            </div>
         {% endfor %}
 
         {% include 'paginator.html' %}
-        </div>
+    </div>
 
 
-        <script>
-            $(document).ready(function () {
-                $("#add_rss").click(function () {
-                    layui.use('layer', function () {
-                        var layer = layui.layer;
-                        layer.open({
-                            type: 1,
-                            shadeClose: true,
-                            title: '订阅栏目',
-                            content: '<div class="layui-card">\n' +
-                                '    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>\n' +
-                                '    <div class="layui-card-body">\n' +
-                                '        <div class="rss">\n' +
-                                '            <a href="{% url 'rss' %}" style="color: #ff5500">\n' +
-                                '                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>\n' +
-                                '        </div>\n' +
-                                '        {% for column in columns %}\n'+
-                                    '            <div class="column_rss">\n'+
-                                    '                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">\n'
-                                    +
-                                    '                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>\n'
-                                    +
-                                    '            </div>\n'+
-                                    '        {% endfor %}\n' +
-                                '    </div>\n' +
-                                '</div>' //这里content是一个普通的String
-                        });
-                        {#layer.msg('hello');#}
+    <script>
+        $(document).ready(function () {
+            $("#add_rss").click(function () {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 1,
+                        shadeClose: true,
+                        title: '订阅栏目',
+                        content: '<div class="layui-card">\n' +
+                        '    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>\n' +
+                        '    <div class="layui-card-body">\n' +
+                        '        <div class="rss">\n' +
+                        '            <a href="{% url 'rss' %}" style="color: #ff5500">\n' +
+                        '                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>\n' +
+                        '        </div>\n' +
+                        '        {% for column in columns %}\n'+
+                            '            <div class="column_rss">\n'+
+                            '                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">\n'
+                            +
+                            '                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>\n'
+                            +
+                            '            </div>\n'+
+                            '        {% endfor %}\n' +
+                        '    </div>\n' +
+                        '</div>' //这里content是一个普通的String
                     });
-
+                    {#layer.msg('hello');#}
                 });
 
-
             });
-        </script>
 
-        <style>
-            a:hover {
-                color: #01a252;
-            }
-        </style>
+
+        });
+    </script>
+
+    {#    <style>#}
+    {#        a:hover {#}
+    {#            color: #01a252;#}
+    {#        }#}
+    {#    </style>#}
 
 {% endblock %}
