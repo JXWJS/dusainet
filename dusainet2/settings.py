@@ -27,7 +27,7 @@ with open('secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.dusaiphoto.com', '.dusai.net']
 
@@ -257,6 +257,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Smiley', 'CodeSnippet', '-', 'Bold', 'Italic', 'Underline', 'RemoveFormat', ],
+            # ['NumberedList', 'BulletedList'],
             ['TextColor', 'BGColor'],
             ['Link', 'Unlink'],
             ['Undo', 'Redo', 'Marker'],
