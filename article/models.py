@@ -88,7 +88,7 @@ class ArticlesPost(models.Model):
     # 缩略图
     avatar_thumbnail = ProcessedImageField(
         upload_to='image/article/%Y%m%d',
-        processors=[ResizeToFit(width=400)],
+        processors=[ResizeToFit(width=500)],
         format='JPEG',
         options={'quality': 100},
         blank=True,

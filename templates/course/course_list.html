@@ -4,43 +4,40 @@
 {% load coursetags %}
 {% block title %}教程 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-row layui-card">
-        {#        <br/>#}
-        {% for course in courses %}
-            <div class="layui-col-md6 layui-col-lg4 layui-col-sm6" id="course">
-                <br/>
-                {% if course.avatar_thumbnail %}
-                    <div>
-                        <a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
-                            <img src="{{ course.avatar_thumbnail.url }}" style="box-shadow: 1px 1px 3px black; border-radius: 16px"></a>
+    <div class="row mt-4 justify-content-center">
+        <div class="card-deck">
+            {% for course in courses %}
+                <div class="">
+                    <div class="card mb-4 bg-dark text-white">
+                        {% if course.avatar_thumbnail %}
+                            <img src="{{ course.avatar_thumbnail.url }}"
+                                 class="card-img-top"
+                            >
+                        {% endif %}
+                        <div class="card-body" style="padding-bottom: 0">
+                            <h5 class="card-title">
+                                <a href="{% url 'course:course_articles_list' course.id %}"
+                                   style="color: white;"
+                                >
+                                    {{ course.title }}
+                                </a>
+                            </h5>
+                            <p class="card-text mb-0">
+                                <i class="fas fa-eye" style="color: lightskyblue;"></i>
+                                {% course_total_views course.id %}&nbsp;&nbsp;
+                                <i class="fas fa-file" style="color: #f0c674;"></i>
+                                {% course_total_articles course.id %}&nbsp;&nbsp;
+                                {% if course.is_finished %}
+                                    <span style="color: greenyellow">[<i class="fas fa-check-circle"></i>已完结]</span>
+                                {% else %}
+                                    <span style="color: lightpink">[撰写中..]</span>
+                                {% endif %}
+                            </p>
+                            <br/>
+                        </div>
                     </div>
-                {% endif %}
-                <h3 style="margin-top: 5px"><a href="{% url 'course:course_articles_list' course.id %}" id="course_title">
-                    {{ course.title }}</a></h3>
-                <p>
-                    <span style="color: #5897fb;">{% course_total_views course.id %}阅读 {% course_total_articles course.id %}篇文章</span>
-                    {% if course.is_finished %}
-                        <span style="color: #01a252">[<i class="layui-icon layui-icon-ok-circle"></i>已完结]</span>
-                    {% else %}
-                        <span style="color: #FF5722">[撰写中..]
-                    </span>
-                    {% endif %}
-                </p>
-                <br/>
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    <style>
-        #course {
-            text-align: center;
-        }
-
-        #course_title {
-            color: black;
-        }
-
-        #course_title:hover {
-            color: #01a252;
-        }
-    </style>
 {% endblock %}
