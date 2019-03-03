@@ -1,78 +1,59 @@
 {% load staticfiles %}
-<br/>
-<div class="layui-col-md11 layui-col-md-offset1">
-    <div class="layui-card layui-card-body"
-         style="box-shadow: 1px 1px 2px #dadada;  margin-left: -10px;"
-    >
-        <h3 style="font-size: 16px; color: black; margin-left: 12px;">
-            <i class="layui-icon layui-icon-app"
-               style="color: cornflowerblue;"
-            ></i> 重庆妹子来喝好茶了
-        </h3>
-        <div class="layui-card-body">
-            <a href="https://mp.weixin.qq.com/s/UsF3Pt_96vd6sRn1SNVtcg" target="_blank"
-               onclick="_hmt.push(['_trackEvent', 'adv', 'click', '想你奶茶小筑'])">
-                <img src="{% static 'adv/想你.jpeg' %}"
-                     style="max-width: 100%; width: 270px; border-radius: 10px"></a>
-        </div>
-    </div>
-    <div class="layui-card layui-card-body"
-         style="box-shadow: 1px 1px 2px #dadada; margin-left: -10px;"
-    >
-        <h3 style="font-size: 16px; color: black; margin-left: 12px;">
-            <i class="layui-icon layui-icon-app"
-               style="color: cornflowerblue;"
-            ></i> 光电技术
-        </h3>
-        <div class="layui-card-body">
-            <a href="http://www.specube.cn/" target="_blank"
-               onclick="_hmt.push(['_trackEvent', 'adv', 'click', '济南斯派克'])">
-                <img src="{% static 'adv/济南斯派克.jpg' %}"
-                     style="max-width: 100%; width: 270px"></a>
-        </div>
-    </div>
-    <div class="layui-card layui-card-body"
-         style="box-shadow: 1px 1px 2px #dadada;"
-    >
-        <h3 style="font-size: 16px; color: black; margin-left: 12px;"
+<div class="card mb-4 mt-4">
+    <a href="https://mp.weixin.qq.com/s/UsF3Pt_96vd6sRn1SNVtcg"
+       target="_blank">
+        <img src="{% static 'adv/想你.jpeg' %}"
+             class="card-img-top"
         >
-            <i class="layui-icon layui-icon-link"
-               style="color: lightcoral; margin-left: -10px;"
-            ></i> 友情链接
-        </h3>
-        <div class="layui-card-body layui-text">
+    </a>
+</div>
+
+<div class="card mb-4">
+    <a href="http://www.specube.cn/" target="_blank">
+        <img src="{% static 'adv/济南斯派克.jpg' %}"
+             class="card-img-top">
+    </a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p class="card-title text-muted">
+            <i class="fas fa-link" style="color: lightpink;"></i> 友情链接
+        </p>
+        <p class="card-text">
             <img src="https://frostming.com/static/images/favicon.png"
                  alt="favicon"
                  style="max-width: 12%; border-radius: 50%"
             >
             <a href="https://frostming.com/" target="_blank"
+               class=" text-muted"
             >
                 Frost's Blog
             </a>
-        </div>
-        <div class="layui-card-body layui-text">
+        </p>
+        <p class="card-text">
             <img src="https://harttle.land/assets/img/avatar.jpg"
                  alt="favicon"
                  style="max-width: 12%; border-radius: 50%"
             >
             <a href="https://harttle.land/" target="_blank"
+               class=" text-muted"
             >
                 Harttle Land
             </a>
-        </div>
+        </p>
     </div>
-    <div class="layui-card layui-card-body"
-         style="box-shadow: 1px 1px 2px #dadada;">
-        <h3 style="font-size: 16px; color: black;">
-            <i class="layui-icon layui-icon-share"
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <p class="card-text text-muted">
+            <i class="fas fa-envelope"
                style="color: yellowgreen;"
-            ></i> 推广</h3>
-        <div id="center_text" style="text-align: center">
-            <a href="mailto:dusaiphoto@foxmail.com"
-               style="color: #01AAED"
-               onclick="_hmt.push(['_trackEvent', 'adv', 'click', '成为赞助商'])"
-            >赞助/友链</a>
-        </div>
+            ></i> 推广</p>
+        <p class="mb-0" style="text-align: center">
+            <a href="mailto:dusaiphoto@foxmail.com" class="text-muted">赞助/友链</a>
+        </p>
     </div>
 </div>
 <br/>
