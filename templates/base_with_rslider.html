@@ -66,19 +66,17 @@
 
 <script src="{% static 'layer/layer.js' %}"></script>
 
-<div class="layui-header">
-    {% include "header.html" %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                {% block content %}{% endblock %}
-            </div>
-            <div class="col-3 d-none d-lg-block">
-                {% include 'rightslider.html' %}
-            </div>
+{% include "header.html" %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="col-3 d-none d-lg-block">
+            {% include 'rightslider.html' %}
         </div>
     </div>
-    {% include "footer.html" %}
 </div>
+{% include "footer.html" %}
 </body>
 </html>

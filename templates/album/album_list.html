@@ -3,99 +3,62 @@
 {% load mptt_tags %}
 {% block title %}照片墙 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-card layui-card-body" id="photo_center">
-        <div class="layui-card-header layui-text layui-hide-md" style="text-align: center">
-            <p id="LAY_warning" class="layui-btn layui-btn-warm layui-btn-sm">移动端浏览提示
-            </p>
+    <div class="row mt-3">
+        <div class="d-block d-sm-none mt-2 alert alert-warning">
+            <i class="fas fa-exclamation-triangle"></i>高清图片会消耗较多流量
         </div>
-        {% for image in album %}
+        <div class="card-columns">
+            {% for image in album %}
+                <div class="card" style="word-break: break-all">
+                    <!-- Button trigger modal -->
+                    <a href="javascript:" data-toggle="modal" data-target="#img_{{ image.id }}">
 
-            <div>
-                <h3 style="color: #01a252"><{{ image.title }}></h3>
-                <div id="F{{ image.id }}">
-                    <img src="{{ image.image.url }}" style="max-width: 100%" alt="图片未能读取">
+                        <img src="{{ image.image.url }}"
+                             style="max-width: 100%"
+                             alt="图片"
+                             class="card-img-top"
+                        >
+                        <div class="card-body text-muted">
+                            <h5 class="card-title">
+                                {{ image.title }}
+                            </h5>
+                        </div>
+                    </a>
                 </div>
-                <table class="layui-table" lay-size="sm">
-                    <colgroup>
-                        <col id="col">
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th style="text-align: center">摄影师</th>
-                        <th style="text-align: center">地点</th>
-                        <th style="text-align: center">时间</th>
-                        <th style="text-align: center">相机</th>
-                        <th style="text-align: center">镜头</th>
-                        <th style="text-align: center">焦距</th>
-                        <th style="text-align: center">光圈</th>
-                        <th style="text-align: center">曝光时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ image.photographer }}</td>
-                        <td>{{ image.location }}</td>
-                        <td>{{ image.photo_time }}</td>
-                        <td>{{ image.camera }}</td>
-                        <td>{{ image.lens }}</td>
-                        <td>{{ image.focal_length }}</td>
-                        <td>{{ image.aperture }}</td>
-                        <td>{{ image.exposure_time }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                {% if image.description %}
-                    <table class="layui-table">
-                        <colgroup>
-                            <col>
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <td>{{ image.description }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                {% endif %}
-                <br/>
-                <br/>
-            </div>
-        {% endfor %}
+
+                <!-- Modal -->
+                <div class="modal fade" id="img_{{ image.id }}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img src="{{ image.image.url }}"
+                                     style="max-width: 100%"
+                                     alt="img"
+                                >
+                            </div>
+                            <div class="modal-body text-muted">
+                                <p>
+                                    {{ image.description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
     {% include 'paginator.html' %}
     <br/>
     <script>
-        //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
-        layui.use('element', function () {
-            var element = layui.element;
-
-            //…
-        });
-        layui.use(['table'], function () {
-            var layer = layui.layer;
-            layui.$('#LAY_warning').on('mouseenter', function () {
-                this.index = layer.tips('照片墙中均为高清图片<br>' +
-                    '可能会消耗较多流量<br>', this, {
-                    time: -1,
-                    maxWidth: 280,
-                    tips: [3, '#3A3D49']
-                });
-            }).on('mouseleave', function () {
-                layer.close(this.index);
+        $('#layer_warning').on('mouseenter', function () {
+            this.index = layer.tips('高清图片可能会消耗较多流量', this, {
+                time: -1,
+                maxWidth: 280,
+                tips: [3, 'black']
             });
+        }).on('mouseleave', function () {
+            layer.close(this.index);
         });
     </script>
-    <style>
-        #photo_center {
-            text-align: center;
-            left: 50%;
-            transform: translate(-50%, 0%);
-        }
-    </style>
 {% endblock %}

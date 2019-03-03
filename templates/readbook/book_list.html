@@ -3,29 +3,32 @@
 {% load mptt_tags %}
 {% block title %}读书 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-row layui-card layui-card-body">
-        {% for article in articles %}
-            <div class="layui-col-sm12 layui-col-xs12" id="book_box">
-                <a href="{% url 'readbook:book_detail' article.id %}">
-                    <div class="layui-col-md3 layui-col-sm3 layui-col-xs5" style="text-align: center;">
-                        <img src="{{ article.avatar_thumbnail.url }}"
-                             style="margin: 5%; max-width: 80%"
-                             alt="缩略图"
-                        >
-                    </div>
-                    <div class="layui-col-lg6 layui-col-md5 layui-col-sm5 layui-col-xs7">
-                        <h3 id="book_link">{{ article.title }}</h3>
-                        <p><span>作者：</span>{{ article.writer }}</p>
-                        <p><span>页数：</span>{{ article.book_page }}</p>
-                        <p><span>价格：</span>{{ article.price }}</p>
-                        <p><span>评分：</span>
-                            {% include 'readbook/rate_base.html' %}</p>
-                        <p class="layui-text"><i class="layui-icon layui-icon-read"
-                                                 style="color: #01a252;"></i> {{ article.total_views }}
-                            <i class="layui-icon layui-icon-dialogue"
-                               style="color: #DE8E30;"></i> {{ article.comments.count }}</p>
-                        <p class="layui-text"
-                           style="color: #8D8D8D; word-break: break-all">{{ article.body|truncatechars:120 }}</p>
+    {% for article in articles %}
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-3">
+                    <img src="{{ article.avatar_thumbnail.url }}"
+                         style="margin: 5%; max-width: 80%"
+                         alt="缩略图"
+                    >
+                </div>
+                <div class="col" id="book_box">
+                    <div class="card-body">
+                        <h5 id="book_link">
+                            <a href="{% url 'readbook:book_detail' article.id %}">
+                                {{ article.title }}
+                            </a>
+                        </h5>
+                        <p>作者：{{ article.writer }}</p>
+                        <p>页数：{{ article.book_page }}</p>
+                        <p>价格：{{ article.price }}</p>
+                        <p>评分：{% include 'readbook/rate_base.html' %}</p>
+                        <p class="layui-text">
+                            <i class="fas fa-eye"></i> {{ article.total_views }}
+                            <i class="fas fa-comments"></i> {{ article.comments.count }}
+                        </p>
+
+
 
                         {#                        传递参数#}
                         <p id="practicality_{{ forloop.counter }}" hidden>{{ article.practicality }}</p>
@@ -34,13 +37,13 @@
                         <p id="professionalism_{{ forloop.counter }}" hidden>{{ article.professionalism }}</p>
                         <p id="binding_quality_{{ forloop.counter }}" hidden>{{ article.binding_quality }}</p>
                     </div>
-                    <div class="layui-col-sm6 layui-hide-xs" id="echarts_book_{{ forloop.counter }}"
-                         style="width:200px;height:200px"></div>
-                </a>
+                    <div class="card-body" id="echarts_book_{{ forloop.counter }}"
+                         style="width:200px;height:200px">
+                    </div>
+                </div>
             </div>
-            <div>&nbsp;</div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 
     {% include 'paginator.html' %}
 
