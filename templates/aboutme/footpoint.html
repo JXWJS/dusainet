@@ -3,340 +3,322 @@
 {% load mptt_tags %}
 {% block title %}关于 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-card" style="text-align: center">
-        <br/>
-        <br/>
-        <h1>About me</h1>
-        <div class="layui-text">
-            <p>小光学设计师，目前就职于成都某'知名'军工国企</p>
-            <p>业余敲代码，妄图做网站、做app、做游戏</p>
-            <p>写博客，记录在摄影上的成长</p>
-            <p>2019年想要成为Vloger</p>
-            <p>众生芸芸，寻同道人</p>
+    <div class="container">
+        <div class="row" style="text-align: center">
+            <div class="col mt-2">
+                <h2>About me</h2>
+                <div class="">
+                    <p>小光学设计师，目前就职于成都某军工国企</p>
+                    <p>业余敲代码，妄图做网站、做app、做游戏</p>
+                    <p>写博客，记录在摄影上的成长</p>
+                    <p>2019年想要成为Vloger</p>
+                    <p>众生芸芸，寻同道人</p>
+                </div>
+                <hr/>
+
+
+                <h3>技术栈</h3>
+
+                <h5 style="color: blue">
+                    光学
+                </h5>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr class="table-primary">
+                        <th scope="col">技能</th>
+                        <th scope="col">类别</th>
+                        <th scope="col">技能开启时间</th>
+                        <th scope="col">目前状态</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="table-primary">
+                        <th scope="col">Code V</th>
+                        <td>光学</td>
+                        <td>2014.11</td>
+                        <td>可见光长焦距镜头设计；材料匹配的无热化设计；
+                            <a href="#lens" style="color: #5897fb">
+                                我设计的第一个镜头
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="col">SolidWorks</th>
+                        <td>结构</td>
+                        <td>2014.11</td>
+                        <td>光学系统相关的结构设计；静力、热力结合的有限元分析</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="col">Zemax</th>
+                        <td>光学</td>
+                        <td>学习中..</td>
+                        <td></td>
+                    </tr>
+                    <tr class="table-primary">
+                        <th scope="col">Light Tools</th>
+                        <td>仿真</td>
+                        <td>准备学习</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br/>
+
+
+                <h5 style="color: green">
+                    编程
+                </h5>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">技能</th>
+                        <th scope="col">类别</th>
+                        <th scope="col">技能开启时间</th>
+                        <th scope="col">目前状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-success">
+                        <th scope="col">Django + LayUI</th>
+                        <td>Web</td>
+                        <td>2017.10</td>
+                        <td>博客开发：
+                            <a href="{% url 'article:article_list' %}"
+                               style="color: #5897fb"
+                               target="_blank">
+                                杜赛的个人网站
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="col">Django REST framework</th>
+                        <td>后端</td>
+                        <td>2018.09</td>
+                        <td>基本的API设计：
+                            <a href="{% url 'api_article:list' %}"
+                               style="color: #5897fb"
+                               target="_blank">
+                                文章API
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="col">BootStrap 4</th>
+                        <td>前端</td>
+                        <td>2018.09</td>
+                        <td>基础样式的应用</td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="col">Unity3d + C#</th>
+                        <td>游戏</td>
+                        <td>2018.09</td>
+                        <td>入门小游戏设计：
+                            <a href="https://github.com/stacklens/MiniFPSGame"
+                               style="color: #5897fb" target="_blank">
+                                MiniFPSGame
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="col">Swift</th>
+                        <td>app</td>
+                        <td>学习中..</td>
+                        <td></td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="col">Vue.js</th>
+                        <td>前端</td>
+                        <td>学习中..</td>
+                        <td></td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="col">微信小程序</th>
+                        <td>微信开发</td>
+                        <td>准备学习</td>
+                        <td>跟着教程写了一个小程序"轻松查单词"（微信里搜索可见）</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br/>
+
+                <h5 style="color: darkgoldenrod">
+                    爱好
+                </h5>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">技能</th>
+                        <th scope="col">类别</th>
+                        <th scope="col">技能开启时间</th>
+                        <th scope="col">目前状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-warning">
+                        <th scope="col">摄影 + Enlight + PhotoShop CC</th>
+                        <td>摄影</td>
+                        <td>2013.05</td>
+                        <td>查看我的作品：
+                            <a href="{% url 'album:album_list' %}"
+                               style="color: #5897fb"
+                               target="_blank">
+                                照片墙
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <th scope="col">钢琴</th>
+                        <td>音乐</td>
+                        <td>2012.08</td>
+                        <td>半搁浅:
+                            <a href="https://v.youku.com/v_show/id_XNzgwNTM0ODA0.html?spm=a2h3j.8428770.3416059.1"
+                               style="color: #5897fb"
+                               target="_blank">
+                                《植物大战僵尸》
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <th scope="col">吉他</th>
+                        <td>音乐</td>
+                        <td>2007.09</td>
+                        <td>曾经会过:
+                            <a href="https://v.youku.com/v_show/id_XMzc1MjAwMDA0.html?spm=a2h3j.8428770.3416059.1"
+                               style="color: #5897fb"
+                               target="_blank">
+                                《You are not alone》
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <th scope="col">Vlog + 剪辑</th>
+                        <td>视频</td>
+                        <td>2019.01</td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br/>
+                <br/>
+                <p>走过一些城市<br>看过山河风景</p>
+                <br/>
+                <br/>
+
+                <link rel="stylesheet"
+                      href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"
+                />
+
+                <div id='main' style="width: 90%; height: 600px; margin-left: 5%"></div>
+                <br/>
+                <br/>
+                <p>野路子自学编程、摄影<br>在博客上写
+                    <a href="{% url 'course:course_list' %}"
+                       target="_blank"
+                       style="color: #5897fb;"
+                    >
+                        教程
+                    </a>
+                </p>
+                <hr/>
+
+                <p>设计过几个镜头<br>
+                    以光学设计师混饭吃
+                </p>
+                <div id="lens">
+                    <img src="{% static 'img/optic1.jpg' %}"
+                         style="max-width: 30%; border-radius: 16px"
+                         alt="我设计的镜头"
+                    >
+                    <img src="{% static 'img/optic2.jpg' %}"
+                         style="max-width: 30%; border-radius: 16px"
+                         alt="我设计的镜头2"
+                    >
+                </div>
+                <br>
+                <br>
+
+                <p>感谢你的小小停留</p>
+                <p>愿你会有小小收获</p>
+                <br>
+                <br>
+
+
+                <p class="layui-elem-quote">
+                    遇到问题、赞助推广，请点击这里:
+                    <a href="mailto:dusaiphoto@foxmail.com" style="color: #5897fb;">发邮件给博主</a>
+                    <br>或扫二维码加我的个人微信：
+                </p>
+                <div>
+                    <img src="{% static 'img/wechat.jpg' %}" style="max-width: 200px">
+                </div>
+                <br>
+
+
+                <p class="layui-elem-quote">我的摄影文章<br>
+                    还可以关注
+                    <a href="https://mp.weixin.qq.com/s/IV0JH3XELEn0QvOkaoxB5w"
+                       target="_blank"
+                       style="color: #5897fb;">
+                        微信公众号
+                    </a>或者
+                    <a href="https://www.toutiao.com/m1601084746969102/"
+                       target="_blank"
+                       style="color: #5897fb;">
+                        今日头条号
+                    </a>
+                </p>
+                <img src="{% static 'img/dingyuehao.jpeg' %}"
+                     style="max-width: 200px"
+                     alt="公众号QR"
+                >
+                <img src="{% static 'img/toutiaohao.jpeg' %}"
+                     style="max-width: 200px"
+                     alt="头条号"
+                >
+                <br/>
+                <br/>
+
+                <p>编程文章<br>
+                    可以关注我的
+                    <a href="https://mp.weixin.qq.com/s?__biz=MzU2NjczMTU0Ng==&mid=2247483657&idx=1&sn=a7dfb163e56267a7ec957b302c9a2fe9&chksm=fca6b77ccbd13e6af5fa261655b1b792eafbb5d4e8a3a6c95a34592021826cce8c8a6b08e18f&token=650212257&lang=zh_CN#rd"
+                       target="_blank"
+                       style="color: #5897fb;">
+                        微信公众号
+                    </a>或者
+                    <a href="https://www.zhihu.com/people/lu-pai-cai-niao-du-sai/activities"
+                       target="_blank"
+                       style="color: #5897fb;">
+                        知乎
+                    </a>
+                </p>
+
+                <img src="{% static 'img/it_wechat.jpg' %}"
+                     style="max-width: 200px"
+                     alt="公众号QR"
+                >
+                <br/>
+                <br/>
+
+                <p>如果时间允许<br>会写光学的专栏<br>感谢支持...</p>
+                <br/>
+                <br/>
+                <div>
+                    <a href="/admiration/"
+                       target="_blank"
+                       class="btn btn-warning text-white btn-sm"
+                    >
+                        博客不错，朕要赏
+                    </a>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
         </div>
-        <br/>
-        <hr/>
-        <h2>技术栈</h2>
-        <h3 style="color: blue">
-            <光学>
-        </h3>
-        <table class="layui-table">
-            <colgroup>
-                <col width="150px">
-                <col width="100px">
-                <col width="100px">
-                <col>
-            </colgroup>
-            <thead>
-            <tr>
-                <th style="text-align: center">技能</th>
-                <th style="text-align: center">类别</th>
-                <th style="text-align: center">技能开启时间</th>
-                <th style="text-align: center">目前状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Code V</td>
-                <td>光学</td>
-                <td>2014.11</td>
-                <td>可见光长焦距镜头设计；材料匹配的无热化设计；
-                    <a href="#lens" style="color: #5897fb">
-                        我设计的第一个镜头
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>SolidWorks</td>
-                <td>结构</td>
-                <td>2014.11</td>
-                <td>光学系统相关的结构设计；静力、热力结合的有限元分析</td>
-            </tr>
-            <tr>
-                <td>Zemax</td>
-                <td>光学</td>
-                <td>学习中..</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Light Tools</td>
-                <td>仿真</td>
-                <td>准备学习</td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
-        <br/>
-        <h3 style="color: green">
-            <编程>
-        </h3>
-        <table class="layui-table">
-            <colgroup>
-                <col width="150px">
-                <col width="100px">
-                <col width="100px">
-                <col>
-            </colgroup>
-            <thead>
-            <tr>
-                <th style="text-align: center">技能</th>
-                <th style="text-align: center">类别</th>
-                <th style="text-align: center">技能开启时间</th>
-                <th style="text-align: center">目前状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Django + LayUI</td>
-                <td>Web</td>
-                <td>2017.10</td>
-                <td>博客开发：
-                    <a href="{% url 'article:article_list' %}"
-                       style="color: #5897fb"
-                       target="_blank">
-                        杜赛的个人网站
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Django REST framework</td>
-                <td>后端</td>
-                <td>2018.09</td>
-                <td>基本的API设计：
-                    <a href="{% url 'api_article:list' %}"
-                       style="color: #5897fb"
-                       target="_blank">
-                        文章API
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>BootStrap 4</td>
-                <td>前端</td>
-                <td>2018.09</td>
-                <td>基础样式的应用</td>
-            </tr>
-            <tr>
-                <td>Unity3d + C#</td>
-                <td>游戏</td>
-                <td>2018.09</td>
-                <td>入门小游戏设计：
-                    <a href="https://github.com/stacklens/MiniFPSGame"
-                       style="color: #5897fb" target="_blank">
-                        MiniFPSGame
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Swift</td>
-                <td>app</td>
-                <td>学习中..</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Vue.js</td>
-                <td>前端</td>
-                <td>学习中..</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>微信小程序</td>
-                <td>微信开发</td>
-                <td>准备学习</td>
-                <td>跟着教程写了一个小程序"轻松查单词"（微信里搜索可见）</td>
-            </tr>
-            </tbody>
-        </table>
-        <br/>
-
-        <h3 style="color: darkgoldenrod">
-            <爱好>
-        </h3>
-        <table class="layui-table">
-            <colgroup>
-                <col width="150px">
-                <col width="100px">
-                <col width="100px">
-                <col>
-            </colgroup>
-            <thead>
-            <tr>
-                <th style="text-align: center">技能</th>
-                <th style="text-align: center">类别</th>
-                <th style="text-align: center">技能开启时间</th>
-                <th style="text-align: center">目前状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>摄影 + Enlight + PhotoShop CC</td>
-                <td>摄影</td>
-                <td>2013.05</td>
-                <td>查看我的作品：
-                    <a href="{% url 'album:album_list' %}"
-                       style="color: #5897fb"
-                       target="_blank">
-                        照片墙
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>钢琴</td>
-                <td>音乐</td>
-                <td>2012.08</td>
-                <td>半搁浅:
-                    <a href="https://v.youku.com/v_show/id_XNzgwNTM0ODA0.html?spm=a2h3j.8428770.3416059.1"
-                       style="color: #5897fb"
-                       target="_blank">
-                        《植物大战僵尸》
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>吉他</td>
-                <td>音乐</td>
-                <td>2007.09</td>
-                <td>曾经会过:
-                    <a href="https://v.youku.com/v_show/id_XMzc1MjAwMDA0.html?spm=a2h3j.8428770.3416059.1"
-                       style="color: #5897fb"
-                       target="_blank">
-                        《You are not alone》
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Vlog + 剪辑</td>
-                <td>视频</td>
-                <td>准备学习</td>
-                <td>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br/>
-        <br/>
-        <hr class="layui-bg-orange">
-
-        <br/>
-        <br/>
-        <h3>走过一些城市<br>看过山河风景</h3>
-        <br/>
-        <br/>
-
-        <link rel="stylesheet"
-              href="{% static 'echarts/extension/echarts-leaflet/dist/leaflet.css' %}"
-        />
-
-        <div id='main' style="width: 90%; height: 600px; margin-left: 5%"></div>
-        <br/>
-        <hr>
-        <br/>
-        <h3>野路子自学编程、摄影<br>在博客上写教程<br>
-            <a href="{% url 'course:course_list' %}"
-               target="_blank"
-               style="color: #5897fb;"
-            >
-                <i class="layui-icon layui-icon-next"></i>教程在这里</a>
-        </h3>
-        <br>
-        <hr/>
-        <br>
-
-        <h3>设计过几个镜头<br>
-            以光学设计师混饭吃
-        </h3>
-        <br/>
-        <div id="lens">
-            <img src="{% static 'img/optic1.jpg' %}"
-                 style="max-width: 30%; border-radius: 16px"
-                 alt="我设计的镜头"
-            >
-            <img src="{% static 'img/optic2.jpg' %}"
-                 style="max-width: 30%; border-radius: 16px"
-                 alt="我设计的镜头2"
-            >
-        </div>
-        <br>
-        <br>
-
-        <h3>感谢你的小小停留</h3>
-        <h3>愿你会有小小收获</h3>
-        <br>
-        <br>
-
-
-        <h3 class="layui-elem-quote">
-            遇到问题、赞助推广，请点击这里:
-            <a href="mailto:dusaiphoto@foxmail.com" style="color: #5897fb;">发邮件给博主</a>
-            <br>或扫二维码加我的个人微信：
-        </h3>
-        <div>
-            <img src="{% static 'img/wechat.jpg' %}" style="max-width: 200px">
-        </div>
-        <br>
-
-
-        <h3 class="layui-elem-quote">我的摄影文章<br>
-            还可以关注
-            <a href="https://mp.weixin.qq.com/s/IV0JH3XELEn0QvOkaoxB5w"
-               target="_blank"
-               style="color: #5897fb;">
-                微信公众号
-            </a>或者
-            <a href="https://www.toutiao.com/m1601084746969102/"
-               target="_blank"
-               style="color: #5897fb;">
-                今日头条号
-            </a>
-        </h3>
-        <img src="{% static 'img/dingyuehao.jpeg' %}"
-             style="max-width: 200px"
-             alt="公众号QR"
-        >
-        <img src="{% static 'img/toutiaohao.jpeg' %}"
-             style="max-width: 200px"
-             alt="头条号"
-        >
-        <br/>
-        <br/>
-
-        <h3 class="layui-elem-quote">编程文章<br>
-            可以关注我的
-            <a href="https://mp.weixin.qq.com/s?__biz=MzU2NjczMTU0Ng==&mid=2247483657&idx=1&sn=a7dfb163e56267a7ec957b302c9a2fe9&chksm=fca6b77ccbd13e6af5fa261655b1b792eafbb5d4e8a3a6c95a34592021826cce8c8a6b08e18f&token=650212257&lang=zh_CN#rd"
-               target="_blank"
-               style="color: #5897fb;">
-                微信公众号
-            </a>或者
-            <a href="https://www.zhihu.com/people/lu-pai-cai-niao-du-sai/activities"
-               target="_blank"
-               style="color: #5897fb;">
-                知乎
-            </a>
-        </h3>
-
-        <img src="{% static 'img/it_wechat.jpg' %}"
-             style="max-width: 200px"
-             alt="公众号QR"
-        >
-        <br/>
-        <br/>
-
-        <h3>如果时间允许<br>会写光学的专栏<br>感谢支持...</h3>
-        <br/>
-        <br/>
-        <div style="text-align: center">
-            <a href="/admiration/"
-               target="_blank"
-               class="layui-btn
-               layui-btn-warm
-               layui-btn-sm
-               layui-btn-radius"
-            >
-                写的不错，朕要赏
-            </a>
-        </div>
-        <br/>
-        <br/>
     </div>
 
     <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>

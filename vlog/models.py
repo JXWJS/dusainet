@@ -27,7 +27,7 @@ class Vlog(models.Model):
         verbose_name='正文',
     )
     # 缩略图 url
-    avatar_url = models.URLField(blank=True, verbose_name='标题图链接')
+    avatar_url = models.URLField(verbose_name='标题图链接')
     # video url
     video_url = models.URLField(verbose_name='视频链接')
 

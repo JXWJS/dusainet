@@ -67,9 +67,7 @@
 <script src="{% static 'layer/layer.js' %}"></script>
 
 {% include "header.html" %}
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
+{% block content %}{% endblock %}
 {% include "footer.html" %}
 </body>
 </html>

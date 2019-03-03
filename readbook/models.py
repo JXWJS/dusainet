@@ -44,7 +44,7 @@ class ReadBook(models.Model):
     author = models.ForeignKey(
         User,
         related_name='read_book_article',
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
         verbose_name='发布人',
     )
 

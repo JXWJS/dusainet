@@ -1,45 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div>
-        {% include 'course/slider.html' %}
-        {% include 'article/detail_base.html' %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 card" id="sticky-sidebar">
+                <div class="sticky-top">
+                    {% include 'course/slider.html' %}
+                </div>
+            </div>
+            <div class="col" id="main">
+                {% include 'article/detail_base.html' %}
+            </div>
+            <div class="col-2 card" id="sticky-sidebar" style="z-index: -100">
+                <div class="sticky-top">
+                    {% include 'course/slider.html' %}
+                </div>
+            </div>
+        </div>
     </div>
-
-    <script>
-        layui.use('util', function () {
-            var util = layui.util;
-
-            //执行
-            util.fixbar({
-                bar1: '<i class="layui-icon layui-icon-list" style="font-size: xx-large"></i>'
-                , click: function (type) {
-                    console.log(type);
-                    if (type === 'bar1') {
-                        layui.use('layer', function () {
-                            var layer = layui.layer;
-                            layer.open({
-                                type: 1,
-                                title: '教程目录',
-                                shadeClose: true,
-                                area: ['300px', '500px'],
-                                closeBtn: 1,
-                                content: '<br><div class="layui-btn-container"><br>\n' +
-                                '    {% for article_c in course_articles %}\n'+
-                                    '        {% if article_c.id == article.id %}\n'+
-                                        '            <li><a href="{{ article_c.get_absolute_url }}" class="layui-btn layui-btn-primary layui-btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;{{ article_c.course_title }}</a></li>\n'
-                                        +
-                                        '    {% else %}\n'+
-                                        '            <li><a href="{{ article_c.get_absolute_url }}" class="layui-btn layui-btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;{{ article_c.course_title }}</a></li>\n'
-                                        +
-                                        '    {% endif %}\n'+
-                                    '    {% endfor %}\n' +
-                                '</div>'
-                            });
-                        });
-                    }
-                }
-            });
-        });
-    </script>
 {% endblock %}

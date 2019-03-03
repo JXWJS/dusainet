@@ -29,7 +29,14 @@
         {% for article in articles %}
             <div class="card mb-2">
                 <div class="row no-gutters align-items-center">
-
+                    {% if article.avatar_thumbnail %}
+                        <div class="col-4 d-none d-md-block">
+                            <img src="{{ article.avatar_thumbnail.url }}"
+                                 class="card-img"
+                                 alt="缩略图"
+                            >
+                        </div>
+                    {% endif %}
                     <div class="col">
 
                         <div class="card-body">
@@ -95,14 +102,6 @@
                             </p>
                         </div>
                     </div>
-                    {% if article.avatar_thumbnail %}
-                        <div class="col-4 d-none d-md-block">
-                            <img src="{{ article.avatar_thumbnail.url }}"
-                                 class="card-img"
-                                 alt="缩略图"
-                            >
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         {% endfor %}

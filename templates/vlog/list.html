@@ -2,53 +2,40 @@
 {% load staticfiles %}
 {% block title %}视频 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-card layui-card-body">
+    <div class="">
 
         {% for article in articles %}
-            <hr>
+            <div class="card mt-4">
+                <div class="row no-gutters align-items-center">
 
-            <div class="layui-row">
-                {% if article.avatar_url %}
-                    <div class="layui-col-sm3 layui-hide-xs">
+                    <div class="col-4 d-none d-md-block">
                         <img src="{{ article.avatar_url }}"
                              alt="avatar"
-                             style="max-width: 95%; border-radius: 16px"
+                             class="card-img"
                         >
                     </div>
 
-                <div class="layui-col-sm9">
-                {% else %}
-                <div class="layui-col-sm12">
-                {% endif %}
-                    <h2 style="font-weight: bold;">
-                        <a href="{{ article.get_absolute_url }}"
-                        >
-                            {{ article.title }}
-                        </a>
-                    </h2>
-                    <p class="layui-text"
-                       style="color: #8D8D8D; word-break: break-all;"
-                    >
-                        {{ article.body|truncatechars:120 }}
-                    </p>
-                    <p class="layui-text">
-                        <i class="layui-icon layui-icon-read"
-                           style="color: #01a252;"
-                        >
-                        </i>
-                        {{ article.total_views }}
-                        <i class="layui-icon layui-icon-dialogue"
-                           style="color: #DE8E30;"
-                        >
-                        </i>
-                        {{ article.comments.count }}
-                        <i class="layui-icon layui-icon-log"
-                           style="color: #1E9FFF;"
-                        >
-                        </i> {{ article.created|date:"Y-m-d" }}
-                    </p>
+                    <div class="col">
+                        <div class="card-body">
+                            <h4 class="mt-0">
+                                <a href="{{ article.get_absolute_url }}"
+                                   style="font-weight: bold; color: black;"
+                                >
+                                    {{ article.title }}
+                                </a>
+                            </h4>
+                            <!-- 附加信息 -->
+                            <p class="text-monospace mb-0" style="color: grey;">
+                                <i class="fas fa-eye" style="color: lightskyblue;"></i>
+                                {{ article.total_views }}
+                                <i class="fas fa-comments" style="color: yellowgreen;"></i>
+                                {{ article.comments.count }}
+                                <i class="fas fa-clock" style="color: pink;"></i>
+                                {{ article.created|date:"Y/m/d" }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
         {% endfor %}

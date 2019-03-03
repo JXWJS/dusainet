@@ -3,64 +3,66 @@
 {% load mptt_tags %}
 {% block title %}照片墙 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="row mt-3">
-        <div class="d-block d-sm-none mt-2 alert alert-warning">
-            <i class="fas fa-exclamation-triangle"></i>高清图片会消耗较多流量
-        </div>
-        <div class="card-columns">
-            {% for image in album %}
-                <div class="card" style="word-break: break-all">
-                    <!-- Button trigger modal -->
-                    <a href="javascript:"
-                       data-toggle="modal"
-                       data-target="#img_{{ image.id }}"
-                       class="card-link text-muted"
-                    >
-                        <img src="
+    <div class="container">
+        <div class="row mt-3">
+            <div class="d-block d-sm-none mt-2 alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>高清图片会消耗较多流量
+            </div>
+            <div class="card-columns">
+                {% for image in album %}
+                    <div class="card" style="word-break: break-all">
+                        <!-- Button trigger modal -->
+                        <a href="javascript:"
+                           data-toggle="modal"
+                           data-target="#img_{{ image.id }}"
+                           class="card-link text-muted"
+                        >
+                            <img src="
                                 {% if image.image %}
                                 {{ image.image.url }}
                                 {% else %}
                                 {{ image.url }}
                                 {% endif %}
                                 "
-                             style="max-width: 100%"
-                             alt="图片"
-                             class="card-img-top"
-                        >
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {{ image.title }}
-                            </h5>
-                        </div>
-                    </a>
-                </div>
+                                 style="max-width: 100%"
+                                 alt="图片"
+                                 class="card-img-top"
+                            >
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ image.title }}
+                                </h5>
+                            </div>
+                        </a>
+                    </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="img_{{ image.id }}" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <img src="
+                    <!-- Modal -->
+                    <div class="modal fade" id="img_{{ image.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="
                                         {% if image.image %}
                                         {{ image.image.url }}
                                         {% else %}
                                         {{ image.url }}
                                         {% endif %}
                                         "
-                                     style="max-width: 100%"
-                                     alt="img"
-                                >
-                            </div>
-                            <div class="modal-body text-muted">
-                                <p>
-                                    {{ image.description }}
-                                </p>
+                                         style="max-width: 100%"
+                                         alt="img"
+                                    >
+                                </div>
+                                <div class="modal-body text-muted">
+                                    <p>
+                                        {{ image.description }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
     {% include 'paginator.html' %}
