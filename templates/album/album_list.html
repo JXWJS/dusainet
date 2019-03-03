@@ -11,14 +11,23 @@
             {% for image in album %}
                 <div class="card" style="word-break: break-all">
                     <!-- Button trigger modal -->
-                    <a href="javascript:" data-toggle="modal" data-target="#img_{{ image.id }}">
-
-                        <img src="{{ image.image.url }}"
+                    <a href="javascript:"
+                       data-toggle="modal"
+                       data-target="#img_{{ image.id }}"
+                       class="card-link text-muted"
+                    >
+                        <img src="
+                                {% if image.image %}
+                                {{ image.image.url }}
+                                {% else %}
+                                {{ image.url }}
+                                {% endif %}
+                                "
                              style="max-width: 100%"
                              alt="图片"
                              class="card-img-top"
                         >
-                        <div class="card-body text-muted">
+                        <div class="card-body">
                             <h5 class="card-title">
                                 {{ image.title }}
                             </h5>
@@ -32,7 +41,13 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <img src="{{ image.image.url }}"
+                                <img src="
+                                        {% if image.image %}
+                                        {{ image.image.url }}
+                                        {% else %}
+                                        {{ image.url }}
+                                        {% endif %}
+                                        "
                                      style="max-width: 100%"
                                      alt="img"
                                 >

@@ -17,8 +17,7 @@ class AlbumUpload(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_upload.html'
-    fields = ['url', 'title', 'photographer', 'location', 'photo_time', 'camera',
-              'lens', 'focal_length', 'aperture', 'exposure_time', 'description']
+    fields = ['url', 'title', 'description']
 
     def post(self, request, *args, **kwargs):
         forms = AlbumForm(data=request.POST)
@@ -34,7 +33,7 @@ class AlbumListView(PaginatorMixin, ListView):
     """
     album list主页面
     """
-    paginate_by = 5
+    paginate_by = 20
     model = Album
     context_object_name = 'album'
     template_name = 'album/album_list.html'

@@ -21,16 +21,8 @@ class Album(models.Model):
     slug = models.SlugField(max_length=500, blank=True)
     # 需要展示的内容
     title = models.CharField(max_length=300, verbose_name="标题")
-    photographer = models.TextField(blank=True, verbose_name='拍摄者')
-    location = models.TextField(blank=True, verbose_name='拍摄地')
-    photo_time = models.TextField(blank=True, verbose_name='拍摄时间')
-    camera = models.TextField(blank=True, verbose_name='相机型号')
-    lens = models.TextField(blank=True, verbose_name='镜头型号')
-    focal_length = models.TextField(blank=True, verbose_name='焦距')
-    aperture = models.TextField(blank=True, verbose_name='光圈')
-    exposure_time = models.TextField(blank=True, verbose_name='曝光时间')
     description = models.TextField(blank=True, verbose_name='简介')
-    image = models.ImageField(upload_to='image/album/%Y%m%d')
+    image = models.ImageField(upload_to='image/album/%Y%m%d', blank=True, null=True)
     created = models.DateField(auto_now_add=True, db_index=True)
     # 点赞功能。暂未使用
     total_likes = models.PositiveIntegerField(default=0)

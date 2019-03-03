@@ -3,57 +3,44 @@
 {% load mptt_tags %}
 {% block title %}读书 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    {% for article in articles %}
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-3">
-                    <img src="{{ article.avatar_thumbnail.url }}"
-                         style="margin: 5%; max-width: 80%"
-                         alt="缩略图"
-                    >
-                </div>
-                <div class="col" id="book_box">
-                    <div class="card-body">
-                        <h5 id="book_link">
-                            <a href="{% url 'readbook:book_detail' article.id %}">
-                                {{ article.title }}
-                            </a>
-                        </h5>
-                        <p>作者：{{ article.writer }}</p>
-                        <p>页数：{{ article.book_page }}</p>
-                        <p>价格：{{ article.price }}</p>
-                        <p>评分：{% include 'readbook/rate_base.html' %}</p>
-                        <p class="layui-text">
-                            <i class="fas fa-eye"></i> {{ article.total_views }}
-                            <i class="fas fa-comments"></i> {{ article.comments.count }}
-                        </p>
-
-
-
-                        {#                        传递参数#}
-                        <p id="practicality_{{ forloop.counter }}" hidden>{{ article.practicality }}</p>
-                        <p id="interesting_{{ forloop.counter }}" hidden>{{ article.interesting }}</p>
-                        <p id="readability_{{ forloop.counter }}" hidden>{{ article.readability }}</p>
-                        <p id="professionalism_{{ forloop.counter }}" hidden>{{ article.professionalism }}</p>
-                        <p id="binding_quality_{{ forloop.counter }}" hidden>{{ article.binding_quality }}</p>
-                    </div>
-                    <div class="card-body" id="echarts_book_{{ forloop.counter }}"
-                         style="width:200px;height:200px">
-                    </div>
-                </div>
-            </div>
+    <div class="mt-4">
+        <div class="alert alert-success" role="alert">
+            编程
         </div>
-    {% endfor %}
+
+        {% for article in code_articles %}
+            <p class="offset-1">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+            </p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <div class="alert alert-warning" role="alert">
+            摄影
+        </div>
+
+        {% for article in photo_articles %}
+            <p class="offset-1">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+            </p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <div class="alert alert-secondary" role="alert">
+            未归类
+        </div>
+
+        {% for article in unknown_articles %}
+            <p class="offset-1">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+            </p>
+        {% endfor %}
+    </div>
+
+
 
     {% include 'paginator.html' %}
 
-    <!-- 引入 ECharts -->
-    {#    <script src="{% static 'echarts/echarts.js' %}"></script>#}
-    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>
-
-    <script src="{% static 'myjs.js' %}"></script>
-    <script type="text/javascript">
-        // myjs.js
-        book_list({{ articles.count }});
-    </script>
 {% endblock %}

@@ -8,8 +8,7 @@ from .models import Album
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
-        fields = ('url', 'title', 'photographer', 'location', 'photo_time', 'camera',
-                  'lens', 'focal_length', 'aperture', 'exposure_time', 'description')
+        fields = ('url', 'title', 'description')
 
     def clean_url(self):
         url = self.cleaned_data['url']
