@@ -1,62 +1,68 @@
 {% load staticfiles %}
-<div class="layui-row">
-    <div class="" style="text-align: center; margin-bottom: 5px">
-        <a href="mailto:dusaiphoto@foxmail.com">
-            <img id="lay_email" src="{% static 'img/email_icon.png' %}" style="width: 26px; margin-top: -10px">
-        </a>
-        <a href="https://github.com/stacklens" target="_blank">
-            <img id="lay_github" src="{% static 'img/github_icon.png' %}" style="width: 26px; margin-top: -10px">
-        </a>
-        <a href="//weibo.com/saisaixuezhang" target="_blank">
-            <i class="layui-icon layui-icon-login-weibo"
-               style="font-size: x-large; color: #ee771a;" aria-hidden="true" id="lay_weibo"></i>
-        </a>
-    </div>
-    <div class="layui-text" style="text-align: center; padding-bottom: 10px;">
-        <p class="layui-word-aux">CopyRight &copy; 2018 ~ 2019 杜赛的个人网站</p>
-        <p class="layui-word-aux">Powered by
-            <a href="https://www.djangoproject.com/" target="_blank">
-                Django
-            </a> &
-            <a target="_blank" href="http://www.layui.com/">
-                Layui
+<nav class="navbar navbar-dark bg-dark mb-0">
+    <div class="row col-12 justify-content-center">
+
+        <h3 class="mr-3">
+            <a href="mailto:dusaiphoto@foxmail.com">
+                <i class="fas fa-envelope" style="color: lightskyblue;" id="layer_email"></i>
             </a>
-        </p>
-        <p class="layui-word-aux">蜀ICP备18018263号-1</p>
+        </h3>
+        <h3 class="mr-3">
+            <a href="https://github.com/stacklens" style="color: #f0c674;" target="_blank">
+                <i class="fab fa-github" id="layer_github"></i>
+            </a>
+        </h3>
+        <h3>
+            <a href="//weibo.com/saisaixuezhang" style="color: indianred;" target="_blank">
+                <i class="fab fa-weibo" id="layer_weibo"></i>
+            </a>
+        </h3>
     </div>
-</div>
 
+    <div class="row col-12 justify-content-center">
+        <div style="text-align: center; color: lightgrey;">
+            <p class="mb-0">CopyRight &copy; 2018 ~ 2019 杜赛的个人网站</p>
+            <p class="mb-0">Powered by
+                <a href="https://www.djangoproject.com/" target="_blank">
+                    Django
+                </a> &
+                <a target="_blank" href="https://getbootstrap.com/">
+                    Bootstrap
+                </a>
+                <span class="mb-0">&nbsp;蜀ICP备18018263号-1</span>
+            </p>
+        </div>
+    </div>
+</nav>
 <script>
-    layui.use(['table'], function () {
-        var layer = layui.layer;
-        layui.$('#lay_email').on('mouseenter', function () {
-            this.index = layer.tips('给作者发邮件', this, {
-                time: -1,
-                maxWidth: 280,
-                tips: [3, '#3A3D49']
-            });
-        }).on('mouseleave', function () {
-            layer.close(this.index);
+    $('#layer_email').on('mouseenter', function () {
+        this.index = layer.tips('给作者发邮件', this, {
+            time: -1,
+            maxWidth: 280,
+            tips: [1, 'lightskyblue']
         });
+    }).on('mouseleave', function () {
+        layer.close(this.index);
+    });
 
-        layui.$('#lay_weibo').on('mouseenter', function () {
-            this.index = layer.tips('关注作者微博', this, {
-                time: -1,
-                maxWidth: 280,
-                tips: [3, '#3A3D49']
-            });
-        }).on('mouseleave', function () {
-            layer.close(this.index);
+    $('#layer_weibo').on('mouseenter', function () {
+        this.index = layer.tips('关注作者微博', this, {
+            time: -1,
+            maxWidth: 280,
+            tips: [1, 'indianred']
         });
+    }).on('mouseleave', function () {
+        layer.close(this.index);
+    });
 
-        layui.$('#lay_github').on('mouseenter', function () {
-            this.index = layer.tips('在GitHub查看作者代码', this, {
-                time: -1,
-                maxWidth: 280,
-                tips: [3, '#3A3D49']
-            });
-        }).on('mouseleave', function () {
-            layer.close(this.index);
+    $('#layer_github').on('mouseenter', function () {
+        this.index = layer.tips('在GitHub查看作者代码', this, {
+            time: -1,
+            maxWidth: 280,
+            tips: [1, '#f0c674']
         });
+    }).on('mouseleave', function () {
+        layer.close(this.index);
     });
 </script>
+

@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block title %}杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="">
         <!-- 栏目导航 -->
         {% include 'article/navigator.html' %}
 
@@ -40,14 +40,14 @@
                 <div class="col">
 
 
-                    <!-- 标题/正文 -->
-                    <h3 class="mt-0">
+                    <!-- 标题 -->
+                    <h4 class="mt-0">
                         <a href="{{ article.get_absolute_url }}"
-                           style="font-weight: bold; color: #2F2F2F;"
+                           style="font-weight: bold; color: black;"
                         >
                             {{ article.title }}
                         </a>
-                    </h3>
+                    </h4>
 
                     <!-- 文章标题的栏目 -->
                     <div class="mb-2 ">
@@ -76,6 +76,7 @@
                         {% for tag in article.tags.all %}
                             <a class="badge badge-pill badge-light"
                                href="?tag={{ tag }}"
+                               style="color: grey;"
                             >
                                 {{ tag }}</a>
                         {% endfor %}
@@ -89,7 +90,7 @@
                         <i class="fas fa-comments" style="color: yellowgreen;"></i>
                         {{ article.comments.count }}
                         <i class="fas fa-clock" style="color: pink;"></i>
-                        {{ article.created|date:"Y-m-d" }}
+                        {{ article.created|date:"Y/m/d" }}
                         <!-- 教程 -->
                         {% if article.course_id %}
                             <i class="fas fa-book" style="color: #f0c674;"></i>
@@ -106,41 +107,41 @@
     </div>
 
 
-    <script>
-        $(document).ready(function () {
-            $("#add_rss").click(function () {
-                layui.use('layer', function () {
-                    var layer = layui.layer;
-                    layer.open({
-                        type: 1,
-                        shadeClose: true,
-                        title: '订阅栏目',
-                        content: '<div class="layui-card">\n' +
-                        '    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>\n' +
-                        '    <div class="layui-card-body">\n' +
-                        '        <div class="rss">\n' +
-                        '            <a href="{% url 'rss' %}" style="color: #ff5500">\n' +
-                        '                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>\n' +
-                        '        </div>\n' +
-                        '        {% for column in columns %}\n'+
-                            '            <div class="column_rss">\n'+
-                            '                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">\n'
-                            +
-                            '                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>\n'
-                            +
-                            '            </div>\n'+
-                            '        {% endfor %}\n' +
-                        '    </div>\n' +
-                        '</div>' //这里content是一个普通的String
-                    });
-                    {#layer.msg('hello');#}
-                });
-
-            });
-
-
-        });
-    </script>
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            $("#add_rss").click(function () {#}
+    {#                layui.use('layer', function () {#}
+    {#                    var layer = layui.layer;#}
+    {#                    layer.open({#}
+    {#                        type: 1,#}
+    {#                        shadeClose: true,#}
+    {#                        title: '订阅栏目',#}
+    {#                        content: '<div class="layui-card">\n' +#}
+    {#                        '    <h2 class="layui-card-header">您想订阅哪一个栏目的文章？</h2>\n' +#}
+    {#                        '    <div class="layui-card-body">\n' +#}
+    {#                        '        <div class="rss">\n' +#}
+    {#                        '            <a href="{% url 'rss' %}" style="color: #ff5500">\n' +#}
+    {#                        '                <i class="layui-icon layui-icon-triangle-r"></i>综合</a>\n' +#}
+    {#                        '        </div>\n' +#}
+    {#                        '        {% for column in columns %}\n'+#}
+    {#                            '            <div class="column_rss">\n'+#}
+    {#                            '                <a href="{% url 'column_rss' column.id %}" style="color: #01a252">\n'#}
+    {#                            +#}
+    {#                            '                    <i class="layui-icon layui-icon-triangle-r"></i>{{ column.title }}</a>\n'#}
+    {#                            +#}
+    {#                            '            </div>\n'+#}
+    {#                            '        {% endfor %}\n' +#}
+    {#                        '    </div>\n' +#}
+    {#                        '</div>' //这里content是一个普通的String#}
+    {#                    });#}
+    {#layer.msg('hello');#}
+    {#                });#}
+    {##}
+    {#            });#}
+    {##}
+    {##}
+    {#        });#}
+    {#    </script>#}
 
     {#    <style>#}
     {#        a:hover {#}
