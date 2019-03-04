@@ -10,14 +10,13 @@
 {% if user.is_authenticated %}
     <div>
         <form id="comment_form"
-              class="layui-form"
               action="{% url 'comments:post_comment' article.id %}"
               method="post">
             {% csrf_token %}
-            <div class="layui-form-item layui-form-text">
-                <h3 style="color: green; margin-bottom: 10px">
+            <div>
+                <h5>
                     发表评论：
-                </h3>
+                </h5>
 
                 <!-- ckeditor 正文 -->
                 {{ comment_form.body }}
@@ -27,12 +26,9 @@
             <input type="hidden" name="article_type" value={{ article_type }}>
 
 
-            <div class="layui-form-item">
-                <button class="layui-btn layui-btn-sm layui-btn-primary" id="submit_btn" type="submit"
-                        name="submit"><i class="layui-icon layui-icon-release"></i> 发布
-                </button>
-                <input type="hidden" name="next" value="{{ article.get_absolute_url }}"/>
-            </div>
+            <button class="btn btn-dark mt-2" id="submit_btn" type="submit"
+                    name="submit"><i class="fas fa-paper-plane"></i> 发布
+            </button>
         </form>
     </div>
 
@@ -74,17 +70,15 @@
 
 
 {#显示mptt层级评论#}
-
-<br/>
-<br/>
-<br/>
-<h2 id="Fcomments">共有{{ article.comments.count }}条评论</h2>
-<div>
-    <ul>
+<br>
+<br>
+<h5 id="Fcomments" class="mt-4">共有{{ article.comments.count }}条评论</h5>
+<div class="">
+    <div class="">
         {% recursetree comments %}
-            <div class="layui-row">
-                <hr/>
-                <div class="layui-col-xs2 layui-col-sm1" id="F{{ node.id }}">
+            <hr>
+            <div class="row no-gutters">
+                <div class="col-1 mr-2" id="F{{ node.id }}">
                     <div style="text-align: center">
                         {% get_userinfo node.user.id as userinfo %}
                         {% if node.user.socialaccount_set.all.0.get_avatar_url %}
@@ -92,9 +86,9 @@
                             <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
                                  alt="avatar"
                                     {% if node.reply_to %}
-                                 style="width: 60%; border-radius: 20%"
-                                    {% else %}
                                  style="width: 80%; border-radius: 20%"
+                                    {% else %}
+                                 style="width: 90%; border-radius: 20%"
                                     {% endif %}
                             >
 
@@ -104,18 +98,18 @@
                                 <img src="{{ userinfo.avatar }}"
                                      alt="avatar"
                                         {% if node.reply_to %}
-                                     style="width: 60%; border-radius: 20%"
-                                        {% else %}
                                      style="width: 80%; border-radius: 20%"
+                                        {% else %}
+                                     style="width: 90%; border-radius: 20%"
                                         {% endif %}
                                 >
                             {% else %}
                                 <img src="{{ userinfo.avatar.url }}"
                                      alt="avatar"
                                         {% if node.reply_to %}
-                                     style="width: 60%; border-radius: 20%"
-                                        {% else %}
                                      style="width: 80%; border-radius: 20%"
+                                        {% else %}
+                                     style="width: 90%; border-radius: 20%"
                                         {% endif %}
                                 >
                             {% endif %}
@@ -125,23 +119,19 @@
                             <img src="{% static 'default_avatar.jpg' %}"
                                  alt="avatar"
                                     {% if node.reply_to %}
-                                 style="width: 60%; border-radius: 20%"
-                                    {% else %}
                                  style="width: 80%; border-radius: 20%"
+                                    {% else %}
+                                 style="width: 90%; border-radius: 20%"
                                     {% endif %}
                             >
                         {% endif %}
                     </div>
                 </div>
 
-                <div class="layui-col-xs10 layui-col-sm11">
+                <div class="col">
                     <div style="color: gray;">
                         {% if user == node.user %}
-                            <span class="layui-badge layui-bg-orange">
-                            <i class="layui-icon layui-icon-username"
-                               style="margin: 0 -4px 0 -4px;"
-                            ></i>
-                        </span>
+                            <i class="fas fa-user-tie" style="color: orange;"></i>
                         {% endif %}
                         {{ node.user }}
                         {% if node.user.is_superuser %}
@@ -150,7 +140,7 @@
                             <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
                         {% if node.reply_to %}
-                            <i class="layui-icon layui-icon-next"></i> {{ node.reply_to }}
+                            <i class="far fa-arrow-alt-circle-right" style="color: lightpink;"></i> {{ node.reply_to }}
                             {% if node.reply_to.is_superuser %}
                                 <i style="color: #ff5500;">[博主]</i>
                             {% elif node.reply_to.is_staff %}
@@ -166,7 +156,7 @@
                                     color: darkred;
                                     text-align: center;
                                     padding-top: 10px;
-                                    padding-bottom: 10px;"
+                                    padding-bottom: 1px;"
                             >
                                 <p>本回复已被 [博主] 删除</p>
                             </div>
@@ -176,20 +166,18 @@
                                     color: darkred;
                                     text-align: center;
                                     padding-top: 10px;
-                                    padding-bottom: 10px;"
+                                    padding-bottom: 1px;"
                             >
                                 <p>本回复已被 {{ node.user }} 删除</p>
                             </div>
                         {% endif %}
                     {% else %}
-                        <br>
-                        <p>{{ node.body|safe }}</p>
-                        <br>
+                        <p class="mt-3 mb-1">{{ node.body|safe }}</p>
                     {% endif %}
 
                     <!-- 附加信息 -->
                     <div style="color: #999999;">
-                        <p>{{ node.created_time|date:"Y-m-d H:i:s" }}
+                        <p>{{ node.created_time|date:"Y/m/d H:i" }}
                             <a href="{% url 'comments:reply_post_comment' article.id node.id article_type %}"
                                style="color: #01a252">
                                 回复
@@ -202,13 +190,13 @@
                                        style="color: lightskyblue;">
                                         编辑
                                     </a>
-                                    <span style=" float: right">
+                                    <span style="float: right">
                                         <a href="javascript:"
                                            title="删除"
                                            onclick="confirm_delete({{ node.id }});"
                                         >
-                                            <i class="layui-icon layui-icon-delete"
-                                               style="color: darkred; font-size: large"
+                                            <i class="far fa-trash-alt"
+                                               style="color: darkred;"
                                             ></i>
                                         </a>
                                     </span>
@@ -217,14 +205,14 @@
                         </p>
                     </div>
                     {% if not node.is_leaf_node %}
-                        <ul class="children">
+                        <div class="children">
                             {{ children }}
-                        </ul>
+                        </div>
                     {% endif %}
                 </div>
             </div>
         {% endrecursetree %}
-    </ul>
+    </div>
 </div>
 
 

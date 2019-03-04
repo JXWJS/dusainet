@@ -1,21 +1,37 @@
 {% extends 'base.html' %}
 {% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
+    <nav class="navbar navbar-light d-md-none" style="background-color: #e3f2fd;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#hidden-toc" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-book" style="font-size: xx-large"></i>
+        </button>
+    </nav>
+    <div class="collapse" id="hidden-toc">
+        <div class="ml-4 mr-4">
+            {% include 'course/slider.html' %}
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2 card" id="sticky-sidebar">
+            <div class="col-2 card d-none d-md-block" id="left-sidebar">
                 <div class="sticky-top">
                     {% include 'course/slider.html' %}
                 </div>
             </div>
+
+
             <div class="col" id="main">
                 {% include 'article/detail_base.html' %}
             </div>
-            <div class="col-2 card" id="sticky-sidebar" style="z-index: -100">
+            <div class="col-2 card d-none d-lg-block collapse" id="right-sidebar" style="z-index: 1">
                 <div class="sticky-top">
-                    {% include 'course/slider.html' %}
+                    {% include 'course/right_slider.html' %}
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock %}
