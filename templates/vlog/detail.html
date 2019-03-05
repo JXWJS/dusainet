@@ -6,21 +6,19 @@
 {% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
     <div>
-        <div class="layui-card layui-card-body">
-            <br/>
+        <div class="mt-4">
             <div>
                 <div>
-                    <h1 style="color: black;font-size: xx-large; font-weight: bold; line-height: 110%">
+                    <h1>
                         {{ article.title }}
                     </h1>
-                    <br/>
-                    <p style="color: #8D8D8D;">
+                    <p class="text-muted">
                         {{ article.total_views }}阅读 ·
                         {{ article.comments.count }}评论 ·
-                        {{ article.created|date:"Y-m-d" }}发布 &nbsp;
+                        {{ article.created|date:"Y/m/d" }}发布 &nbsp;
                         <a href="#Fcomments"
                            style="color: cornflowerblue;
-                           text-decoration-line: underline;"
+                                    text-decoration-line: underline;"
                         >
                             前往评论
                         </a>
@@ -36,10 +34,11 @@
             </div>
             <br/>
             <div style="text-align: center">
-                <a href="/admiration/"
-                   class="layui-btn layui-btn-warm layui-btn-sm layui-btn-radius"
-                >
-                    写的不错，朕要赏
+                <a href="/admiration/" target="_blank"
+                   class="btn btn-warning text-white btn-sm"
+                   role="button"
+                   style="text-align: center"
+                >写的不错，朕要赏
                 </a>
             </div>
             <br>

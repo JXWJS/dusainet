@@ -1,9 +1,6 @@
 <div class="card-body" style="padding: 20px 0 0 0;">
 
     <!-- 目录 -->
-{#    <div class="card-title" style="font-weight: bold;">#}
-{#        {{ article.course.title }}#}
-{#    </div>#}
     <div class="card-text">
         {% for article_c in course_articles %}
             {% if article_c.id == article.id %}
@@ -23,6 +20,5 @@
             {% endif %}
         {% endfor %}
     </div>
-    <hr>
 </div>
 

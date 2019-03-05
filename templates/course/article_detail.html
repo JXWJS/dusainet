@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
+    <!-- 塌方按钮 -->
     <nav class="navbar navbar-light d-md-none" style="background-color: #e3f2fd;">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#hidden-toc" aria-controls="navbarToggleExternalContent"
@@ -16,16 +17,20 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2 card d-none d-md-block" id="left-sidebar">
+
+            <!-- 左目录 -->
+            <div class="col-3 col-lg-2 card d-none d-md-block" id="left-sidebar">
                 <div class="sticky-top">
                     {% include 'course/slider.html' %}
                 </div>
             </div>
 
-
+            <!-- 正文 -->
             <div class="col" id="main">
                 {% include 'article/detail_base.html' %}
             </div>
+
+            <!-- 右目录 -->
             <div class="col-2 card d-none d-lg-block collapse" id="right-sidebar" style="z-index: 1">
                 <div class="sticky-top">
                     {% include 'course/right_slider.html' %}

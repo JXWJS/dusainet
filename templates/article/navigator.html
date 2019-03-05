@@ -21,7 +21,17 @@
                 btn-sm
                 mr-1
                 {% if column.id == column_id %}
-                btn-secondary
+                    {% if column.title == '编程'%}
+                    btn-success
+                    {% elif column.title == '摄影' %}
+                    btn-warning
+                    {% elif column.title == '光学' %}
+                    btn-primary
+                    {% elif column.title == '闲聊' %}
+                    btn-secondary
+                    {% else %}
+                    btn-dark
+                    {% endif %}
                 {% else %}
                 btn-outline-secondary
                 {% endif %}
@@ -35,34 +45,34 @@
 </div>
 
 <!-- 面包屑 -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background-color: white; padding: 0 0 0 2px; font-size: 0.9em">
-            <li class="breadcrumb-item"
-            >
-                {% if order == 'total_views' %}
-                    <a href="?order=created-time&column_id={{ column_id }}&tag={{ tag }}"
-                       style="color: gray;"
-                    >
-                        最近
-                    </a>
-                {% else %}
-                    <span style="color: dimgray">最近</span>
-                {% endif %}
-            </li>
-            <li class="breadcrumb-item
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background-color: white; padding: 0 0 0 2px; font-size: 0.9em">
+        <li class="breadcrumb-item"
+        >
+            {% if order == 'total_views' %}
+                <a href="?order=created-time&column_id={{ column_id }}&tag={{ tag }}"
+                   style="color: gray;"
+                >
+                    最近
+                </a>
+            {% else %}
+                <span style="color: dimgray">最近</span>
+            {% endif %}
+        </li>
+        <li class="breadcrumb-item
                   {% if order != 'total_views' %}
                   {% endif %}
                   "
-            >
-                {% if order != 'total_views' %}
-                    <a href="?order=total_views&column_id={{ column_id }}&tag={{ tag }}"
-                       style="color: gray;"
-                    >
-                        热门
-                    </a>
-                {% else %}
-                    <span style="color: dimgray">热门</span>
-                {% endif %}
-            </li>
-        </ol>
-    </nav>
+        >
+            {% if order != 'total_views' %}
+                <a href="?order=total_views&column_id={{ column_id }}&tag={{ tag }}"
+                   style="color: gray;"
+                >
+                    热门
+                </a>
+            {% else %}
+                <span style="color: dimgray">热门</span>
+            {% endif %}
+        </li>
+    </ol>
+</nav>

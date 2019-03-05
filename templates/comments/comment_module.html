@@ -26,7 +26,7 @@
             <input type="hidden" name="article_type" value={{ article_type }}>
 
 
-            <button class="btn btn-dark mt-2" id="submit_btn" type="submit"
+            <button class="btn btn-primary mt-2" id="submit_btn" type="submit"
                     name="submit"><i class="fas fa-paper-plane"></i> 发布
             </button>
         </form>
@@ -78,7 +78,7 @@
         {% recursetree comments %}
             <hr>
             <div class="row no-gutters">
-                <div class="col-1 mr-2" id="F{{ node.id }}">
+                <div class="col-2 col-sm-1 mr-2" id="F{{ node.id }}">
                     <div style="text-align: center">
                         {% get_userinfo node.user.id as userinfo %}
                         {% if node.user.socialaccount_set.all.0.get_avatar_url %}
@@ -140,7 +140,7 @@
                             <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
                         {% if node.reply_to %}
-                            <i class="far fa-arrow-alt-circle-right" style="color: lightpink;"></i> {{ node.reply_to }}
+                            <i class="far fa-arrow-alt-circle-right" style="color: cornflowerblue;"></i> {{ node.reply_to }}
                             {% if node.reply_to.is_superuser %}
                                 <i style="color: #ff5500;">[博主]</i>
                             {% elif node.reply_to.is_staff %}
@@ -152,23 +152,17 @@
                     <!-- 正文 -->
                     {% if node.is_deleted %}
                         {% if node.is_deleted_by_staff %}
-                            <div style="background-color: #ffecec;
-                                    color: darkred;
-                                    text-align: center;
-                                    padding-top: 10px;
-                                    padding-bottom: 1px;"
+                            <div style="text-align: center;"
+                                 class="alert alert-danger"
                             >
-                                <p>本回复已被 [博主] 删除</p>
+                                本回复已被 [博主] 删除
                             </div>
                         {% else %}
 
-                            <div style="background-color: #ffecec;
-                                    color: darkred;
-                                    text-align: center;
-                                    padding-top: 10px;
-                                    padding-bottom: 1px;"
+                            <div style="text-align: center;"
+                                 class="alert alert-danger"
                             >
-                                <p>本回复已被 {{ node.user }} 删除</p>
+                                本回复已被 {{ node.user }} 删除
                             </div>
                         {% endif %}
                     {% else %}

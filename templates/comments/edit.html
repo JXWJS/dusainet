@@ -5,39 +5,41 @@
     <!-- ckeditor -->
     <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/prism/css/prism.css' %}">
 
-    <div class="layui-card layui-card-body">
+    <div>
         <form id="comment_form"
-              class="layui-form"
               method="post"
         >
             {% csrf_token %}
-            <div class="layui-form-item layui-form-text">
-                <h3 style="color: green; margin-bottom: 10px;">
+            <div class="mt-4">
+                <h5>
                     编辑回复：
-                </h3>
+                </h5>
                 {{ comment_form.body }}
             </div>
             <input type="hidden"
                    name="article_type"
                    value="{{ article_type }}"
             >
-            <div class="layui-form-item">
-                <button class="layui-btn layui-btn-sm"
+            <div class="mt-2 mb-4">
+                <button class="btn btn-primary"
                         id="submit_btn"
                         type="submit"
                         name="submit"
                 >
-                    <i class="layui-icon layui-icon-release"></i> 更新
+                    <i class="fas fa-paper-plane"></i> 更新
                 </button>
-                <button class="layui-btn
-                               layui-btn-sm
-                               layui-btn-primary"
+                <button class="btn btn-secondary btn-sm"
                         onclick="window.history.back(); return false;"
                 >
                     返回
                 </button>
             </div>
         </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 
 

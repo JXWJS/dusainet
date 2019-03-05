@@ -257,7 +257,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Smiley', 'CodeSnippet', '-', 'Bold', 'Italic', 'Underline', 'RemoveFormat', ],
-            # ['NumberedList', 'BulletedList'],
+            ['NumberedList', 'BulletedList'],
             ['TextColor', 'BGColor'],
             ['Link', 'Unlink'],
             ['Undo', 'Redo', 'Marker'],
