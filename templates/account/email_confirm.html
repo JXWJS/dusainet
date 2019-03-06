@@ -2,45 +2,44 @@
 
 {% load i18n %}
 {% load account %}
+{% load staticfiles %}
 
 {% block title %}激活邮箱 - 杜赛的个人网站{% endblock %}
 
 
 {% block content %}
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
     <br>
     <br>
-    <h1>激活邮箱</h1>
-    <br>
-    {% if confirmation %}
+    <div class="container">
+        <h3 class="alert alert-success">激活邮箱</h3>
+        {% if confirmation %}
 
-        {% user_display confirmation.email_address.user as user_display %}
+            {% user_display confirmation.email_address.user as user_display %}
 
-        <p class="layui-text">
-            {% blocktrans with confirmation.email_address.email as email %}请确认
-                <a href="mailto:{{ email }}">{{ email }}</a> 是用户
-                <span style="color: darkred">{{ user_display }}
+            <p class="layui-text">
+                {% blocktrans with confirmation.email_address.email as email %}请确认
+                    <a href="mailto:{{ email }}">{{ email }}</a> 是用户
+                    <span style="color: darkred">{{ user_display }}
             </span> 的邮箱。{% endblocktrans %}
-        </p>
-        <br>
-        <form method="post"
-              action="{% url 'account_confirm_email' confirmation.key %}"
-              class="layui-form"
-        >
-            {% csrf_token %}
-            <button type="submit" class="layui-btn">{% trans '确认' %}</button>
-        </form>
+            </p>
+            <form method="post"
+                  action="{% url 'account_confirm_email' confirmation.key %}"
+            >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">{% trans '确认' %}</button>
+            </form>
 
-    {% else %}
+        {% else %}
 
-        {% url 'account_email' as email_url %}
+            {% url 'account_email' as email_url %}
 
-        <p>此链接已失效，请重新申请
-            <a href="{{ email_url }}" style="color: cornflowerblue">认证邮件</a>。
-        </p>
+            <p>此链接已失效，请重新申请
+                <a href="{{ email_url }}" style="color: cornflowerblue">认证邮件</a>。
+            </p>
 
-    {% endif %}
-    <br>
-    <br>
-    <hr>
+        {% endif %}
+    </div>
+
 
 {% endblock %}

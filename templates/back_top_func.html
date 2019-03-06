@@ -1,0 +1,59 @@
+<!-- Author: 鹦鹉 -->
+<!-- https://ezbox.idv.tw/131/back-to-top-button-without-images -->
+<button type="button" id="BackTop" class="toTop-arrow" style="z-index: 10;"></button>
+<script>
+    $(function () {
+        $('#BackTop').click(function () {
+            $('html,body').animate({scrollTop: 0}, 333);
+        });
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 300) {
+                $('#BackTop').fadeIn(222);
+            } else {
+                $('#BackTop').stop().fadeOut(222);
+            }
+        }).scroll();
+    });
+</script>
+
+<style>
+    /* 56px */
+    .toTop-arrow {
+        width: 3.5rem;
+        height: 3.5rem;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 33%;
+        opacity: 0.7;
+        background: black;
+        cursor: pointer;
+        position: fixed;
+        right: 1.5rem;
+        bottom: 1.5rem;
+        display: none;
+    }
+
+    .toTop-arrow::before, .toTop-arrow::after {
+        width: 31px;
+        height: 7px;
+        border-radius: 3px;
+        background: orange;
+        position: absolute;
+        content: "";
+    }
+
+    .toTop-arrow::before {
+        transform: rotate(-45deg) translate(0, -50%);
+        left: 0.4rem;
+    }
+
+    .toTop-arrow::after {
+        transform: rotate(45deg) translate(0, -50%);
+        right: 0.4rem;
+    }
+
+    .toTop-arrow:focus {
+        outline: none;
+    }
+</style>

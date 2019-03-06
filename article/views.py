@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from .models import ArticlesPost, ArticlesColumn
 from .forms import ArticleCreateForm
 
+from course.models import Course
 from comments.models import Comment
 from comments.forms import CommentForm
 from utils.utils import PaginatorMixin
@@ -173,6 +174,15 @@ class ArticleCreateView(LoginRequiredMixin,
 
     login_url = "/accounts/login"
     template_name = 'article/article_create.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        courses = Course.objects.all()
+        data = {
+            'courses': courses
+        }
+        context.update(data)
+        return context
 
     def post(self, request, *args, **kwargs):
         forms = ArticleCreateForm(data=request.POST)

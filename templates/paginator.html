@@ -1,49 +1,69 @@
-
 {% if is_paginated %}
-    <div class="pagination" style="text-align: center">
-        {% if first %}
-            <a href="?page=1&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
-               class="layui-btn layui-btn-primary layui-btn-sm"
-            >
-                1
-            </a>
-        {% endif %}
-        {% if left %}
-            {% if left_has_more %}
-                <span>...</span>
-            {% endif %}
-            {% for i in left %}
-                <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
-                   class="layui-btn layui-btn-primary
-                   layui-btn-sm"
+    <div class="row justify-content-center" style="text-align: center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if first %}
+                    <li class="page-item">
+                        <a href="?page=1&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
+                           class="page-link"
+                           role="button"
+                        >
+                            1
+                        </a>
+                    </li>
+
+                {% endif %}
+                {% if left %}
+                    {% if left_has_more %}
+                        <span class="ml-1 mr-1">...</span>
+                    {% endif %}
+                    {% for i in left %}
+                        <li class="page-item">
+
+                            <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
+                               class="page-link"
+                            >
+                                {{ i }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            <li class="page-item active">
+
+                <a href="?page={{ page_obj.number }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
+                   class="page-link"
                 >
-                    {{ i }}
+                    {{ page_obj.number }}
                 </a>
-            {% endfor %}
-        {% endif %}
-        <a href="?page={{ page_obj.number }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
-           class="layui-btn layui-btn"
-        >
-            {{ page_obj.number }}
-        </a>
-        {% if right %}
-            {% for i in right %}
-                <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
-                   class="layui-btn layui-btn-primary layui-btn-sm"
-                >
-                    {{ i }}
-                </a>
-            {% endfor %}
-            {% if right_has_more %}
-                <span>...</span>
-            {% endif %}
-        {% endif %}
-        {% if last %}
-            <a href="?page={{ paginator.num_pages }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
-               class="layui-btn layui-btn-primary layui-btn-sm"
-            >
-                {{ paginator.num_pages }}
-            </a>
-        {% endif %}
+            </li>
+                {% if right %}
+                    {% for i in right %}
+                        <li class="page-item">
+
+                            <a href="?page={{ i }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
+                               class="page-link"
+                            >
+                                {{ i }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% if right_has_more %}
+                        <span class="ml-1 mr-1">...</span>
+                    {% endif %}
+                {% endif %}
+                {% if last %}
+                    <li class="page-item">
+
+                        <a href="?page={{ paginator.num_pages }}&order={{ order }}&column_id={{ column_id }}&tag={{ tag }}"
+                           class="page-link"
+                        >
+                            {{ paginator.num_pages }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
     </div>
+
 {% endif %}

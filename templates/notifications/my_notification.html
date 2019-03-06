@@ -3,30 +3,49 @@
 {% load notifications_tags %}
 {% block title %}通知列表 - 杜赛的个人网站{% endblock %}
 {% block content %}
-    <div class="layui-row layui-card layui-card-body">
-        <a class="layui-btn layui-btn-normal layui-btn-sm"
-           href="{% url 'my_notifications:mark_all_read' %}"
-        >
-            标记全部已读
-        </a>
-        {% for unread in unread_notify %}
-            <hr/>
-            <p>
-                <a id="my_link"
-                   href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id unread.description %}#F{{ unread.action_object.id }}"
-                   target="_blank">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="">
+                <a class="btn btn-warning mb-2"
+                   href="{% url 'my_notifications:mark_all_read' %}"
+                >
+                    标记全部已读
+                </a>
+                <div class="list-group list-group-flush" id="link_base">
+                    {% for unread in unread_notify %}
+                        <a id="my_link"
+                           href="{% url 'my_notifications:mark_as_read' unread.target_object_id unread.id unread.description %}#F{{ unread.action_object.id }}"
+                           target="_blank"
+                           class="list-group-item list-group-item-action"
+                        >
                         <span style="color: #5897fb;">
                             {{ unread.actor }}
                         </span>
-                    {% if unread.actor.is_superuser %}
-                        <span style="color: #FF5722">[博主]</span>
-                    {% elif unread.actor.is_staff %}
-                        <i style="color: #5897fb;">[管理员]</i>
-                    {% endif %}
-                    在 <span
-                        style="color: #01a252;">《{{ unread.target }}》</span>
-                    中回复了你。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ unread.timestamp|date:"Y-m-d H:i:s" }}</a>
-            </p>
-        {% endfor %}
+                            {% if unread.actor.is_superuser %}
+                                <span style="color: #FF5722">[博主]</span>
+                            {% elif unread.actor.is_staff %}
+                                <i style="color: #5897fb;">[管理员]</i>
+                            {% endif %}
+                            在 <span
+                                style="color: #01a252;">《{{ unread.target }}》</span>
+                            中回复了你。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ unread.timestamp|date:"Y-m-d H:i:s" }}
+                        </a>
+                    {% endfor %}
+                    <hr>
+                </div>
+
+            </div>
+        </div>
     </div>
+
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
+    <style>
+        #link_base a:link {
+            color: black;
+        }
+
+        #link_base a:visited {
+            color: lightgrey;
+        }
+    </style>
 {% endblock %}

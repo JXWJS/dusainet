@@ -1,19 +1,21 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% load i18n %}
 
 {% block title %}认证邮箱 -杜赛的个人网站{% endblock %}
 
 {% block content %}
-    <br>
-    <br>
-    <h1>验证邮箱</h1>
-    <br>
-    <p>一封认证邮件已经发送到您的邮箱中了。请点击邮件中的激活链接以完成注册。</p>
-    <br>
-    <p class="layui-text">为防止恶意注册，本站账号需认证邮箱后方可登录。</p>
-    <br>
-    <br>
-    <hr>
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
+    <div class="container">
+        <br>
+        <br>
+        <h3 class="alert alert-success">验证邮箱</h3>
+        <p>一封认证邮件已经发送到您的邮箱中了。请点击邮件中的激活链接以完成注册。</p>
+        <p class="text-muted">为防止恶意注册，本站账号需认证邮箱后方可登录。</p>
+        <br>
+        <br>
+    </div>
+
 
 {% endblock %}

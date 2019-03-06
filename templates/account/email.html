@@ -3,178 +3,161 @@
 {% load weibo_utils %}
 {% load i18n %}
 
-{% block title %}邮箱管理 - 杜赛的个人网站{% endblock %}
+{% block title %}个人信息 - 杜赛的个人网站{% endblock %}
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'cropper/cropper.min.css' %}">
 
-    <br>
-    <br>
+    <div class="container">
+        <br>
+        <br>
 
-    <div style="text-align: center">
-        {% if user.socialaccount_set.all.0.get_avatar_url %}
-            <!-- 第三方头像 -->
-            <img src="{% translate_avatar_ssl user.socialaccount_set.all.0.get_avatar_url %}"
-                 alt="avatar"
-                 style="max-width: 10%; border-radius: 20%"
-            >
-        {% else %}
-            {% if userinfo.avatar %}
-                <!-- 本地头像 -->
-                {% if 'static' in userinfo.avatar.url %}
-                    <img src="{{ userinfo.avatar }}"
-                         alt="avatar"
-                         style="max-width: 10%; border-radius: 20%">
-                {% else %}
-                    <img src="{{ userinfo.avatar.url }}"
-                         alt="avatar"
-                         style="max-width: 10%; border-radius: 20%">
-                {% endif %}
-            {% else %}
-                <!-- 无头像 -->
-                <img src="{% static 'default_avatar.jpg' %}"
+        <div style="text-align: center" class="mb-4">
+            {% if user.socialaccount_set.all.0.get_avatar_url %}
+                <!-- 第三方头像 -->
+                <img src="{% translate_avatar_ssl user.socialaccount_set.all.0.get_avatar_url %}"
                      alt="avatar"
-                     style="max-width: 10%; border-radius: 20%">
+                     style="max-width: 20%; border-radius: 20%"
+                >
+            {% else %}
+                {% if userinfo.avatar %}
+                    <!-- 本地头像 -->
+                    {% if 'static' in userinfo.avatar.url %}
+                        <img src="{{ userinfo.avatar }}"
+                             alt="avatar"
+                             style="max-width: 20%; border-radius: 20%">
+                    {% else %}
+                        <img src="{{ userinfo.avatar.url }}"
+                             alt="avatar"
+                             style="max-width: 20%; border-radius: 20%">
+                    {% endif %}
+                {% else %}
+                    <!-- 无头像 -->
+                    <img src="{% static 'default_avatar.jpg' %}"
+                         alt="avatar"
+                         style="max-width: 20%; border-radius: 20%">
+                {% endif %}
             {% endif %}
+            <div class="text-muted">{{ user.username }}</div>
+
+        </div>
+
+        {% if not user.socialaccount_set.all.0.get_avatar_url %}
+            <!-- 第三方头像不能修改头像 -->
+            {% include 'account/handle_image_crop_upload.html' %}
         {% endif %}
-        <p style="padding-top: 5px;"><span>{{ user.username }}</span></p>
-    </div>
-
-    {% if not user.socialaccount_set.all.0.get_avatar_url %}
-        <!-- 第三方头像不能修改头像 -->
-        {% include 'account/handle_image_crop_upload.html' %}
-    {% endif %}
 
 
 
-    <br>
-    <br>
-    <br>
-    <h1>{% trans "邮箱管理" %}</h1>
-    <hr>
-    {% if user.emailaddress_set.all %}
-
-        <p class="layui-text">邮箱可用于登录，或者<a href="{% url 'account_reset_password' %}">重置密码</a>。</p>
         <br>
-        <p>下列邮箱已绑定到你的账号中：
-            <i class="layui-icon layui-icon-tips"
-               style="position: relative; top: 2px; color: #999; font-size: 20px; cursor: pointer;"
-               id="email_info">
-            </i>
-        </p>
         <br>
+        <br>
+        <h3 class="alert alert-warning">{% trans "邮箱管理" %}</h3>
+        {% if user.emailaddress_set.all %}
 
-        <form action="{% url 'userinfo:detail' %}"
-              class="email_list layui-form"
-              method="post"
-        >
-            {% csrf_token %}
-            <fieldset class="blockLabels">
-                {% for emailaddress in user.emailaddress_set.all %}
-                    <div class="ctrlHolder">
-                        <label for="email_radio_{{ forloop.counter }}"
-                               class="{% if emailaddress.primary %}primary_email{% endif %} layui-form-label"
-                               style="margin-left: -100px"
-                        >
-                        </label>
-                        <div class="layui-input-block" style="margin-left: -100px">
+            <p class="text-muted">邮箱可用于登录，或者<a href="{% url 'account_reset_password' %}">重置密码</a>。</p>
+            <p>下列邮箱已绑定到你的账号中：
+                <i class="fas fa-exclamation-circle"
+                   style="color: orange;"
+                   id="email_info">
+                </i>
+            </p>
+            <div class="card card-body">
+
+                <form action="{% url 'userinfo:detail' %}"
+                      class="email_list"
+                      method="post"
+                >
+                    {% csrf_token %}
+                    {% for emailaddress in user.emailaddress_set.all %}
+                        <div class="ctrlHolder form-check">
                             <input id="email_radio_{{ forloop.counter }}"
+                                   class="form-check-input"
                                    type="radio"
                                    name="email"
                                     {% if emailaddress.primary or user.emailaddress_set.count == 1 %}
-                                   checked="checked"
+                                   checked
                                     {% endif %}
                                    value="{{ emailaddress.email }}"
-                                   title='{{ emailaddress.email }}
-                                        {% if emailaddress.verified %}
-                                            <span class="verified">已认证</span>
-                                        {% else %}
-                                            <span class="unverified">未认证</span>
-                                        {% endif %}
-                                        {% if emailaddress.primary %}<span class="primary">{% trans "主邮箱" %}</span>{% endif %}
-                                            '
                             />
+                            <label for="email_radio_{{ forloop.counter }}"
+                                   class="{% if emailaddress.primary %}primary_email{% endif %}"
+                            >
+                                {{ emailaddress.email }}
+                                {% if emailaddress.verified %}
+                                    <span class="verified">已认证</span>
+                                {% else %}
+                                    <span class="unverified">未认证</span>
+                                {% endif %}
+                                {% if emailaddress.primary %}<span class="primary">{% trans "主邮箱" %}</span>
+                                {% endif %}
+                            </label>
                         </div>
-                    </div>
-                {% endfor %}
-                <hr>
-                <br>
-                <div class="buttonHolder layui-form-item">
-                    <div class="layui-input-block" style="margin-left: 10px">
+                    {% endfor %}
+                    <div class="buttonHolder form-group">
 
-                        <button class="secondaryAction layui-btn layui-btn-warm layui-btn-sm" type="submit"
+                        <button class="secondaryAction btn btn-primary" type="submit"
                                 name="action_primary">成为主邮箱
                         </button>
-                        <button class="secondaryAction layui-btn layui-btn-normal layui-btn-sm" type="submit"
+                        <button class="secondaryAction btn btn-warning text-white" type="submit"
                                 name="action_send">重发认证邮件
                         </button>
-                        <button class="primaryAction layui-btn  layui-btn-primary layui-btn-sm" type="submit"
+                        <button class="primaryAction btn btn-danger" type="submit"
                                 name="action_remove">解除绑定
                         </button>
                     </div>
-                </div>
-            </fieldset>
-        </form>
+                </form>
+            </div>
 
-    {% else %}
-        <p>你还没有绑定邮箱。</p>
+        {% else %}
+            <p class="text-muted">你还没有绑定邮箱。</p>
 
-    {% endif %}
+        {% endif %}
 
-    <br>
-    <br>
-    <h2>绑定E-mail</h2>
-    <hr>
-    <p>提交后我们会发送邮件给您。请点击邮件中的链接，以认证您的邮箱。</p>
-    <br>
-    <form method="post"
-          action="{% url 'userinfo:detail' %}"
-          class="add_email layui-form"
-    >
-        {% csrf_token %}
-        <div class="layui-form-item">
-            <label for="id_email" class="layui-form-label">E-mail:</label>
-            <div class="layui-input-inline">
-
+        <br>
+        <br>
+        <h4>绑定E-mail</h4>
+        <p class="text-muted">提交后我们会发送邮件给您。请点击邮件中的链接，以认证您的邮箱。</p>
+        <form method="post"
+              action="{% url 'userinfo:detail' %}"
+              class="add_email form-inline"
+        >
+            {% csrf_token %}
+            <div class="form-group mb-2">
+                <label for="id_email" class="mr-2 sr-only">E-mail:</label>
                 <input type="email"
                        name="email"
                        size="30"
-                       placeholder="请输入邮箱"
-                       required id="id_email"
-                       class="layui-input"
+                       placeholder="请输入邮箱.."
+                       required
+                       id="id_email"
+                       class="form-control"
                 />
             </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button name="action_add" class="layui-btn" type="submit">确认</button>
-            </div>
-        </div>
-    </form>
-    <br>
-    <p class="layui-text">遇到问题请联系博主：
-        <a href="mailto:dusaiphoto@foxmail.com">dusaiphoto@foxmail.com</a>
-    </p>
-    <hr>
+            <button name="action_add" class="btn btn-primary ml-2 mb-2" type="submit">确认</button>
+        </form>
+        <br>
+        <p class="text-muted">遇到问题请联系博主：
+            <a href="mailto:dusaiphoto@foxmail.com">dusaiphoto@foxmail.com</a>
+        </p>
+    </div>
+
 
 
 
     <script src="{% static 'cropper/cropper.min.js' %}"></script>
     <script src="{% static 'cropper/jquery-cropper.min.js' %}"></script>
     <script>
-        layui.use(['table'], function () {
-            var layer = layui.layer;
-            layui.$('#email_info').on('mouseenter', function () {
-                this.index = layer.tips('1.同一个邮箱只能绑定一个账号<br>' +
-                    '2.已认证的邮箱优先为主邮箱<br>' +
-                    '3.你不能解绑自己的主邮箱', this, {
-                    time: -1,
-                    maxWidth: 280,
-                    tips: [3, '#3A3D49']
-                });
-            }).on('mouseleave', function () {
-                layer.close(this.index);
+        $('#email_info').on('mouseenter', function () {
+            this.index = layer.tips('1.同一个邮箱只能绑定一个账号<br>' +
+                '2.已认证的邮箱优先为主邮箱<br>' +
+                '3.你不能解绑自己的主邮箱', this, {
+                time: -1,
+                maxWidth: 280,
+                tips: [3, '#3A3D49']
             });
+        }).on('mouseleave', function () {
+            layer.close(this.index);
         });
     </script>
 {% endblock %}

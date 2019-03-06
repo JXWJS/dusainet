@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}404 - 杜赛的个人网站{% endblock %}
+{% block title %}500 - 杜赛的个人网站{% endblock %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
+
     <br/>
     <div style="text-align: center">
-        <i class="layui-icon layui-icon-face-cry" style="font-size: 9em; color: darkred"></i>
+        <i class="fas fa-exclamation-triangle mb-4" style="color: orange; font-size: 8em"></i>
         <br/>
         <br/>
-        <h1>ERROR 500</h1>
-        <h2>服务器内部错误..</h2>
+        <h3>ERROR 500</h3>
+        <h3>服务器内部错误..</h3>
         <br/>
-        <p class="layui-text">好心人快<a href="mailto:dusaiphoto@foxmail.com">通知博主</a>来修bug啦！</p>
+        <h5 class="layui-text">好心人快<a href="mailto:dusaiphoto@foxmail.com">通知博主</a>来修bug啦！</h5>
     </div>
     <br/>
     <hr/>

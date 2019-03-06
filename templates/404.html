@@ -2,12 +2,14 @@
 {% load staticfiles %}
 {% block title %}404 - 杜赛的个人网站{% endblock %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
+    <br/>
+    <br/>
     <br/>
     <div style="text-align: center">
-        <i class="layui-icon layui-icon-404" style="font-size: 9em;color: #0E674D"></i>
-        <h2>你要找的页面走丢了...</h2>
-        <h2>点击<a href="{% url 'article:article_list' %}" style="color: #01a252">首页</a>看看别的精彩内容吧~</h2>
+        <i class="fas fa-exclamation-triangle mb-4" style="color: orange; font-size: 8em"></i>
+        <h3>你要找的页面走丢了...</h3>
+        <h5>点击<a href="{% url 'article:article_list' %}" style="color: #01a252">首页</a>看看别的精彩内容吧~</h5>
     </div>
     <br/>
-    <hr/>
 {% endblock %}

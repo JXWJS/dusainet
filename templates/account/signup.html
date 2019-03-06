@@ -1,84 +1,82 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-
+{% load staticfiles %}
 {% block title %}注册账号 - 杜赛的个人网站{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
     <br>
     <br>
-    <h1>注册新账号</h1>
-    <hr>
-    <form class="signup layui-form"
-          id="signup_form"
-          method="post"
-          action="{% url 'account_signup' %}"
-    >
-        {% csrf_token %}
-        <div class="layui-form-item">
-            <label for="id_username" class="layui-form-label">用户名：</label>
-            <div class="layui-input-inline">
-                <input type="text"
-                       name="username"
-                       placeholder="请输入用户名"
-                       autofocus="autofocus"
-                       minlength="1"
-                       maxlength="150"
-                       required
-                       id="id_username"
-                       class="layui-input"
-                />
-            </div>
+    <div class="container">
+        <div class="container-fluid">
+            <h3 class="alert alert-primary">注册新账号</h3>
+
         </div>
-        <div class="layui-form-item">
-            <label for="id_email" class="layui-form-label">E-mail：</label>
-            <div class="layui-form-inline">
-                <div class="layui-input-inline">
+        <div class="row justify-content-center">
+
+            <form class="signup"
+                  id="signup_form"
+                  method="post"
+                  action="{% url 'account_signup' %}"
+            >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">用户名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text"
+                               name="username"
+                               placeholder="请输入用户名"
+                               autofocus="autofocus"
+                               minlength="1"
+                               maxlength="150"
+                               required
+                               id="id_username"
+                               class="form-control"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_email" class="layui-form-label">E-mail：</label>
                     <input type="email"
                            name="email"
                            placeholder="请输入邮箱地址"
                            id="id_email"
-                           class="layui-input"
+                           class="form-control"
                            required
                     />
                 </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="id_password1" class="layui-form-label">密码：</label>
-            <div class="layui-input-inline">
-                <input type="password"
-                       name="password1"
-                       placeholder="8位或以上字母/数字组合"
-                       required
-                       id="id_password1"
-                       class="layui-input"
-                />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="id_password2" class="layui-form-label">重输密码：</label>
-            <div class="layui-input-inline">
+                <div class="form-group">
+                    <label for="id_password1" class="layui-form-label">密码：</label>
+                    <input type="password"
+                           name="password1"
+                           placeholder="8位或以上字母/数字组合"
+                           required
+                           id="id_password1"
+                           class="form-control"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="id_password2" class="layui-form-label">重输密码：</label>
 
-                <input type="password"
-                       name="password2"
-                       placeholder="再次输入密码"
-                       required
-                       id="id_password2"
-                       class="layui-input"
-                />
-            </div>
+                    <input type="password"
+                           name="password2"
+                           placeholder="再次输入密码"
+                           required
+                           id="id_password2"
+                           class="form-control"
+                    />
+                </div>
+                <button type="submit" class="btn btn-primary">确认 &raquo;</button>
+                <small class="form-text text-muted">
+                    已经有账号了？点击这里<a href="{{ login_url }}">登录</a>。
+                </small>
+            </form>
+
+            <br>
+            <br>
         </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button type="submit" class="layui-btn">确认 &raquo;</button>
-            </div>
-        </div>
-    </form>
-    <p class="layui-text">
-        已经有账号了？点击这里<a href="{{ login_url }}">登录</a>。
-    </p>
-    <br>
-    <br>
-    <hr>
+
+    </div>
+
 {% endblock %}

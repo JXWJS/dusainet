@@ -24,84 +24,83 @@
                 layer.msg('Error');
             });
         });
+        copy_success = function () {
+            layer.msg('复制成功')
+
+        };
     </script>
+    <div class="container">
+        <div class="">
+            {% if user.is_superuser %}
+                {#        处理上传的图片#}
+                <hr>
+                <form action="."
+                      method="post"
+                      enctype="multipart/form-data"
+                >{% csrf_token %}
 
-    <br/>
-    {% if user.is_superuser %}
-        {#        处理上传的图片#}
-        <hr>
-        <form class="layui-form"
-              action="."
-              method="post"
-              enctype="multipart/form-data"
-        >{% csrf_token %}
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">上传：</label>
-                <div class="layui-input-block">
-                    <input type="file"
-                           name="file_field"
-                           required
-                           placeholder="请输入标题"
-                           autocomplete="off"
-                           class="layui-upload-form"
-                           multiple="multiple"
-                    >
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="submit" value="提交新照片" class="layui-btn layui-btn-warm">
-                </div>
-            </div>
-        </form>
-        <hr>
-
-        {#        循环显示图片list#}
-        {% for image in images %}
-            <table class="layui-table">
-                <colgroup>
-                    <col style="width: 300px;">
-                    <col style="width: 300px;">
-                    <col>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>图片</th>
-                    <th>地址</th>
-                    <th>上传时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <img src="{{ image.avatar_thumbnail.url }}"
-                             style="max-width: 100%"
-                             alt="图片"
+                    <div class="form-group">
+                        <label for="upload">上传：</label>
+                        <input type="file"
+                               id="upload"
+                               name="file_field"
+                               required
+                               placeholder="请输入标题"
+                               autocomplete="off"
+                               class="form-control-file"
+                               multiple="multiple"
                         >
-                    </td>
-                    <td>
-                        <button class=  "
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="提交新照片" class="btn btn-primary">
+                    </div>
+                </form>
+                <hr>
+
+                {#        循环显示图片list#}
+                <table class="table table-striped table-dark">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">图片</th>
+                        <th scope="col">地址</th>
+                        <th scope="col">上传时间</th>
+                    </tr>
+                    </thead>
+                    {% for image in images %}
+
+                        <tbody>
+                        <tr>
+                            <th scope="col">
+                                <img src="{{ image.avatar_thumbnail.url }}"
+                                     style="max-width: 30%"
+                                     alt="图片"
+                                >
+                            </th>
+                            <td>
+                                <button class="
                                         btn
-                                        layui-btn
-                                        layui-btn-normal
-                                        layui-btn-lg
+                                        btn-warning
                                         "
-                                data-clipboard-text="https://www.dusaiphoto.com{{ image.avatar_thumbnail.url }}"
-                        >
-                            复制
-                        </button>
-                    </td>
-                    <td>{{ image.created }}</td>
-                </tr>
-                </tbody>
-            </table>
+                                        onclick="copy_success()"
+                                        data-clipboard-text="https://www.dusaiphoto.com{{ image.avatar_thumbnail.url }}"
+                                >
+                                    复制
+                                </button>
+                            </td>
+                            <td>{{ image.created }}</td>
+                        </tr>
+                        </tbody>
 
-        {% endfor %}
-    {% endif %}
-    {% include 'paginator.html' %}
-    <br/>
-    <hr/>
+                    {% endfor %}
+                </table>
+
+            {% endif %}
+            {% include 'paginator.html' %}
+            <br/>
+            <hr/>
+        </div>
+    </div>
+
 
 {% endblock %}

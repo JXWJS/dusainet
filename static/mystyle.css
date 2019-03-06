@@ -1,49 +1,7 @@
-/*读书*/
-span {
-    color: gray;
-}
-
-#book_box {
-    -moz-box-shadow: 1px 1px 2px #333333;
-    -webkit-box-shadow: 1px 1px 2px #333333;
-    box-shadow: 1px 1px 2px #dadada;
-}
-
-#star {
-    color: #FFB800;
-}
-
-#my_green {
-    color: #01a252;
-}
-
-#my_link {
-    color: black;
-}
-
-#my_link:link {
-    color: black;;
-}
-
-#my_link:visited {
-    color: #D3D4D3;
-}
-
-#my_link:hover {
-    color: darkgoldenrod;
-}
-
-#my_link:active {
-    color: darkgoldenrod;
-}
-
-#book_link {
-    color: #01a252;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 8px;
-}
-
-#book_link:hover {
-    color: #0E674D;
+/*固定底部导航栏*/
+#nav-footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }

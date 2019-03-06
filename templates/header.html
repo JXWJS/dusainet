@@ -117,7 +117,6 @@
             </form>
 
 
-
             <!-- 用户下拉条avatar -->
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown" style="float: right;">
@@ -267,8 +266,10 @@
                                 图库
                             </a>
                         {% endif %}
-                        <a href="{% url 'account_logout' %}"
+                        <a href="javascript:"
                            class="dropdown-item"
+                           data-toggle="modal"
+                           data-target="#logout"
                         >
                             退出登录
                         </a>
@@ -286,5 +287,22 @@
         </ul>
     </div>
 
+
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logout" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h5 class="modal-body">
+                    确认退出吗？
+                </h5>
+                <div class="modal-footer">
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">退出登录</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </nav>

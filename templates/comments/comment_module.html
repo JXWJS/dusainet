@@ -37,32 +37,19 @@
     <br/>
     <div style="text-align: center">
         <div>
-            <div class="layui-text" style="font-size: large" id="weibologin">
-                <span>
-                    <a href="{% url 'account_login' %}">
-                        登录
-                    </a>
-                    后回复
-                </span>
-            </div>
-            <div class="" style="margin-top: 10px">
-                <span class="weibo mr-3">
-                    <a href="/accounts/weibo/login/?process=login">
-                        <i class="layui-icon layui-icon-login-weibo"
-                           style="font-size: xx-large; color: #ee771a;"
-                           aria-hidden="true"
-                           title="新浪微博登录"
-                        ></i>
-                    </a>
-                </span>
-                <span>
-                    <a href="/accounts/github/login/?process=login">
-                        <img src="{% static 'img/github_icon.png' %}"
-                             style="width: 33px; margin-top: -16px"
-                             title="GitHub登录"
-                        >
-                    </a>
-                </span>
+            <h5 class="text-muted" id="weibologin">
+                <a href="{% url 'account_login' %}">
+                    登录
+                </a>
+                后回复
+            </h5>
+            <div style="text-align: center" class="container-fluid mb-4">
+                <div>
+                    <a href="/accounts/weibo/login/?process=login" class="mr-2" id="weibo_a"><i class="fab fa-weibo"
+                                                                                                style="font-size: 3em; color: indianred;"></i></a>
+                    <a href="/accounts/github/login/?process=login" id="github_a"><i class="fab fa-github"
+                                                                                     style="font-size: 3em; color: dimgray;"></i></a>
+                </div>
             </div>
         </div>
     </div>
@@ -72,9 +59,9 @@
 {#显示mptt层级评论#}
 <br>
 <br>
-<h5 id="Fcomments" class="mt-4">共有{{ article.comments.count }}条评论</h5>
-<div class="">
-    <div class="">
+<h5 id="Fcomments" class="mt-4 alert alert-info">共有{{ article.comments.count }}条评论</h5>
+<div>
+    <div>
         {% recursetree comments %}
             <hr>
             <div class="row no-gutters">
@@ -140,7 +127,8 @@
                             <i style="color: #5897fb;">[管理员]</i>
                         {% endif %}
                         {% if node.reply_to %}
-                            <i class="far fa-arrow-alt-circle-right" style="color: cornflowerblue;"></i> {{ node.reply_to }}
+                            <i class="far fa-arrow-alt-circle-right" style="color: cornflowerblue;"></i>
+                            {{ node.reply_to }}
                             {% if node.reply_to.is_superuser %}
                                 <i style="color: #ff5500;">[博主]</i>
                             {% elif node.reply_to.is_staff %}
@@ -237,4 +225,24 @@
             },
         })
     }
+    $('#github_a').on('mouseenter', function () {
+        this.index = layer.tips('以Github账号登录', this, {
+            time: -1,
+            maxWidth: 280,
+            tips: [3, 'dimgray']
+        });
+    }).on('mouseleave', function () {
+        layer.close(this.index);
+    });
+
+    $('#weibo_a').on('mouseenter', function () {
+        this.index = layer.tips('以新浪微博账号登录', this, {
+            time: -1,
+            maxWidth: 280,
+            tips: [3, 'indianred']
+        });
+    }).on('mouseleave', function () {
+        layer.close(this.index);
+    });
+
 </script>

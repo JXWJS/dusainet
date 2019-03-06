@@ -4,75 +4,77 @@
 {% block content %}
     {# Markdown css #}
     <link rel="stylesheet" href="{% static 'editormd/css/editormd.min.css' %}">
-    <div class="layui-card layui-card-body">
-        <form class="layui-form" action="." method="post">{% csrf_token %}
-            <div class="layui-form-item">
-                <label class="layui-form-label">文章标题</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required placeholder="请输入标题" autocomplete="off"
-                           class="layui-input">
+    <div class="container">
+        <div class="mt-2 mb-4">
+            <form action="." method="post">{% csrf_token %}
+                <div class="form-group">
+                    <label for="title">文章标题</label>
+                    <input type="text"
+                           name="title"
+                           required
+                           placeholder="请输入标题.."
+                           autocomplete="off"
+                           class="form-control"
+                    >
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">教程中标题</label>
-                <div class="layui-input-block">
-                    <input type="text" name="course_title" placeholder="请输入标题" autocomplete="off"
-                           class="layui-input">
+                <div class="form-group">
+                    <label for="course_title">教程中标题</label>
+                    <input type="text"
+                           name="course_title"
+                           placeholder="请输入标题.."
+                           autocomplete="off"
+                           class="form-control"
+                    >
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">栏目</label>
-                <div class="layui-input-inline">
-                    <select name="column">
-                        <option value=""></option>
-                        <option value="1">编程</option>
-                        <option value="2">摄影</option>
-                        <option value="3">光学</option>
-                        <option value="4">闲聊</option>
-                    </select>
+                <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                        <label for="column">栏目</label>
+                        <select name="column" class="custom-select mr-sm-2">
+                            <option value="">请选择栏目..</option>
+                            {% for column in columns %}
+                                <option value="{{ column.id }}">{{ column.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-auto my-1">
+                        <label for="course">教程</label>
+                        <select name="course" class="custom-select mr-sm-2">
+                            <option value="">请选择教程..</option>
+                            {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-auto my-1">
+                        <label for="course_sequence">教程序号</label>
+                        <input type="text"
+                               name="course_sequence"
+                               placeholder="教程序号.."
+                               autocomplete="off"
+                               class="form-control"
+                        >
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">教程ID</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="course" placeholder="教程ID" autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">教程序号</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="course_sequence" placeholder="教程序号" autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">标签</label>
-                <div class="layui-input-inline">
+                <div class="form-group">
+                    <label class="layui-form-label">标签</label>
                     <input type="text" name="tags" placeholder="标签" autocomplete="off"
-                           class="layui-input">
+                           class="form-control">
                 </div>
-            </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">内容</label>
-                <div id="editormd" class="layui-input-block">
-                    <textarea style="display: none;" id="id_body" name="body" required></textarea>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">特色图片</label>
-                <div class="layui-input-block">
+                <div class="form-group">
+                    <label for="url">标题图</label>
                     <input type="text" name="url" placeholder="请输入url" autocomplete="off"
-                           class="layui-input">
+                           class="form-control">
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="submit" value="提交" class="layui-btn">
+                <div class="form-group">
+                    <label>内容</label>
+                    <div id="editormd">
+                        <textarea style="display: none;" id="id_body" name="body" required></textarea>
+                    </div>
                 </div>
-            </div>
-        </form>
+                <input type="submit" value="提交" class="btn btn-primary">
+            </form>
+        </div>
     </div>
     <script type="text/javascript" src="{% static 'jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'layui-v2.3.0/layui/layui.js' %}"></script>

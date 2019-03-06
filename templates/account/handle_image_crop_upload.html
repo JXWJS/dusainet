@@ -1,7 +1,6 @@
 <!-- 裁剪并上传头像 -->
 
-<h1>头像更换</h1>
-<hr>
+<h3 class="alert alert-success">头像更换</h3>
 <div>
     <!-- FORM TO UPLOAD THE IMAGES -->
     <form method="post"
@@ -10,13 +9,20 @@
           action="{% url 'userinfo:crop_upload_image' %}"
     >
         {% csrf_token %}
-        <div class="">
+        <div class="form-group">
             <input type="file"
                    name="avatar"
                    id="id_avatar"
+                   class="form-control-file"
                    accept=".jpg, .jpeg, .png, .bmp"
             />
         </div>
+        <!-- MODAL TO CROP THE IMAGE -->
+        <button type="button"
+                class="btn btn-primary js-crop-and-upload"
+        >
+            上传
+        </button>
         <div>
             <input type="hidden" name="x" id="id_x"/>
             <input type="hidden" name="y" id="id_y"/>
@@ -24,22 +30,16 @@
             <input type="hidden" name="height" id="id_height"/>
         </div>
     </form>
-    <br>
 
-    <!-- MODAL TO CROP THE IMAGE -->
-    <div>
-        <button type="button"
-                class="layui-btn layui-btn-sm layui-btn-warm js-crop-and-upload"
-        >
-            上传
-        </button>
-    </div>
-    <br>
-    <div class="layui-row">
-        <div class="layui-col-sm8 layui-col-sm-offset2">
-            <img src="" id="image" style="max-width: 100%;">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <img src="" id="image" style="max-width: 100%;">
+            </div>
         </div>
     </div>
+
 </div>
 
 

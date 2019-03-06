@@ -1,40 +1,26 @@
-<div class="layui-col-sm2 layui-hide-xs" id="article_menu">
-    <div class="layui-text"
-         style="font-size: large; font-weight: bold; padding-top: 10px;"
-         id="top_layer">
-        &nbsp;&nbsp;目录
+{% load staticfiles %}
+<div class="card-body" style="padding: 10px 0 0 0;">
+
+    <div id="sidebar" style="overflow: hidden">
+        <div class="markdown-body editormd-preview-container" id="custom-toc-container">
+            #custom-toc-container
+        </div>
     </div>
-    <hr id="top_layer">
-            <div id="sidebar" style="overflow: hidden">
-                <div class="markdown-body editormd-preview-container" id="custom-toc-container">#custom-toc-container
-                </div>
-            </div>
 </div>
+<style>
+    #sidebar a {
+        color: grey;
+    }
 
+    #sidebar ul {
+        list-style-type: none;
+    }
 
-{#遇到一个神奇的bug：模板中有style标签时，view会执行两次。暂时删去style#}
-{#<style type="text/css">#}
-{#    #sidebar {#}
-{#        margin: -5px 0 -20px -15px;#}
-{#        border-top: 0;#}
-{#        border-bottom: 0;#}
-{#        padding-left: -10px;#}
-{#    }#}
-{##}
-{#    #sidebar:hover {#}
-{#        overflow: hidden;#}
-{#    }#}
-{##}
-{#    #sidebar h1 {#}
-{#        font-size: 16px;#}
-{#    }#}
-{##}
-{#    #custom-toc-container {#}
-{#        padding-left: 0;#}
-{#    }#}
-{##}
-{#    #top_layer {#}
-{#        z-index: 10;#}
-{#        position: relative;#}
-{#    }#}
-{#</style>#}
+    #sidebar div div > ul {
+        padding-left: 0;
+    }
+
+    #sidebar div div ul ul {
+        padding-left: 1em;
+    }
+</style>

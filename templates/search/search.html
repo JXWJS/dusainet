@@ -4,126 +4,147 @@
 {% block title %}搜索{% endblock %}
 
 {% block content %}
-    <div class="layui-card layui-card-body">
+    <div class="mt-4">
 
-    <!-- 提示语 -->
-    <h2>
-        <i class="layui-icon layui-icon-search" style="font-size: x-large"></i>
-        "<span style="color: red;">
+        <!-- 提示语 -->
+        <h3>
+            <i class="fas fa-search"></i>
+            "<span style="color: red;">
             {{ query }}
         </span>"的相关文章如下：
-    </h2>
+        </h3>
 
-    {% if query %}
-        {% for result in page.object_list %}
-            {% with article=result.object %}
-                <hr/>
-                <div class="layui-row">
-                {% if article.avatar_thumbnail %}
-                    <div class="layui-col-sm3 layui-hide-xs">
-                        <img src="{{ article.avatar_thumbnail.url }}"
-                             style="max-width: 95%; margin-bottom: 8px; border-radius: 16px"
-                             alt="缩略图"
-                        >
-                    </div>
-                    <div class="layui-col-sm9" style="margin-bottom: 6px">
-                {% else %}
-                    <div class="layui-col-sm12" style="margin-bottom: 6px">
-                {% endif %}
-                <p class="layui-text" style="color: #8D8D8D;">
-                <!-- 文章标题的栏目 -->
-                {% if article.column.id %}
-                    <a href="{% url 'home' %}?column_id={{ article.column.id }}"
-                       class="
-                            layui-btn
-                            layui-btn-xs
-                            {% if article.column.title == '摄影' %}
-                            layui-btn-warm
-                            {% elif article.column.title == '光学' %}
-                            layui-btn-normal
-                            {% elif article.column.title == '闲聊' %}
-                            layui-btn-primary
+        {% if query %}
+            {% for result in page.object_list %}
+                {% with article=result.object %}
+                    <div class="card mb-2">
+                        <div class="row no-gutters align-items-center">
+                            {% if article.avatar_thumbnail %}
+                                <div class="col-4 d-none d-md-block">
+                                    <img src="{{ article.avatar_thumbnail.url }}"
+                                         class="card-img"
+                                         alt="缩略图"
+                                    >
+                                </div>
                             {% endif %}
-                            "
-                    >
-                        {{ article.column }}
-                    </a>
-                {% endif %}
 
-                <!-- 标签 -->
-                {% for tag in article.tags.all %}
-                    <a class="layui-bg-gray"
-                       href="{% url 'home' %}?tag={{ tag }}"
-                    >
-                        {{ tag }}&nbsp;</a>
-                {% endfor %}
+                            <div class="col">
+                                <div class="card-body">
+                                    <!-- 标题 -->
+                                    <h4 class="mt-0">
+                                        <a href="{{ article.get_absolute_url }}"
+                                           style="font-weight: bold; color: black;"
+                                        >
+                                            {% myhighlight article.title with query start_head True %}
+                                        </a>
+                                    </h4>
+
+                                    <p class="layui-text" style="color: #8D8D8D;">
+                                        <!-- 文章标题的栏目 -->
+                                    <div class="mb-2 ">
+                                        {% if article.column.id %}
+                                            <a href="?column_id={{ article.column.id }}"
+                                               role="button"
+                                               class="
+                                    btn
+                                    btn-sm
+                                    {% if article.column.title == '编程' %}
+                                    btn-outline-success
+                                    {% elif article.column.title == '摄影' %}
+                                    btn-outline-warning
+                                    {% elif article.column.title == '光学' %}
+                                    btn-outline-primary
+                                    {% elif article.column.title == '闲聊' %}
+                                    btn-outline-secondary
+                                    {% endif %}
+                                    "
+                                            >
+                                                {{ article.column }}
+                                            </a>
+                                        {% endif %}
+
+                                        <!-- 标签 -->
+                                        {% for tag in article.tags.all %}
+                                            <a class="badge badge-pill badge-light"
+                                               href="https://www.dusaiphoto.com/?tag={{ tag }}"
+                                               style="color: grey;"
+                                            >
+                                                {{ tag }}</a>
+                                        {% endfor %}
+                                    </div>
 
 
-            <h2>
-                <a href="{{ article.get_absolute_url }}"
-                   style="font-weight: bold"
-                >
-                    {% myhighlight article.title with query start_head True %}
-                </a>
-            </h2>
-            <p class="layui-text" style="color: #8D8D8D;">
-                {% myhighlight article.body with query %}...
-            </p>
-            <p class="layui-text">
-                <i class="layui-icon layui-icon-read" style="color: #01a252;"></i>
-                {{ article.total_views }}
-                <i class="layui-icon layui-icon-dialogue" style="color: #DE8E30;"></i>
-                {{ article.comments.count }}
-                <i class="layui-icon layui-icon-log" style="color: #1E9FFF;"></i>
-                {{ article.created|date:"Y-m-d" }}
-                <!-- 教程 -->
-                {% if article.course_id %}
-                    <i class="layui-icon layui-icon-list" style="color: #ee00ee;"></i>
-                    <a href="{% url 'course:course_articles_list' article.course_id %}"
-                       style="color: #8D8D8D;"
-                    >
-                        {{ article.course.title }}
-                    </a>
-                {% endif %}</p>
-            </div>
-            </div>
-            {% endwith %}
-        {% empty %}
-            <div class="layui-row">没有搜索到相关文章</div>
-        {% endfor %}
-        <hr>
-        {% if page.has_previous or page.has_next %}
-            <div>
-                {% if page.has_previous %}
-                    <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}"
-                        style="color: green;"
-                    >
-                {% endif %}
+                                    <div class="card-text text-muted">
+                                        {% myhighlight article.body with query %}...
+                                    </div>
+
+                                    <!-- 附加信息 -->
+                                    <p class="text-monospace mb-0" style="color: grey;">
+                                        <i class="fas fa-eye" style="color: lightskyblue;"></i>
+                                        {{ article.total_views }}
+                                        <i class="fas fa-comments" style="color: yellowgreen;"></i>
+                                        {{ article.comments.count }}
+                                        <i class="fas fa-clock" style="color: pink;"></i>
+                                        {{ article.created|date:"Y/m/d" }}
+                                        <!-- 教程 -->
+                                        {% if article.course_id %}
+                                            <i class="fas fa-book" style="color: #f0c674;"></i>
+                                            <a href="{% url 'course:course_articles_list' article.course_id %}"
+                                               style="color: #8D8D8D;">
+                                                {{ article.course.title }}
+                                            </a>
+                                        {% endif %}
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                {% endwith %}
+            {% empty %}
+                <div class="layui-row">没有搜索到相关文章</div>
+            {% endfor %}
+
+
+
+
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}
+                        <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}"
+                           style="color: green;"
+                        >
+                    {% endif %}
                     &laquo; 前页
-                {% if page.has_previous %}
-                    </a>
-                {% endif %}
+                    {% if page.has_previous %}
+                        </a>
+                    {% endif %}
                     |
-                {% if page.has_next %}
-                    <a href="?q={{ query }}&amp;page={{ page.next_page_number }}"
-                        style="color: green;"
-                    >
-                {% endif %}
+                    {% if page.has_next %}
+                        <a href="?q={{ query }}&amp;page={{ page.next_page_number }}"
+                           style="color: green;"
+                        >
+                    {% endif %}
                     后页
-                &raquo;
-                {% if page.has_next %}
-                    </a>
-                {% endif %}
-            </div>
+                    &raquo;
+                    {% if page.has_next %}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            请输入搜索关键词，例如 django
         {% endif %}
-    {% else %}
-        请输入搜索关键词，例如 django
-    {% endif %}
-        </div>
+    </div>
 
-<style>
-    span.highlighted {
-        color: red;
-    }
-</style>
+    <style>
+        span.highlighted {
+            color: red;
+        }
+    </style>
 {% endblock content %}
