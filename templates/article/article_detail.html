@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
 
     <!-- 塌方按钮 -->
-{#    <nav class="navbar navbar-light d-md-none" style="background-color: #e3f2fd;">#}
-{#        <button class="navbar-toggler" type="button" data-toggle="collapse"#}
-{#                data-target="#hidden-toc" aria-controls="navbarToggleExternalContent"#}
-{#                aria-expanded="false" aria-label="Toggle navigation">#}
-{#            <i class="fas fa-book" style="font-size: xx-large"></i>#}
-{#        </button>#}
-{#    </nav>#}
-{#    <div class="collapse" id="hidden-toc">#}
-{#        <div class="ml-4 mr-4">#}
-{#            {% include 'article/slider.html' %}#}
-{#        </div>#}
-{#    </div>#}
+    {#    <nav class="navbar navbar-light d-md-none" style="background-color: #e3f2fd;">#}
+    {#        <button class="navbar-toggler" type="button" data-toggle="collapse"#}
+    {#                data-target="#hidden-toc" aria-controls="navbarToggleExternalContent"#}
+    {#                aria-expanded="false" aria-label="Toggle navigation">#}
+    {#            <i class="fas fa-book" style="font-size: xx-large"></i>#}
+    {#        </button>#}
+    {#    </nav>#}
+    {#    <div class="collapse" id="hidden-toc">#}
+    {#        <div class="ml-4 mr-4">#}
+    {#            {% include 'article/slider.html' %}#}
+    {#        </div>#}
+    {#    </div>#}
 
     <div class="container-fluid">
         <div class="row">
 
             <!-- 左目录 -->
             <div class="col-3 col-lg-2 card d-none d-md-block" id="left-sidebar">
-                <div class="sticky-top">
-                    {% include 'article/slider.html' %}
+                <div class="sidebar" id="sidebar">
+                    <div class="sidebar__inner">
+                        {% include 'article/slider.html' %}
+                    </div>
                 </div>
             </div>
 
@@ -33,4 +36,25 @@
 
         </div>
     </div>
+
+    <script src="{% static 'sticky_sidebar/jquery.sticky-sidebar.min.js' %}"></script>
+    <script>
+        $('#sidebar').stickySidebar({
+            topSpacing: 0,
+            bottomSpacing: 0
+        });
+
+
+    </script>
+    <style>
+        .sidebar {
+            will-change: min-height;
+        }
+
+        .sidebar__inner {
+            transform: translate(0, 0);
+            will-change: position, transform;
+        }
+
+    </style>
 {% endblock %}

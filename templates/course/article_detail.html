@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}{{ article.title }} - 杜赛的个人网站{% endblock %}
 {% block content %}
     <!-- 塌方按钮 -->
@@ -20,8 +21,10 @@
 
             <!-- 左目录 -->
             <div class="col-3 col-lg-2 card d-none d-md-block" id="left-sidebar">
-                <div class="sticky-top">
-                    {% include 'course/slider.html' %}
+                <div class="sidebar" id="sidebar">
+                    <div class="sidebar__inner">
+                        {% include 'course/slider.html' %}
+                    </div>
                 </div>
             </div>
 
@@ -32,11 +35,44 @@
 
             <!-- 右目录 -->
             <div class="col-2 card d-none d-lg-block collapse" id="right-sidebar" style="z-index: 1">
-                <div class="sticky-top">
-                    {% include 'course/right_slider.html' %}
+                <div class="sidebar2" id="sidebar2">
+                    <div class="sidebar__inner2">
+                        {% include 'course/right_slider.html' %}
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <script src="{% static 'sticky_sidebar/jquery.sticky-sidebar.min.js' %}"></script>
+    <script>
+        $('#sidebar').stickySidebar({
+            topSpacing: 0,
+            bottomSpacing: 0,
+        });
+        $('#sidebar2').stickySidebar({
+            topSpacing: 0,
+            bottomSpacing: 0
+        });
+
+    </script>
+    <style>
+        .sidebar {
+            will-change: min-height;
+        }
+
+        .sidebar__inner {
+            transform: translate(0, 0);
+            will-change: position, transform;
+        }
+        .sidebar2 {
+            will-change: min-height;
+        }
+
+        .sidebar__inner2 {
+            transform: translate(0, 0);
+            will-change: position, transform;
+        }
+    </style>
 {% endblock %}
