@@ -56,6 +56,16 @@
             bottomSpacing: 0
         });
 
+        $(document).ready(function () {
+            setTimeout(function () {
+                var sidebar = document.getElementById('sidebar');
+                var stickySidebar = new StickySidebar(sidebar);
+                stickySidebar.updateSticky();
+            }, 3000);
+
+        });
+
+
     </script>
     <style>
         .sidebar {
@@ -66,6 +76,7 @@
             transform: translate(0, 0);
             will-change: position, transform;
         }
+
         .sidebar2 {
             will-change: min-height;
         }
