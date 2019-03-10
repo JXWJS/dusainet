@@ -3,14 +3,43 @@
 <style>
     div#article_body p img {
         max-width: 95%;
-        box-shadow: 0 0 50px;
+        box-shadow: 0 0 50px grey;
         margin-top: 30px;
         margin-bottom: 30px;
         border-radius: 20px;
     }
-    pre {
+
+    div#article_body pre {
         color: white;
     }
+
+    div#article_body span.err {
+        color: white;
+    }
+
+    div#article_body h2 {
+        margin-top: 1.2em;
+        margin-bottom: 0.6em;
+        padding-bottom: 6px;
+        border-bottom: 1px solid lightgrey;
+    }
+
+    div#article_body h3 {
+        margin-top: 1em;
+        margin-bottom: 0.4em;
+    }
+
+    div#article_body blockquote p {
+        color: grey;
+        font-style: italic;
+        background-color: #f5f5f5;
+        padding: 10px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+
 </style>
 
 <div class="mt-4">
@@ -60,17 +89,15 @@
     {% endif %}
 
     <hr/>
-    <script>
-        $('div#article_body img').parent('p').css({'text-align': 'center'});
-        $('div#article_body blockquote p').css(({
-            'color': 'grey',
-            'font-style': 'italic',
-            'background-color': '#f5f5f5',
-            'padding': '10px',
-            'border-radius': '6px',
-        }));
-    </script>
 
     <!-- 评论模块 -->
     {% include 'comments/comment_module.html' %}
 </div>
+
+
+<script>
+    $('div#article_body img').parent('p').css({'text-align': 'center'});
+    $('div#article_body table').addClass('table table-bordered');
+    $('div#article_body thead').addClass('thead-light');
+
+</script>

@@ -49,20 +49,11 @@
     <script>
         $('#sidebar').stickySidebar({
             topSpacing: 0,
-            bottomSpacing: 0,
+            bottomSpacing: 20,
         });
         $('#sidebar2').stickySidebar({
             topSpacing: 0,
-            bottomSpacing: 0
-        });
-
-        $(document).ready(function () {
-            setTimeout(function () {
-                var sidebar = document.getElementById('sidebar');
-                var stickySidebar = new StickySidebar(sidebar);
-                stickySidebar.updateSticky();
-            }, 3000);
-
+            bottomSpacing: 20,
         });
 
 
