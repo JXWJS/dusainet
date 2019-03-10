@@ -6,11 +6,12 @@ from .models import ArticlesPost, ArticlesColumn
 from .forms import ArticleCreateForm
 
 from course.models import Course
-from comments.models import Comment
 from comments.forms import CommentForm
 from utils.utils import PaginatorMixin
 
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
+
+import markdown
 
 
 # Create your views here.
@@ -105,6 +106,15 @@ def article_detail(request, article_id):
     article = ArticlesPost.objects.get(id=article_id)
     article.increase_views()
 
+    md = markdown.Markdown(
+        extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ]
+    )
+    article.body = md.convert(article.body)
+
     # 传递给模板文章类型，用于评论表单区分
     article_type = 'article'
 
@@ -143,6 +153,7 @@ def article_detail(request, article_id):
                    'pre_article': pre_article,
                    'next_article': next_article,
                    'article_type': article_type,
+                   'toc': md.toc,
                    }
 
         return render(request, 'course/article_detail.html', context=context)
@@ -153,6 +164,7 @@ def article_detail(request, article_id):
                    # 生成树形评论
                    'comments': article.comments.all(),
                    'article_type': article_type,
+                   'toc': md.toc,
                    }
         return render(request, 'article/article_detail.html', context=context)
 

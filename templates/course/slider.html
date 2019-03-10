@@ -3,7 +3,7 @@
     <div class="card-text" style="overflow: auto">
         {% for article_c in course_articles %}
             {% if article_c.id == article.id %}
-                <h5 style="color: lightskyblue;"
+                <h5 style="color: #8a8a8a;"
                     class="mb-0"
                 >
                     {{ article_c.course_title }}
@@ -11,7 +11,7 @@
             {% else %}
                 <p class="mb-0">
                     <a href="{{ article_c.get_absolute_url }}"
-                       style="color: #c0cad8;"
+                       style="color: #b8b8b8;"
                     >
                         {{ article_c.course_title }}
                     </a>

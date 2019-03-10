@@ -3,13 +3,13 @@
     <!-- 目录 -->
     <div id="sidebar" style="overflow: hidden">
         <div class="markdown-body editormd-preview-container" id="custom-toc-container">
-            #custom-toc-container
+            {{ toc|safe }}
         </div>
     </div>
 
     <style>
         #sidebar a {
-            color: #c0cad8;
+            color: #b8b8b8;
         }
         #sidebar ul {
             list-style-type: none;
