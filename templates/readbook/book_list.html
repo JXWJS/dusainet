@@ -7,36 +7,63 @@
         <div class="alert alert-success" role="alert">
             编程
         </div>
+        <div class="row ml-1">
+            {% for article in code_articles %}
+                <div class="col-12 col-md-6">
+                    <a href="{{ article.url }}" target="_blank" class="mr-2">{{ article.title }}</a>
 
-        {% for article in code_articles %}
-            <p class="offset-1">
-                <a href="{{ article.url }}">{{ article.title }}</a>
-            </p>
-        {% endfor %}
+                    {% if article.tag.title == 'Python' %}
+                        <i class="fab fa-python" style="color: darkgreen;" title="Python"></i>
+                    {% elif article.tag.title == 'Unity' %}
+                        <i class="fas fa-gamepad" style="color: darkred;" title="Unity"></i>
+                    {% elif article.tag.title == 'JavaScript' %}
+                        <i class="fab fa-js" style="color: darkblue;" title="JavaScript"></i>
+                    {% endif %}
+
+                    {% if article.type.title == '代码' %}
+                        <i class="fas fa-code" style="color: lightgreen;" title="代码"></i>
+                    {% elif article.type.title == '网络' %}
+                        <i class="fab fa-internet-explorer" style="color: lightpink;" title="网络"></i>
+                    {% elif article.type.title == '书籍' %}
+                        <i class="fas fa-book" style="color: lightsalmon;" title="书籍"></i>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 mb-4">
         <div class="alert alert-warning" role="alert">
-            摄影
+            其他
         </div>
+        <div class="row ml-1">
 
-        {% for article in photo_articles %}
-            <p class="offset-1">
-                <a href="{{ article.url }}">{{ article.title }}</a>
-            </p>
-        {% endfor %}
-    </div>
+            {% for article in unknown_articles %}
+                <div class="col-12 col-md-6">
+                    <a href="{{ article.url }}" target="_blank" class="mr-2">{{ article.title }}</a>
 
-    <div class="mt-4">
-        <div class="alert alert-secondary" role="alert">
-            未归类
+                    {% if article.tag.title == '人文社科' %}
+                        <i class="fas fa-brain" style="color: orangered;" title="人文社科"></i>
+                    {% elif article.tag.title == '金融管理' %}
+                        <i class="fas fa-dollar-sign" style="color: darkgoldenrod;" title="金融管理"></i>
+                    {% elif article.tag.title == '艺术' %}
+                        <i class="fas fa-palette" style="color: darkturquoise;" title="艺术"></i>
+                    {% elif article.tag.title == '科技数理' %}
+                        <i class="fas fa-atom" style="color: darkcyan;" title="科技数理"></i>
+                    {% endif %}
+
+                    {% if article.type.title == '代码' %}
+                        <i class="fas fa-code" style="color: lightgreen;" title="代码"></i>
+                    {% elif article.type.title == '网络' %}
+                        <i class="fab fa-internet-explorer" style="color: lightpink;" title="网络"></i>
+                    {% elif article.type.title == '书籍' %}
+                        <i class="fas fa-book" style="color: lightsalmon;" title="书籍"></i>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
-
-        {% for article in unknown_articles %}
-            <p class="offset-1">
-                <a href="{{ article.url }}">{{ article.title }}</a>
-            </p>
-        {% endfor %}
     </div>
 
 
