@@ -65,7 +65,7 @@
         {% recursetree comments %}
             <hr>
             <div class="row no-gutters">
-                <div class="col-2 col-sm-1 mr-2" id="F{{ node.id }}">
+                <div class="col-2 col-sm-1" id="F{{ node.id }}">
                     <div style="text-align: center">
                         {% get_userinfo node.user.id as userinfo %}
                         {% if node.user.socialaccount_set.all.0.get_avatar_url %}
@@ -73,9 +73,9 @@
                             <img src="{% translate_avatar_ssl node.user.socialaccount_set.all.0.get_avatar_url %}"
                                  alt="avatar"
                                     {% if node.reply_to %}
-                                 style="width: 80%; border-radius: 20%"
+                                 style="width: 70%; border-radius: 20%"
                                     {% else %}
-                                 style="width: 90%; border-radius: 20%"
+                                 style="width: 80%; border-radius: 20%"
                                     {% endif %}
                             >
 
@@ -85,18 +85,18 @@
                                 <img src="{{ userinfo.avatar }}"
                                      alt="avatar"
                                         {% if node.reply_to %}
-                                     style="width: 80%; border-radius: 20%"
+                                     style="width: 70%; border-radius: 20%"
                                         {% else %}
-                                     style="width: 90%; border-radius: 20%"
+                                     style="width: 80%; border-radius: 20%"
                                         {% endif %}
                                 >
                             {% else %}
                                 <img src="{{ userinfo.avatar.url }}"
                                      alt="avatar"
                                         {% if node.reply_to %}
-                                     style="width: 80%; border-radius: 20%"
+                                     style="width: 70%; border-radius: 20%"
                                         {% else %}
-                                     style="width: 90%; border-radius: 20%"
+                                     style="width: 80%; border-radius: 20%"
                                         {% endif %}
                                 >
                             {% endif %}
@@ -106,16 +106,16 @@
                             <img src="{% static 'default_avatar.jpg' %}"
                                  alt="avatar"
                                     {% if node.reply_to %}
-                                 style="width: 80%; border-radius: 20%"
+                                 style="width: 70%; border-radius: 20%"
                                     {% else %}
-                                 style="width: 90%; border-radius: 20%"
+                                 style="width: 80%; border-radius: 20%"
                                     {% endif %}
                             >
                         {% endif %}
                     </div>
                 </div>
 
-                <div class="col">
+                <div class="col-10 col-sm-11">
                     <div style="color: gray;">
                         {% if user == node.user %}
                             <i class="fas fa-user-tie" style="color: orange;"></i>
