@@ -3,14 +3,24 @@
 {% load mptt_tags %}
 {% block title %}读书 - 杜赛的个人网站{% endblock %}
 {% block content %}
+    <h6 class="mt-4 ml-2" style="color: royalblue;">
+        <i class="far fa-grin-squint-tears" style="font-size: xx-large"></i>
+        博主觉得很棒的知识都分享在这里！
+    </h6>
     <div class="mt-4">
         <div class="alert alert-success" role="alert">
             编程
         </div>
         <div class="row ml-1">
             {% for article in code_articles %}
-                <div class="col-12 col-md-6">
-                    <a href="{{ article.url }}" target="_blank" class="mr-2">{{ article.title }}</a>
+                <div class="col-12 col-md-6 mb-2">
+                    <a href="{{ article.url }}"
+                       target="_blank"
+                       class="mr-2"
+                       style="color: dimgray;"
+                    >
+                        {{ article.title }}
+                    </a>
 
                     {% if article.tag.title == 'Python' %}
                         <i class="fab fa-python" style="color: darkgreen;" title="Python"></i>
@@ -41,8 +51,14 @@
         <div class="row ml-1">
 
             {% for article in unknown_articles %}
-                <div class="col-12 col-md-6">
-                    <a href="{{ article.url }}" target="_blank" class="mr-2">{{ article.title }}</a>
+                <div class="col-12 col-md-6 mb-2">
+                    <a href="{{ article.url }}"
+                       target="_blank"
+                       class="mr-2"
+                       style="color: dimgray;"
+                    >
+                        {{ article.title }}
+                    </a>
 
                     {% if article.tag.title == '人文社科' %}
                         <i class="fas fa-brain" style="color: orangered;" title="人文社科"></i>
@@ -65,9 +81,4 @@
             {% endfor %}
         </div>
     </div>
-
-
-
-    {% include 'paginator.html' %}
-
 {% endblock %}

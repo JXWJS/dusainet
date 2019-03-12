@@ -5,13 +5,9 @@ from .models import ReadBook
 
 from comments.forms import CommentForm
 
-from utils.utils import PaginatorMixin
-
-
-# Create your views here.
 
 # 读书列表
-class ReadBookListView(PaginatorMixin, ListView):
+class ReadBookListView(ListView):
     model = ReadBook
     template_name = 'readbook/book_list.html'
     context_object_name = 'articles'
@@ -25,10 +21,8 @@ class ReadBookListView(PaginatorMixin, ListView):
 
         # 更新信息
         code_articles = ReadBook.objects.filter(column__title='编程')
-        photo_articles = ReadBook.objects.filter(column__title='摄影')
         unknown_articles = ReadBook.objects.filter(column__title='未归类')
         data = {'code_articles': code_articles,
-                'photo_articles': photo_articles,
                 'unknown_articles': unknown_articles,
                 }
         context.update(data)
