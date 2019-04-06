@@ -20,6 +20,7 @@
     >
 
     <link rel="stylesheet" href="{% static 'monokai.css' %}">
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -58,7 +59,7 @@
 
 {% include "back_top_func.html" %}
 {% include "header.html" %}
-<div class="container">
+<div class="container" id="wrapper">
     <div class="row">
         <div class="col">
             {% block content %}{% endblock %}
@@ -67,6 +68,7 @@
             {% include 'rightslider.html' %}
         </div>
     </div>
+    <div id="push"></div>
 </div>
 {% include "footer.html" %}
 </body>

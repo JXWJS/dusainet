@@ -19,6 +19,7 @@
           crossorigin="anonymous"
     >
     <link rel="stylesheet" href="{% static 'monokai.css' %}">
+    <link rel="stylesheet" href="{% static 'mystyle.css' %}">
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +57,10 @@
 
 {% include "back_top_func.html" %}
 {% include "header.html" %}
-{% block content %}{% endblock %}
+<div id="wrapper">
+    {% block content %}{% endblock %}
+    <div id="push"></div>
+</div>
 {% include "footer.html" %}
 
 
