@@ -50,12 +50,11 @@
 
 </head>
 <body>
-
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.14.7/esm/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 <script src="{% static 'layer/layer.js' %}"></script>
+
 
 {% include "back_top_func.html" %}
 {% include "header.html" %}
@@ -71,5 +70,7 @@
     <div id="push"></div>
 </div>
 {% include "footer.html" %}
+
+{% block script %}{% endblock %}
 </body>
 </html>

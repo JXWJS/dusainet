@@ -38,6 +38,10 @@
         padding-bottom: 0;
         padding-top: 0;
     }
+
+    .progress-indicator {
+        z-index: 100;
+    }
 </style>
 
 <div class="mt-4">
@@ -92,10 +96,17 @@
     {% include 'comments/comment_module.html' %}
 </div>
 
+{% block script %}
+    <script src="{% static 'progress_indicator/progress_indicator.js' %}"></script>
 
-<script>
-    $('div#article_body img').parent('p').css({'text-align': 'center'});
-    $('div#article_body table').addClass('table table-bordered');
-    $('div#article_body thead').addClass('thead-light');
+    <script>
+        $('div#article_body img').parent('p').css({'text-align': 'center'});
+        $('div#article_body table').addClass('table table-bordered');
+        $('div#article_body thead').addClass('thead-light');
 
-</script>
+        <!-- Author: mqyqingfeng -->
+        let progressBar = new ProgressIndicator({color: '#1e90ff'});
+    </script>
+
+
+{% endblock %}
