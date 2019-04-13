@@ -97,6 +97,7 @@
 </div>
 
 {% block script %}
+
     <script src="{% static 'progress_indicator/progress_indicator.js' %}"></script>
 
     <script>
@@ -105,8 +106,8 @@
         $('div#article_body thead').addClass('thead-light');
 
         <!-- Author: mqyqingfeng -->
-        let progressBar = new ProgressIndicator({color: '#1e90ff'});
+        $(document).ready(function () {
+            let progressBar = new ProgressIndicator({color: '#1e90ff'});
+        })
     </script>
-
-
 {% endblock %}
