@@ -3,3 +3,4 @@
 bin/
 /email_host_password.txt
 /secret_key.txt
+/mysql_key.txt

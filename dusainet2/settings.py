@@ -135,7 +135,7 @@ if DEBUG:
         }
     }
 else:
-    with open('email_host_password.txt') as f:
+    with open('mysql_key.txt') as f:
         MYSQL_PASSWORD = f.read().strip()
     DATABASES = {
         'default': {
